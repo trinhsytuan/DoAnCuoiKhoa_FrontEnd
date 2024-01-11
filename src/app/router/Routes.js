@@ -13,7 +13,6 @@ import { checkPermission } from '@app/rbac/checkPermission';
 import '@src/app/common/prototype';
 
 function Routes({ token, myInfo, ...props }) {
-  const { userPermissions } = myInfo;
 
   const CONSTANTS_ROUTES = ConstantsRoutes();
 
@@ -26,7 +25,7 @@ function Routes({ token, myInfo, ...props }) {
 
     let routeReturn = [];
     if (path) {
-      if (checkPermission(userPermissions, path)) {
+      if (checkPermission(myInfo, path)) {
         routeReturn = [...routeReturn, <Route exact path={path} component={component} key={path}/>];
         routeReturn = [...routeReturn, ...renderSubItem(children)];
       }
@@ -40,12 +39,12 @@ function Routes({ token, myInfo, ...props }) {
     if (!Array.isArray(children)) return [];
     return children.map((child) => renderItem(child));
   }
-
+  console.log(CONSTANTS_ROUTES);
   return (
     <Suspense fallback={<Loading/>}>
       {!token && <LoginRoutes/>}
 
-      {token && myInfo?.vaiTroId && <Switch>
+      {token && myInfo && <Switch>
         {CONSTANTS_ROUTES.map((route, index) => {
           if (!route.hide) {
             if (route.to) {

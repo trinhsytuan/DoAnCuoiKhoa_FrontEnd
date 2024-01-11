@@ -124,9 +124,8 @@ function Setting({ permission, isLoading, caiDatHeThong }) {
 
 function mapStateToProps(store) {
   const permission = store.user.permissions?.caiDat;
-  const { caiDatHeThong } = store.caiDat;
   const { isLoading } = store.app;
-  return { permission, isLoading, caiDatHeThong };
+  return { permission, isLoading };
 }
 
 export default (connect(mapStateToProps)(Setting));

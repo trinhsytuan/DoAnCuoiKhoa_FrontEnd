@@ -110,7 +110,6 @@ export const ADMIN_ROUTES = [
     component: DuLieuBoSung,
     permission: [create(resources.EXTRA_DATA, actions.READ)],
     icon: renderIcon(<SettingIcon />),
-    hide: true,
   },
   {
     path: URL.MENU.SETTING,
