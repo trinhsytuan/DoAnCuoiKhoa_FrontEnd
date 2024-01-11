@@ -18,9 +18,7 @@ function Routes({ token, myInfo, ...props }) {
   const CONSTANTS_ROUTES = ConstantsRoutes();
 
   useEffect(() => {
-    if (!token) {
-      props.history.push(URL.LOGIN);
-    }
+    
   }, [token, props.history]);
 
   function renderItem({ hide, path, children, component, ...router }) {

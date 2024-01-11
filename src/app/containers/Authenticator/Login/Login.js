@@ -17,28 +17,30 @@ function Login({ history, isLoading, ...props }) {
   }
 
   return <AuthBase>
+    <span className='title_login'>Vui lòng đăng nhập vào TShare</span>
     <Form size="large" layout="vertical" onFinish={handleLogin}>
 
       <Form.Item
         label="Tài khoản"
-        name="taiKhoan"
+        name="username"
         rules={[RULES.REQUIRED]}
       >
-        <Input placeholder="Tài khoản" disabled={isLoading}/>
+        <Input placeholder="Vui lòng nhập tài khoản" disabled={isLoading} />
       </Form.Item>
 
-      <Form.Item label="Mật khẩu" name="matKhau" rules={[RULES.REQUIRED]}>
-        <Input.Password placeholder="******" disabled={isLoading}/>
+      <Form.Item label="Mật khẩu" name="password" rules={[RULES.REQUIRED]}>
+        <Input.Password placeholder="Vui lòng nhập mật khẩu" disabled={isLoading} />
       </Form.Item>
 
       <Row className="pt-2">
         <Button type="primary" htmlType="submit" loading={isLoading}>Đăng nhập</Button>
       </Row>
     </Form>
-    <div className="mt-2">
+    <div className="mt-2 authbase-btom" style={{display: "flex", justifyContent: "space-between"}}>
       <Link to={URL.FORGET_PASSWORD}>
         Quên mật khẩu?
       </Link>
+      <Link to={URL.MENU.REGISTER}>Đăng ký</Link>
     </div>
   </AuthBase>;
 }

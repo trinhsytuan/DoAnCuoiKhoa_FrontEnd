@@ -10,12 +10,12 @@ import * as rerender from '@app/store/ducks/rerender.duck';
 export const DUCKS = {
   app,
   user,
-  orgUnit,
-  caiDat,
-  role,
-  notification,
+  // orgUnit,
+  // caiDat,
+  // role,
+  // notification,
 
 
-  extraData: extraField,
-  rerender,
+  // extraData: extraField,
+  // rerender,
 };

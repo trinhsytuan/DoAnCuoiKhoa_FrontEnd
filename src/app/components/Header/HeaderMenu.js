@@ -16,7 +16,7 @@ import ARROW_LEFT from '@assets/images/icon/arrow-left.svg';
 import ARROW_RIGHT from '@assets/images/icon/arrow-right.svg';
 import USER from '@assets/images/icon/user.svg';
 
-function HeaderMenu({ token, history, caiDatHeThong, myInfo, isBroken, siderCollapsed, ...props }) {
+function HeaderMenu({ token, history, myInfo, isBroken, siderCollapsed, ...props }) {
   if (!token) return null;
   const [isAvatarLoader, setAvatarLoader] = useState(false);
 
@@ -64,8 +64,7 @@ function HeaderMenu({ token, history, caiDatHeThong, myInfo, isBroken, siderColl
 function mapStateToProps(store) {
   const { siderCollapsed, isBroken, token } = store.app;
   const { myInfo } = store.user;
-  const { caiDatHeThong } = store.caiDat;
-  return { siderCollapsed, isBroken, token, myInfo, caiDatHeThong };
+  return { siderCollapsed, isBroken, token, myInfo };
 }
 
 export default (connect(mapStateToProps, { ...app.actions, ...user.actions })(withRouter(HeaderMenu)));

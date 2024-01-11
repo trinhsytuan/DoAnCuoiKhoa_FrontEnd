@@ -3,4 +3,19 @@
   font-family: SVN-PoppinsBold;
   src: url('../assets/fonts/SVN-Poppins Bold.ttf') format('truetype');
 }
-
+@font-face {
+  font-family: Product-Sans-Bold;
+  src: url('../assets/fonts/SVN-Product Sans Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: Product-Sans-Regular;
+  src: url('../assets/fonts/SVN-Product Sans Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: Product-Sans-Italic;
+  src: url('../assets/fonts/SVN-Product Sans Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: Product-Sans-Bold-Italic;
+  src: url('../assets/fonts/SVN-Product Sans Bold Italic.ttf') format('truetype');
+}

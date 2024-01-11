@@ -1,5 +1,5 @@
 #login {
-  background-image: url("../../../assets/images/bg-01.jpg");
+  background-image: url("../../../assets/images/bg-01.png");
   background-size: cover;
   //background-color: #00199F;
   position: relative;
@@ -7,21 +7,28 @@
   width: 100vw;
 
   .login-form {
+    .ant-select-selector{
+      background: none;
+    }
+    .title_login{
+      font-family: "Product-Sans-Bold";
+      text-align: center;
+      font-size: 20pt;
+    }
     position: absolute;
     top: 40%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 550px;
     //height: 320px;
     padding: 36px;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
-    background-color: #fff;
     border-radius: 10px;
 
     button {
       width: 100%;
       font-size: 15px;
       height: unset;
+      background-color: #656ED3;
       border-radius: 25px;
     }
 

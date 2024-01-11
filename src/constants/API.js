@@ -1,10 +1,10 @@
 export const API = {
-  LOGIN: '/api/nguoi-dung/login',
+  LOGIN: '/api/user/signIn',
   USERS: '/api/nguoi-dung',
   USER_DA_XOA: '/api/nguoi-dung/daxoa',
   USER_DA_XOA_ID: '/api/nguoi-dung/daxoa/{0}',
   USER_ID: '/api/nguoi-dung/{0}',
-  MY_INFO: '/api/nguoi-dung/me',
+  MY_INFO: '/api/user/getMyInfo',
   UPDATE_MY_INFO: '/api/nguoi-dung/info',
 
   DASHBOARD: '/api/dashboard',
@@ -535,5 +535,6 @@ export const API = {
 
   CAI_DAT_APP: '/api/cai-dat-app',
   INSTALL_LINK: '/api/cai-dat-app/install-link',
+  REGISTER: "/api/user/signUp"
 
 };

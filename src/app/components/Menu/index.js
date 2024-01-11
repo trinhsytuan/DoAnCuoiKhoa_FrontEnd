@@ -8,7 +8,7 @@ import { SIDER_WIDTH } from '@constants';
 
 function Menu({ token, isBroken, siderCollapsed, isShowDrawer, myInfo, ...props }) {
 
-  if (!token || !myInfo?.vaiTroId) return null;
+  if (!token || !myInfo?._id) return null;
   return <>
     <Layout.Sider
       width={SIDER_WIDTH}

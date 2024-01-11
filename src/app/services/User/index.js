@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { API } from '@api';
 import { renderMessageError } from '@app/common/functionCommons';
-import { deleteByIdBase, getAllPaginationBase } from '@app/services/Base';
+import { createBase, deleteByIdBase, getAllPaginationBase } from '@app/services/Base';
 import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
 
 export function login(data) {
@@ -76,7 +76,7 @@ export function deleteUserById(id) {
 export function requestResetPassword(token, data) {
   return axios
     .put(API.USER_RESET_PASSWORD, data, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `${token}` },
     })
     .then(res => {
       if (res.data) {
@@ -119,3 +119,6 @@ export function requestForgetPassword(data) {
     });
 }
 
+export const signUpServices = (data) => {
+  return createBase(API.REGISTER, data);
+}

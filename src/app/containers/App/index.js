@@ -37,11 +37,7 @@ function App({ isLoading, siderCollapsed, token, history, myInfo, ...props }) {
   }, [myInfo]);
 
   useEffect(() => {
-    if (token && token !== CONSTANTS.INITIAL) {
-      // props.getExtraData();
-      props.getCaiDatHeThong();
-      props.requestUser(history);
-    }
+    
   }, [token]);
 
   function handleLogoutAllTab() {

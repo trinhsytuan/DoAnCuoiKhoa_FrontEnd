@@ -4,10 +4,10 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anhlt2710/react-boilerplate-antd"
+    "url": "https://github.com/trinhsytuan/DoAnCuoiKhoa_FrontEnd"
   },
   "license": "",
-  "author": "AnhLT",
+  "author": "TuanTS",
   "scripts": {
     "build:clean": "rimraf ./build",
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
@@ -27,13 +27,15 @@
     "@ant-design/charts": "1.1.13",
     "@ant-design/icons": "4.3.0",
     "@babel/polyfill": "7.4.3",
-    "antd": "4.9.3",
+    "antd": "4.21.0",
     "axios": "0.21.1",
     "bootstrap": "4.5.3",
     "chalk": "2.4.2",
     "classnames": "2.3.1",
     "compression": "1.7.4",
+    "clipboard-copy": "^4.0.1",
     "cross-env": "5.2.0",
+    "file-saver": "^2.0.5",
     "express": "4.16.4",
     "ip": "1.1.5",
     "jquery": "3.6.0",
@@ -55,6 +57,7 @@
     "react-router-dom": "5.2.0",
     "react-toastify": "7.0.2",
     "redux": "4.0.1",
+    "swiper": "^6.8.4",
     "redux-persist": "6.0.0",
     "redux-saga": "1.0.2",
     "sanitize.css": "8.0.0",
@@ -123,3 +126,4 @@
     "npm": ">=5"
   }
 }
+

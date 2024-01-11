@@ -1,20 +1,20 @@
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import React from 'react';
-import moment from 'moment';
-import { TreeSelect } from 'antd';
-import { camelCase, isEqual, isObject, kebabCase, snakeCase, transform } from 'lodash';
-import queryString from 'query-string';
-import * as toastify from 'react-toastify';
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import React from "react";
+import moment from "moment";
+import { TreeSelect } from "antd";
+import { camelCase, isEqual, isObject, kebabCase, snakeCase, transform } from "lodash";
+import queryString from "query-string";
+import * as toastify from "react-toastify";
 
-import { CONSTANTS, KIEU_DU_LIEU, PAGINATION_CONFIG, TOAST_MESSAGE } from '@constants';
+import { CONSTANTS, KIEU_DU_LIEU, PAGINATION_CONFIG, TOAST_MESSAGE } from "@constants";
 
 export function cloneObj(input = {}) {
   return JSON.parse(JSON.stringify(input));
 }
 
 function renderQuery(queryInput, queryAdd, firstCharacter) {
-  let queryOutput = queryInput ? '&' : firstCharacter;
+  let queryOutput = queryInput ? "&" : firstCharacter;
   queryOutput += queryAdd;
   return queryOutput;
 }
@@ -23,29 +23,27 @@ export function handleReplaceUrlSearch(history, page, limit, query) {
   const queryObj = cloneObj(query);
   delete queryObj.page;
   delete queryObj.limit;
-  let search = '';
+  let search = "";
   if (page || page === 0) {
-    search += search ? '&' : '';
+    search += search ? "&" : "";
     search += `page=${page}`;
   }
   if (limit || limit === 0) {
-    search += search ? '&' : '';
+    search += search ? "&" : "";
     search += `limit=${limit}`;
   }
   if (Object.values(queryObj).length) {
-    search += search.length > 1 ? '&' : '';
+    search += search.length > 1 ? "&" : "";
     search += convertObjectToQuery(queryObj);
   }
   history.replace({ search });
 }
 
 export function convertObjectToQuery(queryObj) {
-  let query = '';
-  const sortable = Object.fromEntries(
-    Object.entries(queryObj).sort(([, a], [, b]) => a - b),
-  );
+  let query = "";
+  const sortable = Object.fromEntries(Object.entries(queryObj).sort(([, a], [, b]) => a - b));
   Object.entries(sortable).forEach(([key, value]) => {
-    query += query ? '&' : '';
+    query += query ? "&" : "";
     query += `${kebabCase(key)}=${value}`;
   });
   return query;
@@ -55,36 +53,34 @@ export function convertQueryToObject(queryStr) {
   return convertSnakeCaseToCamelCase(queryString.parseUrl(queryStr).query);
 }
 
-export function convertParam(queryObj, firstCharacter = '?') {
-  if (typeof queryObj !== 'object') return '';
+export function convertParam(queryObj, firstCharacter = "?") {
+  if (typeof queryObj !== "object") return "";
   queryObj = convertObjectToSnakeCase(queryObj);
-  let query = '';
-  const sortable = Object.fromEntries(
-    Object.entries(queryObj).sort(([, a], [, b]) => a - b),
-  );
+  let query = "";
+  const sortable = Object.fromEntries(Object.entries(queryObj).sort(([, a], [, b]) => a - b));
   Object.entries(sortable).forEach(([key, value]) => {
     if (value) {
       if (key === CONSTANTS.POPULATE && Array.isArray(value)) {
-        query += query ? '&' : firstCharacter || '';
-        query += `${key}=${value.map(x => snakeCase(x))}`;
-      } else if (['string', 'boolean'].includes(typeof value) || Array.isArray(value)) {
-        query += query ? '&' : firstCharacter || '';
+        query += query ? "&" : firstCharacter || "";
+        query += `${key}=${value.map((x) => snakeCase(x))}`;
+      } else if (["string", "boolean"].includes(typeof value) || Array.isArray(value)) {
+        query += query ? "&" : firstCharacter || "";
         if (!key.includes(CONSTANTS.HIDDEN.toLowerCase())) {
           query += `${key}=${value}`;
         } else {
           query += value;
         }
-      } else if (typeof value === 'object') {
-        if (value.hasOwnProperty('lt')) {
+      } else if (typeof value === "object") {
+        if (value.hasOwnProperty("lt")) {
           query += renderQuery(query, `${key}<${value.lt}`, firstCharacter);
         }
-        if (value.hasOwnProperty('lte')) {
+        if (value.hasOwnProperty("lte")) {
           query += renderQuery(query, `${key}<=${value.lte}`, firstCharacter);
         }
-        if (value.hasOwnProperty('gt')) {
+        if (value.hasOwnProperty("gt")) {
           query += renderQuery(query, `${key}>${value.gt}`, firstCharacter);
         }
-        if (value.hasOwnProperty('gte')) {
+        if (value.hasOwnProperty("gte")) {
           query += renderQuery(query, `${key}>=${value.gte}`, firstCharacter);
         }
       }
@@ -94,38 +90,36 @@ export function convertParam(queryObj, firstCharacter = '?') {
 }
 
 export function convertFileName(str) {
-  if (!str) return '';
+  if (!str) return "";
 
-  str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
-  str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
-  str = str.replace(/[ìíịỉĩ]/g, 'i');
-  str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
-  str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
-  str = str.replace(/[ỳýỵỷỹ]/g, 'y');
-  str = str.replace(/đ/g, 'd');
-  str = str.replace(/[ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ]/g, 'A');
-  str = str.replace(/[ÈÉẸẺẼÊỀẾỆỂỄ]/g, 'E');
-  str = str.replace(/[ÌÍỊỈĨ]/g, 'I');
-  str = str.replace(/[ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ]/g, 'O');
-  str = str.replace(/[ÙÚỤỦŨƯỪỨỰỬỮ]/g, 'U');
-  str = str.replace(/[ỲÝỴỶỸ]/g, 'Y');
-  str = str.replace(/Đ/g, 'D');
-  str = str.replace(/\s+/g, ' ');
+  str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, "a");
+  str = str.replace(/[èéẹẻẽêềếệểễ]/g, "e");
+  str = str.replace(/[ìíịỉĩ]/g, "i");
+  str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, "o");
+  str = str.replace(/[ùúụủũưừứựửữ]/g, "u");
+  str = str.replace(/[ỳýỵỷỹ]/g, "y");
+  str = str.replace(/đ/g, "d");
+  str = str.replace(/[ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ]/g, "A");
+  str = str.replace(/[ÈÉẸẺẼÊỀẾỆỂỄ]/g, "E");
+  str = str.replace(/[ÌÍỊỈĨ]/g, "I");
+  str = str.replace(/[ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ]/g, "O");
+  str = str.replace(/[ÙÚỤỦŨƯỪỨỰỬỮ]/g, "U");
+  str = str.replace(/[ỲÝỴỶỸ]/g, "Y");
+  str = str.replace(/Đ/g, "D");
+  str = str.replace(/\s+/g, " ");
   str.trim();
   return str;
 }
 
 export function findMax(data) {
   if (!Array.isArray(data) || !data.length) return null;
-  let max = typeof data[0] === 'number'
-    ? data[0]
-    : Array.isArray(data[0]) && data[0][0] ? data[0][0] : 0;
-  data.forEach(item => {
-    if (typeof item === 'number') {
+  let max = typeof data[0] === "number" ? data[0] : Array.isArray(data[0]) && data[0][0] ? data[0][0] : 0;
+  data.forEach((item) => {
+    if (typeof item === "number") {
       max = max < item ? item : max;
     }
     if (Array.isArray(item)) {
-      item.forEach(itemChild => {
+      item.forEach((itemChild) => {
         max = max < itemChild ? itemChild : max;
       });
     }
@@ -136,7 +130,7 @@ export function findMax(data) {
 export function setCookieToken(authToken) {
   const tokenDecode = jwtDecode(authToken);
   if (tokenDecode.exp) {
-    Cookies.set('token', authToken, { expires: new Date(new Date(tokenDecode.exp * 1000)) });
+    Cookies.set("token", authToken, { expires: new Date(new Date(tokenDecode.exp * 1000)) });
   }
 }
 
@@ -166,7 +160,7 @@ export function hexToRgb(hex) {
 
 export function getMessageError(err, method) {
   if (err && err.message === CONSTANTS.CANCEL) return null;
-  return (err && err.response && err.response.data && err.response.data.message)
+  return err && err.response && err.response.data && err.response.data.message
     ? err.response.data.message
     : TOAST_MESSAGE.ERROR[method];
 }
@@ -179,11 +173,11 @@ export function renderMessageError(err, method) {
 }
 
 //
-export function toast(type, label = '', requiredId = false) {
+export function toast(type, label = "", requiredId = false) {
   if (!type) return;
 
   const toastifyOptions = {
-    position: 'bottom-right',
+    position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -196,27 +190,30 @@ export function toast(type, label = '', requiredId = false) {
     toastifyOptions.toastId = label;
   }
 
-  const toastMessage = <>
-    {TOAST_MESSAGE.ICON[type]}
-    <div
-      className="float-left d-flex"
-      style={{
-        width: '246px',
-        paddingLeft: '10px',
-        minHeight: '24px',
-      }}>
-      <label className="my-auto">{label}</label>
-    </div>
-  </>;
+  const toastMessage = (
+    <>
+      {TOAST_MESSAGE.ICON[type]}
+      <div
+        className="float-left d-flex"
+        style={{
+          width: "246px",
+          paddingLeft: "10px",
+          minHeight: "24px",
+        }}
+      >
+        <label className="my-auto">{label}</label>
+      </div>
+    </>
+  );
 
   toastify.toast[type.toLowerCase()](toastMessage, toastifyOptions);
 }
 
 export function columnIndex(pageSize, currentPage) {
   return {
-    title: 'STT',
-    align: 'center',
-    render: (value, row, index) => (index + 1) + (pageSize * (currentPage - 1)),
+    title: "STT",
+    align: "center",
+    render: (value, row, index) => index + 1 + pageSize * (currentPage - 1),
     width: 50,
   };
 }
@@ -231,7 +228,7 @@ export function difference(object, base) {
 
 export function formatMoment(dateTime) {
   try {
-    return dateTime && moment(new Date(dateTime)).isValid() ? moment(new Date(dateTime)) : '';
+    return dateTime && moment(new Date(dateTime)).isValid() ? moment(new Date(dateTime)) : "";
   } catch (e) {
     return null;
   }
@@ -239,15 +236,19 @@ export function formatMoment(dateTime) {
 
 export function formatDate(dateTime) {
   try {
-    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format('DD/MM/YYYY') : '';
+    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("DD/MM/YYYY") : "";
   } catch (e) {
     return null;
   }
 }
+export function formatDateForm(dateTime) {
+  if(!dateTime) return null;
+  return moment(dateTime, "YYYY-MM-DD");
+}
 
 export function formatDateTime(dateTime) {
   try {
-    return dateTime ? moment(dateTime).format('DD/MM/YYYY HH:mm') : '';
+    return dateTime ? moment(dateTime).format("DD/MM/YYYY HH:mm") : "";
   } catch (e) {
     return null;
   }
@@ -255,11 +256,24 @@ export function formatDateTime(dateTime) {
 
 export function formatTimeDate(dateTime) {
   try {
-    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format('HH:mm DD/MM/YYYY') : '';
+    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("HH:mm DD/MM/YYYY") : "";
   } catch (e) {
     return null;
   }
 }
+export function formatTimeDateStrike(dateTime) {
+  try {
+    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("HH:mm DD-MM-YYYY") : "";
+  } catch (e) {
+    return null;
+  }
+}
+export const validateSpaceNull = (_, value) => {
+  if (value && !value.trim()) {
+    return Promise.reject("Vui lòng nhập giá trị hợp lệ!");
+  }
+  return Promise.resolve();
+};
 
 export function capitalizeFirstLetter(string) {
   if (!string) return string;
@@ -267,15 +281,15 @@ export function capitalizeFirstLetter(string) {
 }
 
 export function formatBytes(bytes, decimals = 2) {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
 
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 export function formatQueryOneDay(time) {
@@ -308,45 +322,47 @@ export function calPageNumberAfterDelete({ docs, currentPage }) {
 
 export function renderTreeNode(children) {
   if (!Array.isArray(children)) return null;
-  return children.map(child => {
-    return <TreeSelect.TreeNode
-      key={child.key}
-      value={child._id}
-      title={child?.tenDonVi}
-      selectable={child?.selectable}
-    >
-      {renderTreeNode(child.children)}
-    </TreeSelect.TreeNode>;
+  return children.map((child) => {
+    return (
+      <TreeSelect.TreeNode key={child.key} value={child._id} title={child?.tenDonVi} selectable={child?.selectable}>
+        {renderTreeNode(child.children)}
+      </TreeSelect.TreeNode>
+    );
   });
 }
 
 export function renderFilterTreeUnit(orgUnitTree, defaultValue) {
   if (!Array.isArray(orgUnitTree) || !orgUnitTree) return;
 
-  return <TreeSelect
-    size="small" showSearch
-    style={{ width: '100%' }}
-    className="select-label"
-    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-    placeholder="Tất cả đơn vị"
-    treeDefaultExpandAll
-    allowClear
-    filterOption={(input, option) => removeAccents(option.title?.toLowerCase()).includes(removeAccents(input.toLowerCase()))}
-    {...defaultValue ? { defaultValue } : null}
-  >
-    {renderTreeNode(orgUnitTree)}
-  </TreeSelect>;
+  return (
+    <TreeSelect
+      size="small"
+      showSearch
+      style={{ width: "100%" }}
+      className="select-label"
+      dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+      placeholder="Tất cả đơn vị"
+      treeDefaultExpandAll
+      allowClear
+      filterOption={(input, option) =>
+        removeAccents(option.title?.toLowerCase()).includes(removeAccents(input.toLowerCase()))
+      }
+      {...(defaultValue ? { defaultValue } : null)}
+    >
+      {renderTreeNode(orgUnitTree)}
+    </TreeSelect>
+  );
 }
 
 export function checkLoaded() {
-  return document.readyState === 'complete';
+  return document.readyState === "complete";
 }
 
 export function formatFormDataExtra(dataInput = {}, modelExtraData = []) {
   const dataOutput = cloneObj(dataInput);
   if (dataOutput.extra) {
     Object.entries(dataOutput.extra).forEach(([key, value]) => {
-      const fieldType = modelExtraData.find(extra => extra.fieldKey === key)?.fieldType;
+      const fieldType = modelExtraData.find((extra) => extra.fieldKey === key)?.fieldType;
       switch (fieldType) {
         case KIEU_DU_LIEU.VAN_BAN.code:
           dataOutput[`extra-${key}`] = value;
@@ -369,9 +385,9 @@ export function formatFormDataExtra(dataInput = {}, modelExtraData = []) {
 export function formatQueryDataExtra(dataInput) {
   const dataOutput = { ...dataInput };
   Object.entries(dataOutput).forEach(([key, value]) => {
-    if (key.includes('extra-')) {
-      const extraFieldKey = key.substring(key.indexOf('-') + 1);
-      if (dataOutput.hasOwnProperty('extra')) {
+    if (key.includes("extra-")) {
+      const extraFieldKey = key.substring(key.indexOf("-") + 1);
+      if (dataOutput.hasOwnProperty("extra")) {
         dataOutput.extra[extraFieldKey] = value;
       } else {
         dataOutput.extra = { [extraFieldKey]: value };
@@ -383,7 +399,8 @@ export function formatQueryDataExtra(dataInput) {
 }
 
 export function formatTypeSkeletonExtraData(extra) {
-  let type = null, options = null;
+  let type = null,
+    options = null;
   switch (extra.fieldType) {
     case KIEU_DU_LIEU.VAN_BAN.code:
       type = CONSTANTS.TEXT;
@@ -402,51 +419,52 @@ export function formatTypeSkeletonExtraData(extra) {
 }
 
 export function checkIsValidDate(date) {
-  return moment(new Date(parseInt(date))).isValid() ? moment(new Date(parseInt(date))) : '';
+  return moment(new Date(parseInt(date))).isValid() ? moment(new Date(parseInt(date))) : "";
 }
 
 function replaceCommaToDot(input) {
   if (!input) return input;
   const stringInput = input.toString();
-  return stringInput.replace(',', '.');
+  return stringInput.replace(",", ".");
 }
 
 export function secondsToHms(d) {
   d = Number(d);
   let h = ~~(d / 3600);
-  let m = ~~(d % 3600 / 60);
-  let s = ~~(d % 3600 % 60);
+  let m = ~~((d % 3600) / 60);
+  let s = ~~((d % 3600) % 60);
 
-  let hDisplay = h > 0 ? h + ' giờ ' : '';
-  let mDisplay = m > 0 ? m + ' phút ' : '';
-  let sDisplay = s > 0 ? s + ' giây' : '';
+  let hDisplay = h > 0 ? h + " giờ " : "";
+  let mDisplay = m > 0 ? m + " phút " : "";
+  let sDisplay = s > 0 ? s + " giây" : "";
   return hDisplay + mDisplay + sDisplay;
 }
 
 export const getFileExtension = (filename) => {
   let ext = /^.+\.([^.]+)$/.exec(filename);
-  return ext === null ? '' : ext[1];
+  return ext === null ? "" : ext[1];
 };
 
 export function removeAccents(str) {
   const AccentsMap = [
-    'aàảãáạăằẳẵắặâầẩẫấậ',
-    'AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ',
-    'dđ', 'DĐ',
-    'eèẻẽéẹêềểễếệ',
-    'EÈẺẼÉẸÊỀỂỄẾỆ',
-    'iìỉĩíị',
-    'IÌỈĨÍỊ',
-    'oòỏõóọôồổỗốộơờởỡớợ',
-    'OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ',
-    'uùủũúụưừửữứự',
-    'UÙỦŨÚỤƯỪỬỮỨỰ',
-    'yỳỷỹýỵ',
-    'YỲỶỸÝỴ',
+    "aàảãáạăằẳẵắặâầẩẫấậ",
+    "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",
+    "dđ",
+    "DĐ",
+    "eèẻẽéẹêềểễếệ",
+    "EÈẺẼÉẸÊỀỂỄẾỆ",
+    "iìỉĩíị",
+    "IÌỈĨÍỊ",
+    "oòỏõóọôồổỗốộơờởỡớợ",
+    "OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ",
+    "uùủũúụưừửữứự",
+    "UÙỦŨÚỤƯỪỬỮỨỰ",
+    "yỳỷỹýỵ",
+    "YỲỶỸÝỴ",
   ];
 
   for (let i = 0; i < AccentsMap.length; i++) {
-    const re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+    const re = new RegExp("[" + AccentsMap[i].substr(1) + "]", "g");
     const char = AccentsMap[i][0];
     str = str.replace(re, char);
   }
@@ -454,18 +472,62 @@ export function removeAccents(str) {
 }
 
 export function validURL(str) {
-  let pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+  let pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); // fragment locator
   return !!pattern.test(str);
 }
 
 export function renderURL(urlString) {
-  if (!urlString.startsWith('https://') && !urlString.startsWith('http://')) {
+  if (!urlString.startsWith("https://") && !urlString.startsWith("http://")) {
     return `https://${urlString}`;
   }
   return urlString;
 }
+
+export function formatSTT(limit, page, index) {
+  return (page - 1) * limit + (index + 1);
+}
+export const getChangeFormSearch = (valueForm, valueUrl) => {
+  let change = false;
+  Object.keys(valueForm).forEach((key) => {
+    if (key !== "page" && key !== "pageSize" && key !== "sort") {
+      if (valueForm[key] !== valueUrl[key]) change = true;
+    }
+  });
+  return change;
+};
+const checkCharacterNotSpaceorAccented = (username) => {
+  // Kiểm tra xem username có chứa khoảng trắng
+  if (/\s/.test(username)) {
+    return false;
+  }
+  // Kiểm tra xem username có chứa ký tự có dấu không
+  const pattern = /[^\u0000-\u007F]/;
+  if (pattern.test(username)) {
+    return false;
+  }
+
+  return true;
+};
+export const isUsernameValid = async (_, username) => {
+  if (!checkCharacterNotSpaceorAccented(username)) {
+    throw new Error("Tên tài khoản không hợp lệ");
+  }
+};
+
+export function checkTypeStringOrFile(image) {
+  if (image instanceof Blob || image instanceof File) {
+    return true;
+  } else if (typeof image === "string") {
+    return false;
+  }
+}
+
+

@@ -10,6 +10,7 @@ export const URL = {
     ROLE: '/vai-tro',
     DU_LIEU_BO_SUNG: '/du-lieu-bo-sung',
     SETTING: '/cai-dat',
+    REGISTER: "/dang-ky"
   },
   THONG_TIN_CA_NHAN: '/thong-tin-ca-nhan',
   RESET_PASSWORD: '/reset-password',
