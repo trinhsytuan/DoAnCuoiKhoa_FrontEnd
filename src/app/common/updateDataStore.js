@@ -1,9 +1,9 @@
-import { CONSTANTS } from '@constants';
+import { CONSTANTS } from "@constants";
 
 export default function updateDataStore(type, dataList, dataChanged) {
   let dataListUpdated = [];
   if (type === CONSTANTS.UPDATE) {
-    dataListUpdated = dataList.map(dataItem => {
+    dataListUpdated = dataList.map((dataItem) => {
       if (dataItem._id === dataChanged._id) {
         return dataChanged;
       }
@@ -12,7 +12,7 @@ export default function updateDataStore(type, dataList, dataChanged) {
   }
 
   if (type === CONSTANTS.DELETE) {
-    dataListUpdated = dataList.filter(dataItem => {
+    dataListUpdated = dataList.filter((dataItem) => {
       return dataItem._id !== dataChanged._id;
     });
   }

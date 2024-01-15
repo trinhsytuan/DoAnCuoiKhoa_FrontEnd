@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Button, Col, Form, Row, Tabs } from "antd";
-import { SaveFilled } from "@ant-design/icons";
+import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  SaveFilled,
+} from "@ant-design/icons";
 import moment from "moment";
 
 import CustomSkeleton from "@components/CustomSkeleton";
 import DropzoneImage from "@components/DropzoneImage";
-
+import "./MyInfo.scss";
 import {
   CONSTANTS,
   GENDER_OPTIONS,
@@ -14,18 +19,28 @@ import {
   RULES,
   VI_ROLE_SYSTEM,
 } from "@constants";
-import { cloneObj, toast } from "@app/common/functionCommons";
+import { cloneObj, formatSTT, toast } from "@app/common/functionCommons";
 import { convertObjectToSnakeCase } from "@app/common/dataConverter";
 import { requestChangePassword } from "@app/services/User";
 
 import * as user from "@app/store/ducks/user.duck";
 import * as app from "@app/store/ducks/app.duck";
 import { API } from "@api";
+import { validateSpaceNull } from "@app/common/functionCommons";
+import { createCategory } from "@app/services/Category";
 
 function MyInfo({ myInfo, isLoading, roleList, ...props }) {
   const [formInfo] = Form.useForm();
   const [formChangePassword] = Form.useForm();
   const [avatarTemp, setAvatarTemp] = useState(null);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const [form] = Form.useForm();
+  const [visibleThemChuyenMuc, setVisibleThemChuyenMuc] = useState(false);
+  const cancelThemChuyenMuc = () => {
+    setVisibleThemChuyenMuc(!visibleThemChuyenMuc);
+    form.resetFields();
+  };
 
   React.useEffect(() => {
     if (myInfo) {
@@ -65,7 +80,63 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
   function handleSelectAvatar(files) {
     setAvatarTemp(files);
   }
-  console.log(API.PREVIEW_IMAGE.format(myInfo.avatar));
+  const columnChuDe = [
+    {
+      title: "STT",
+      render: (v1, v2, value) => formatSTT(limit, page, value),
+      key: "STT",
+      align: "center",
+      width: 60,
+    },
+    { title: "Tên chủ đề", dataIndex: "name", key: "name" },
+    {
+      title: "Tác vụ",
+      key: "action",
+      align: "center",
+      width: 100,
+      render: (_, value) => {
+        return (
+          <div className="action-dv">
+            <Button
+              icon={<EditOutlined />}
+              style={{ border: 0 }}
+              onClick={() => {
+                history.push(URL.CHI_TIET_CAP_LAI_ID.format(value._id));
+              }}
+            ></Button>
+            <Button
+              icon={<DeleteOutlined />}
+              style={{ border: 0 }}
+              onClick={() => {
+                history.push(URL.CHI_TIET_CAP_LAI_ID.format(value._id));
+              }}
+            ></Button>
+          </div>
+        );
+      },
+    },
+  ];
+  const onChangePagination = (page, limit) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("page", page);
+    queryParams.set("limit", limit);
+    const queryString = queryParams.toString();
+    history.push(`?${queryString}`);
+  };
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    setPage(parseInt(queryParams.get("page")) || 1);
+    setLimit(parseInt(queryParams.get("limit")) || 10);
+    getAPI();
+  }, [location.search]);
+  const getAPI = async () => {};
+  const createChuyenMuc = async (e) => {
+    const response = await createCategory(e);
+    if(response) {
+      toast(CONSTANTS.SUCCESS, "Tạo chủ đề thành công");
+      cancelThemChuyenMuc();
+    }
+  };
   return (
     <div>
       <Tabs size="small">
@@ -225,9 +296,50 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
           </Form>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Chuyên mục" key="3">
-          
+          <div className="chuyenmuc-myinfo-container">
+            <div className="btn-actions">
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={cancelThemChuyenMuc}
+              >
+                Thêm chuyên mục
+              </Button>
+            </div>
+            <div className="table-instruction">
+              <Table columns={columnChuDe}></Table>
+            </div>
+          </div>
         </Tabs.TabPane>
       </Tabs>
+      <Modal
+        visible={visibleThemChuyenMuc}
+        onCancel={cancelThemChuyenMuc}
+        title="Thêm chuyên mục mới"
+        footer={null}
+        width={700}
+      >
+        <Form
+          form={form}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 18 }}
+          onFinish={createChuyenMuc}
+          className="formCreateChuyenMuc"
+        >
+          <Form.Item
+            name="name"
+            label="Tên chuyên mục"
+            rules={[RULES.REQUIRED, { validator: validateSpaceNull }]}
+          >
+            <Input placeholder="Vui lòng nhập tên chuyên mục"></Input>
+          </Form.Item>
+          <div className="btn-submit-actions">
+            <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+              Thêm mới
+            </Button>
+          </div>
+        </Form>
+      </Modal>
     </div>
   );
 }

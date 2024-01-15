@@ -8,6 +8,7 @@ import queryString from "query-string";
 import * as toastify from "react-toastify";
 
 import { CONSTANTS, KIEU_DU_LIEU, PAGINATION_CONFIG, TOAST_MESSAGE } from "@constants";
+import { convertObjectToSnakeCase } from "./dataConverter";
 
 export function cloneObj(input = {}) {
   return JSON.parse(JSON.stringify(input));
@@ -56,8 +57,8 @@ export function convertQueryToObject(queryStr) {
 export function convertParam(queryObj, firstCharacter = "?") {
   if (typeof queryObj !== "object") return "";
   queryObj = convertObjectToSnakeCase(queryObj);
-  let query = "";
   const sortable = Object.fromEntries(Object.entries(queryObj).sort(([, a], [, b]) => a - b));
+  let query = "";
   Object.entries(sortable).forEach(([key, value]) => {
     if (value) {
       if (key === CONSTANTS.POPULATE && Array.isArray(value)) {
@@ -87,6 +88,10 @@ export function convertParam(queryObj, firstCharacter = "?") {
     }
   });
   return query;
+}
+export function convertParamsPagination(data, firstCharacter = "?") {
+  const datas = queryString.stringify(data);
+  return firstCharacter + datas;
 }
 
 export function convertFileName(str) {
@@ -241,10 +246,6 @@ export function formatDate(dateTime) {
     return null;
   }
 }
-export function formatDateForm(dateTime) {
-  if(!dateTime) return null;
-  return moment(dateTime, "YYYY-MM-DD");
-}
 
 export function formatDateTime(dateTime) {
   try {
@@ -256,7 +257,7 @@ export function formatDateTime(dateTime) {
 
 export function formatTimeDate(dateTime) {
   try {
-    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("HH:mm DD/MM/YYYY") : "";
+    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("DD/MM/YYYY HH:mm") : "";
   } catch (e) {
     return null;
   }
@@ -268,12 +269,13 @@ export function formatTimeDateStrike(dateTime) {
     return null;
   }
 }
-export const validateSpaceNull = (_, value) => {
-  if (value && !value.trim()) {
-    return Promise.reject("Vui lòng nhập giá trị hợp lệ!");
+export function formatDatetrike(dateTime) {
+  try {
+    return dateTime && moment(dateTime).isValid() ? moment(dateTime).format("YYYY-MM-DD") : "";
+  } catch (e) {
+    return null;
   }
-  return Promise.resolve();
-};
+}
 
 export function capitalizeFirstLetter(string) {
   if (!string) return string;
@@ -490,6 +492,20 @@ export function renderURL(urlString) {
   }
   return urlString;
 }
+export function checkTypeStringOrFile(image) {
+  if (image instanceof Blob || image instanceof File) {
+    return true;
+  } else if (typeof image === "string") {
+    return false;
+  }
+}
+
+export const validateSpaceNull = (_, value) => {
+  if (value && !value.trim()) {
+    return Promise.reject("Vui lòng nhập giá trị hợp lệ!");
+  }
+  return Promise.resolve();
+};
 
 export function formatSTT(limit, page, index) {
   return (page - 1) * limit + (index + 1);
@@ -521,13 +537,4 @@ export const isUsernameValid = async (_, username) => {
     throw new Error("Tên tài khoản không hợp lệ");
   }
 };
-
-export function checkTypeStringOrFile(image) {
-  if (image instanceof Blob || image instanceof File) {
-    return true;
-  } else if (typeof image === "string") {
-    return false;
-  }
-}
-
 

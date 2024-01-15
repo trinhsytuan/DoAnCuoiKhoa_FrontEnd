@@ -39,7 +39,6 @@ function Routes({ token, myInfo, ...props }) {
     if (!Array.isArray(children)) return [];
     return children.map((child) => renderItem(child));
   }
-  console.log(CONSTANTS_ROUTES);
   return (
     <Suspense fallback={<Loading/>}>
       {!token && <LoginRoutes/>}

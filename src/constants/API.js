@@ -576,4 +576,5 @@ export const API = {
   INSTALL_LINK: "/api/cai-dat-app/install-link",
   REGISTER: "/api/user/signUp",
   PREVIEW_IMAGE: "/api/static/{0}",
+  CATEGORY: "/api/category/create",
 };
