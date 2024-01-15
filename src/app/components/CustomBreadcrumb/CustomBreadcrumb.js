@@ -72,7 +72,7 @@ function CustomBreadcrumb({ locationPathCode, location, token, ...props }) {
     <Breadcrumb style={{ margin: '10px 16px 0 16px' }}>
       <Breadcrumb.Item>
         <Link to={URL.MENU.DASHBOARD}>
-          <HomeOutlined/>
+          <HomeOutlined/> {" "}Trang chủ
         </Link>
       </Breadcrumb.Item>
       {breadcrumb}

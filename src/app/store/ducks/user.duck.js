@@ -95,6 +95,7 @@ export function* saga() {
   });
   yield takeLatest(actionTypes.UpdateMyInfo, function* updateMyInfoSaga(data) {
     const dataResponse = yield updateMyInfo(data?.payload?.myInfo);
+    console.log(dataResponse);
     if (dataResponse) {
       delete dataResponse.password;
       yield put(actions.userLoaded(dataResponse));

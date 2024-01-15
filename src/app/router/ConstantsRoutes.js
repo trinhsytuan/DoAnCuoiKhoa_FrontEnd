@@ -15,7 +15,7 @@ import {
 import { URL } from "@url";
 import { create } from "@app/rbac/permissionHelper";
 import resources from "@app/rbac/resources";
-import actions from "@app/rbac/rbac/actions";
+import actions from "@app/rbac/actions";
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));

@@ -1,5 +1,10 @@
 import React from "react";
-import { CheckCircleOutlined, CloseCircleOutlined, InfoCircleOutlined, WarningOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  InfoCircleOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import moment from "moment";
 
 export const WEB_VERSION = "2021/22/11/13/42";
@@ -149,9 +154,24 @@ export const GENDER_OPTIONS = [
 ];
 
 export const THOI_GIAN_FILTER = [
-  { label: "Tháng hiện tại", value: "MONTH", fromDate: moment().startOf("month"), toDate: moment() },
-  { label: "Quý hiện tại", value: "QUARTER", fromDate: moment().startOf("quarter"), toDate: moment() },
-  { label: "Năm hiện tại", value: "YEAR", fromDate: moment().startOf("year"), toDate: moment() },
+  {
+    label: "Tháng hiện tại",
+    value: "MONTH",
+    fromDate: moment().startOf("month"),
+    toDate: moment(),
+  },
+  {
+    label: "Quý hiện tại",
+    value: "QUARTER",
+    fromDate: moment().startOf("quarter"),
+    toDate: moment(),
+  },
+  {
+    label: "Năm hiện tại",
+    value: "YEAR",
+    fromDate: moment().startOf("year"),
+    toDate: moment(),
+  },
   { label: "Tùy chọn", value: "OTHER" },
 ];
 
@@ -185,7 +205,8 @@ export const TOAST_MESSAGE = {
     RESPONSE_KIEM_DINH: "Phản hồi kết quả thành công",
   },
   FILE: {
-    NOT_ACCEPT_EXTENSION: "Định dạng file không hợp lệ, chỉ chấp nhận file có đuôi (.pem,.cer,.txt)",
+    NOT_ACCEPT_EXTENSION:
+      "Định dạng file không hợp lệ, chỉ chấp nhận file có đuôi (.pem,.cer,.txt)",
     NOT_FOUND_KEY: "Bạn cần nhập khoá hoặc chọn file khoá của mình",
   },
   CAP_LAI: {
@@ -197,7 +218,8 @@ export const TOAST_MESSAGE = {
   },
   USER: {
     CREATE_NEW: "Thêm mới người dùng thành công",
-    EMAIL_PASSWORD: "Để đảm bảo an toàn, mật khẩu của người dùng được gửi đến email của người dùng",
+    EMAIL_PASSWORD:
+      "Để đảm bảo an toàn, mật khẩu của người dùng được gửi đến email của người dùng",
     EDIT: "Sửa người dùng thành công",
     REMOVE: "Xoá người dùng thành công",
   },
@@ -216,10 +238,30 @@ export const TOAST_MESSAGE = {
     DESCRIPTION: "Vui lòng kiểm tra và thử lại",
   },
   ICON: {
-    SUCCESS: <CheckCircleOutlined className="float-left" style={{ fontSize: "24px", color: "#fff" }} />,
-    ERROR: <CloseCircleOutlined className="float-left" style={{ fontSize: "24px", color: "#fff" }} />,
-    INFO: <InfoCircleOutlined className="float-left" style={{ fontSize: "24px", color: "#fff" }} />,
-    WARNING: <WarningOutlined className="float-left" style={{ fontSize: "24px", color: "#fff" }} />,
+    SUCCESS: (
+      <CheckCircleOutlined
+        className="float-left"
+        style={{ fontSize: "24px", color: "#fff" }}
+      />
+    ),
+    ERROR: (
+      <CloseCircleOutlined
+        className="float-left"
+        style={{ fontSize: "24px", color: "#fff" }}
+      />
+    ),
+    INFO: (
+      <InfoCircleOutlined
+        className="float-left"
+        style={{ fontSize: "24px", color: "#fff" }}
+      />
+    ),
+    WARNING: (
+      <WarningOutlined
+        className="float-left"
+        style={{ fontSize: "24px", color: "#fff" }}
+      />
+    ),
   },
 };
 
@@ -230,7 +272,11 @@ export const RULES = {
     pattern: /^(0[35789]\d{8}|02\d{9}|\+84[35789]\d{8}|(\+842)\d{9})$/,
     message: "Số điện thoại bạn vừa nhập không hợp lệ",
   },
-  CMND: { required: true, pattern: "^(\\d{9}|\\d{12})$", message: "Số CMND/CCCD không hợp lệ" },
+  CMND: {
+    required: true,
+    pattern: "^(\\d{9}|\\d{12})$",
+    message: "Số CMND/CCCD không hợp lệ",
+  },
   EMAIL: { type: "email", message: "Email không hợp lệ" },
   NUMBER_FLOAT: {
     pattern: new RegExp("^[- +]?[0-9]+[.]?[0-9]*([eE][-+]?[0-9]+)?$"),
@@ -238,7 +284,8 @@ export const RULES = {
   },
   PASSWORD_FORMAT: {
     pattern: new RegExp("^(?=.*[a-z])(?=.*[0-9])(?!.* )(?=.{6,14})"),
-    message: "Mật khẩu phải có ít nhất một chữ cái và một chữ số, độ dài 6 ký tự trở lên và không có khoảng trắng",
+    message:
+      "Mật khẩu phải có ít nhất một chữ cái và một chữ số, độ dài 6 ký tự trở lên và không có khoảng trắng",
   },
   USERNAME_RANGER: {
     pattern: new RegExp("^([a-zA-Z0-9_-]){6,32}$"),
@@ -246,7 +293,8 @@ export const RULES = {
   },
   USERNAME_LENGTH: {
     pattern: new RegExp("^(?!.* )(?=.{6,32})"),
-    message: "Tên tài khoản chỉ chấp nhận độ dài 6 đến 32 ký tự và không có khoảng trắng",
+    message:
+      "Tên tài khoản chỉ chấp nhận độ dài 6 đến 32 ký tự và không có khoảng trắng",
   },
 };
 
@@ -265,9 +313,24 @@ export const PAGINATION_MODAL = Object.assign({}, PAGINATION_CONFIG, {
 });
 
 export const ORG_UNIT_TYPE = {
-  TONG_CONG_TY: { level: 1, label: "Tổng công ty", value: "TONG_CONG_TY", parentKey: null },
-  CONG_TY: { level: 2, label: "Công ty", value: "CONG_TY", parentKey: "TONG_CONG_TY" },
-  TRUYEN_TAI_DIEN: { level: 3, label: "Truyền tải điện", value: "TRUYEN_TAI_DIEN", parentKey: "CONG_TY" },
+  TONG_CONG_TY: {
+    level: 1,
+    label: "Tổng công ty",
+    value: "TONG_CONG_TY",
+    parentKey: null,
+  },
+  CONG_TY: {
+    level: 2,
+    label: "Công ty",
+    value: "CONG_TY",
+    parentKey: "TONG_CONG_TY",
+  },
+  TRUYEN_TAI_DIEN: {
+    level: 3,
+    label: "Truyền tải điện",
+    value: "TRUYEN_TAI_DIEN",
+    parentKey: "CONG_TY",
+  },
   DOI_TRUYEN_TAI_DIEN: {
     level: 4,
     label: "Đội truyền tải điện",
@@ -287,13 +350,25 @@ export const TRANG_THAI_HOAN_THANH = {
 };
 
 export const TRANG_THAI_HOAN_THANH_OPTIONS = [
-  { code: TRANG_THAI_HOAN_THANH.DA_HOAN_THANH, label: "Đã hoàn thành", color: "#13c2c2" },
-  { code: TRANG_THAI_HOAN_THANH.CHUA_HOAN_THANH, label: "Chưa hoàn thành", color: "#fa8c16" },
+  {
+    code: TRANG_THAI_HOAN_THANH.DA_HOAN_THANH,
+    label: "Đã hoàn thành",
+    color: "#13c2c2",
+  },
+  {
+    code: TRANG_THAI_HOAN_THANH.CHUA_HOAN_THANH,
+    label: "Chưa hoàn thành",
+    color: "#fa8c16",
+  },
 ];
 
 export const TINH_TRANG = {
   BINH_THUONG: { label: "Bình thường", value: "BINH_THUONG", color: "#52c41a" },
-  BAT_THUONG: { label: "Không bình thường", value: "BAT_THUONG", color: "#fa8c16" },
+  BAT_THUONG: {
+    label: "Không bình thường",
+    value: "BAT_THUONG",
+    color: "#fa8c16",
+  },
 };
 
 export const TRANG_THAI_OPTIONS = [
@@ -304,7 +379,11 @@ export const TRANG_THAI_OPTIONS = [
   { label: "Đã nhận phiếu", value: "TIEP_NHAN", color: "#722ed1" },
   { label: "Đã từ chối nhận phiếu", value: "TU_CHOI_NHAN", color: "#52c41a" },
   { label: "Đã trả phiếu", value: "KHOA_PHIEU", color: "#13c2c2" },
-  { label: "Đã từ chối xác nhận khoá phiếu", value: "TU_CHOI_KHOA", color: "#13c2c2" },
+  {
+    label: "Đã từ chối xác nhận khoá phiếu",
+    value: "TU_CHOI_KHOA",
+    color: "#13c2c2",
+  },
   { label: "Đã xác nhận khoá phiếu", value: "XAC_NHAN_KHOA", color: "#13c2c2" },
 ];
 
@@ -326,30 +405,78 @@ export const DO_THONG_SO = "DO_THONG_SO";
 export const CONG_TAC_PHU_TRO = "CONG_TAC_PHU_TRO";
 
 export const LOAI_CONG_VIEC = {
-  KIEM_TRA_DINH_KY_NGAY: createRecord("KIEM_TRA_DINH_KY_NGAY", "Kiểm tra định kỳ ngày", KIEM_TRA),
-  KIEM_TRA_DINH_KY_DEM: createRecord("KIEM_TRA_DINH_KY_DEM", "Kiểm tra định kỳ đêm", KIEM_TRA),
+  KIEM_TRA_DINH_KY_NGAY: createRecord(
+    "KIEM_TRA_DINH_KY_NGAY",
+    "Kiểm tra định kỳ ngày",
+    KIEM_TRA
+  ),
+  KIEM_TRA_DINH_KY_DEM: createRecord(
+    "KIEM_TRA_DINH_KY_DEM",
+    "Kiểm tra định kỳ đêm",
+    KIEM_TRA
+  ),
   KIEM_TRA_SU_CO: createRecord("KIEM_TRA_SU_CO", "Kiểm tra sự cố", KIEM_TRA),
-  KIEM_TRA_DOT_XUAT: createRecord("KIEM_TRA_DOT_XUAT", "Kiểm tra đột xuất", KIEM_TRA),
-  KIEM_TRA_CHUYEN_DE: createRecord("KIEM_TRA_CHUYEN_DE", "Kiểm tra chuyên đề", KIEM_TRA),
+  KIEM_TRA_DOT_XUAT: createRecord(
+    "KIEM_TRA_DOT_XUAT",
+    "Kiểm tra đột xuất",
+    KIEM_TRA
+  ),
+  KIEM_TRA_CHUYEN_DE: createRecord(
+    "KIEM_TRA_CHUYEN_DE",
+    "Kiểm tra chuyên đề",
+    KIEM_TRA
+  ),
 
   CO_KE_HOACH: createRecord("CO_KE_HOACH", "Có kế hoạch", SUA_CHUA_BAO_DUONG),
-  KHONG_CO_KE_HOACH: createRecord("KHONG_CO_KE_HOACH", "Không có kế hoạch", SUA_CHUA_BAO_DUONG),
+  KHONG_CO_KE_HOACH: createRecord(
+    "KHONG_CO_KE_HOACH",
+    "Không có kế hoạch",
+    SUA_CHUA_BAO_DUONG
+  ),
 
-  DO_DIEN_TRO_TIEP_DIA: createRecord("DO_DIEN_TRO_TIEP_DIA", "Đo điện trở tiếp địa", DO_THONG_SO),
-  DO_NHIET_DO_TIEP_XUC: createRecord("DO_NHIET_DO_TIEP_XUC", "Đo nhiệt độ tiếp xúc", DO_THONG_SO),
-  DO_KHOANG_CACH_PHA_DAT: createRecord("DO_KHOANG_CACH_PHA_DAT", "Đo khoảng cách pha đất", DO_THONG_SO),
+  DO_DIEN_TRO_TIEP_DIA: createRecord(
+    "DO_DIEN_TRO_TIEP_DIA",
+    "Đo điện trở tiếp địa",
+    DO_THONG_SO
+  ),
+  DO_NHIET_DO_TIEP_XUC: createRecord(
+    "DO_NHIET_DO_TIEP_XUC",
+    "Đo nhiệt độ tiếp xúc",
+    DO_THONG_SO
+  ),
+  DO_KHOANG_CACH_PHA_DAT: createRecord(
+    "DO_KHOANG_CACH_PHA_DAT",
+    "Đo khoảng cách pha đất",
+    DO_THONG_SO
+  ),
   // DO_KHOANG_CACH_GIAO_CHEO: createRecord('DO_KHOANG_CACH_GIAO_CHEO', 'Đo khoảng cách giao chéo', DO_THONG_SO),
-  CONG_TAC_PHU_TRO: createRecord("CONG_TAC_PHU_TRO", "Công tác phụ trợ", CONG_TAC_PHU_TRO),
+  CONG_TAC_PHU_TRO: createRecord(
+    "CONG_TAC_PHU_TRO",
+    "Công tác phụ trợ",
+    CONG_TAC_PHU_TRO
+  ),
 };
 export const TINH_TRANG_PHIEU = {
   DANG_GIAO_CHAM: { code: "DANG_GIAO_CHAM", label: "Đang giao chậm" },
   DA_GIAO_CHAM: { code: "DA_GIAO_CHAM", label: "Đã giao chậm" },
-  DANG_TIEP_NHAN_CHAM: { code: "DANG_TIEP_NHAN_CHAM", label: "Đang tiếp nhận chậm" },
+  DANG_TIEP_NHAN_CHAM: {
+    code: "DANG_TIEP_NHAN_CHAM",
+    label: "Đang tiếp nhận chậm",
+  },
   DA_TIEP_NHAN_CHAM: { code: "DA_TIEP_NHAN_CHAM", label: "Đã tiếp nhận chậm" },
-  DANG_THUC_HIEN_CHAM: { code: "DANG_THUC_HIEN_CHAM", label: "Đang thực hiện chậm" },
+  DANG_THUC_HIEN_CHAM: {
+    code: "DANG_THUC_HIEN_CHAM",
+    label: "Đang thực hiện chậm",
+  },
   DA_THUC_HIEN_CHAM: { code: "DA_THUC_HIEN_CHAM", label: "Đã thực hiện chậm" },
-  DANG_XAC_NHAN_KHOA_CHAM: { code: "DANG_XAC_NHAN_KHOA_CHAM", label: "Đang xác nhận khóa chậm" },
-  DA_XAC_NHAN_KHOA_CHAM: { code: "DA_XAC_NHAN_KHOA_CHAM", label: "Đã xác nhận khóa chậm" },
+  DANG_XAC_NHAN_KHOA_CHAM: {
+    code: "DANG_XAC_NHAN_KHOA_CHAM",
+    label: "Đang xác nhận khóa chậm",
+  },
+  DA_XAC_NHAN_KHOA_CHAM: {
+    code: "DA_XAC_NHAN_KHOA_CHAM",
+    label: "Đã xác nhận khóa chậm",
+  },
 };
 
 export const TRANG_THAI_XU_LY = {
@@ -358,20 +485,37 @@ export const TRANG_THAI_XU_LY = {
   DA_XU_LY: { code: "DA_XU_LY", label: "Đã xử lý", color: "#13c2c2" },
 };
 export const TRANG_THAI_THUC_HIEN = {
-  CHUA_THUC_HIEN: { code: "CHUA_THUC_HIEN", label: "Chưa thực hiện", color: "#fa541c" },
-  DA_THUC_HIEN: { code: "DA_THUC_HIEN", label: "Đã thực hiện", color: "#13c2c2" },
+  CHUA_THUC_HIEN: {
+    code: "CHUA_THUC_HIEN",
+    label: "Chưa thực hiện",
+    color: "#fa541c",
+  },
+  DA_THUC_HIEN: {
+    code: "DA_THUC_HIEN",
+    label: "Đã thực hiện",
+    color: "#13c2c2",
+  },
 };
 export const LOAI_NOI_DUNG_KIEM_TRA = {
   KIEM_TRA_VI_TRI: { code: "KIEM_TRA_VI_TRI", label: "Kiểm tra vị trí" },
-  KIEM_TRA_KHOANG_COT: { code: "KIEM_TRA_KHOANG_COT", label: "Kiểm tra khoảng cột" },
+  KIEM_TRA_KHOANG_COT: {
+    code: "KIEM_TRA_KHOANG_COT",
+    label: "Kiểm tra khoảng cột",
+  },
 };
 export const LOAI_CONG_VIEC_SUA_CHUA = {
   SUA_CHUA_VI_TRI: { code: "SUA_CHUA_VI_TRI", label: "Sửa chữa vị trí" },
-  SUA_CHUA_KHOANG_COT: { code: "SUA_CHUA_KHOANG_COT", label: "Sửa chữa khoảng cột" },
+  SUA_CHUA_KHOANG_COT: {
+    code: "SUA_CHUA_KHOANG_COT",
+    label: "Sửa chữa khoảng cột",
+  },
 };
 
 export const DE_XUAT_XU_LY = {
-  XU_LY_TRONG_VAN_HANH: { code: "XU_LY_TRONG_VAN_HANH", label: "Xử lý trong vận hành" },
+  XU_LY_TRONG_VAN_HANH: {
+    code: "XU_LY_TRONG_VAN_HANH",
+    label: "Xử lý trong vận hành",
+  },
   BAO_CAO_TTD: { code: "BAO_CAO_TTD", label: "Báo cáo TTĐ" },
 };
 
@@ -381,8 +525,14 @@ export const KE_HOACH_PHE_DUYET = {
 };
 
 export const GIAI_PHAP_XU_LY_PHA_DAT_THAP = {
-  THEO_DOI_THUONG_XUYEN: { code: "THEO_DOI_THUONG_XUYEN", label: "Theo dõi thường xuyên" },
-  LAP_PHUONG_AN: { code: "LAP_PHUONG_AN", label: "Lập phương án nâng cao pha – đất" },
+  THEO_DOI_THUONG_XUYEN: {
+    code: "THEO_DOI_THUONG_XUYEN",
+    label: "Theo dõi thường xuyên",
+  },
+  LAP_PHUONG_AN: {
+    code: "LAP_PHUONG_AN",
+    label: "Lập phương án nâng cao pha – đất",
+  },
 };
 
 export const VI_PHAM_QUY_DINH_HANH_LANG_TUYEN = {
@@ -452,17 +602,29 @@ export const DOI_TUONG_OPTIONS = [
 ];
 
 export const LOAI_TAI_KHOAN = {
-  TAI_KHOAN_HE_THONG: { code: "TAI_KHOAN_HE_THONG", value: "TAI_KHOAN_HE_THONG", label: "Tài khoản hệ thống" },
-  TAI_KHOAN_HRMS: { code: "TAI_KHOAN_HRMS", value: "TAI_KHOAN_HRMS", label: "Tài khoản HRMS" },
+  TAI_KHOAN_HE_THONG: {
+    code: "TAI_KHOAN_HE_THONG",
+    value: "TAI_KHOAN_HE_THONG",
+    label: "Tài khoản hệ thống",
+  },
+  TAI_KHOAN_HRMS: {
+    code: "TAI_KHOAN_HRMS",
+    value: "TAI_KHOAN_HRMS",
+    label: "Tài khoản HRMS",
+  },
 };
 
 export const CONSTANTS_MODULE = {
   QUAN_LY_DUONG_DAY: { code: "QUAN_LY_DUONG_DAY", label: "Quản lý đường dây" },
-  TON_TAI_CONG_TRINH: { code: "TON_TAI_CONG_TRINH", label: "Tồn tại công trình xây dựng" },
+  TON_TAI_CONG_TRINH: {
+    code: "TON_TAI_CONG_TRINH",
+    label: "Tồn tại công trình xây dựng",
+  },
   TON_TAI_THIET_BI: { code: "TON_TAI_THIET_BI", label: "Tồn tại thiết bị" },
 };
 export const CONSTANT_MESSAGE = {
-  REMOVE: "Nếu bạn thao tác xoá dẫn đến các thông tin không còn hiển thị. Bạn có chắc chắn muốn xoá thông tin này?",
+  REMOVE:
+    "Nếu bạn thao tác xoá dẫn đến các thông tin không còn hiển thị. Bạn có chắc chắn muốn xoá thông tin này?",
   CONFIM: "Bạn có chắc chắn muốn xác nhận {0} không ?",
 };
 export const YEU_CAU_TACH_VAN_HANH = {
@@ -484,8 +646,16 @@ export const KET_QUA_XU_LY_KHIEM_KHUYET = {
 export const CONFIG_THIET_BI = {
   CACH_DIEN: { code: "CACH_DIEN", label: "Cách điện", fieldKey: "cachDienId" },
   DAY_DAN: { code: "DAY_DAN", label: "Dây dẫn", fieldKey: "dayDanId" },
-  CHONG_SET: { code: "CHONG_SET", label: "Chống sét", fieldKey: "dayChongSetId" },
-  CAP_QUANG: { code: "CAP_QUANG", label: "Cáp quang", fieldKey: "dayCapQuangId" },
+  CHONG_SET: {
+    code: "CHONG_SET",
+    label: "Chống sét",
+    fieldKey: "dayChongSetId",
+  },
+  CAP_QUANG: {
+    code: "CAP_QUANG",
+    label: "Cáp quang",
+    fieldKey: "dayCapQuangId",
+  },
   COT_DIEN: { code: "COT_DIEN", label: "Cột điện", fieldKey: "cotDienId" },
   GIAO_CHEO: { code: "GIAO_CHEO", label: "Giao chéo", fieldKey: "giaoCheoId" },
   TIEP_DAT: { code: "TIEP_DAT", label: "Tiếp đất", fieldKey: "tiepDatId" },
@@ -502,8 +672,14 @@ export const THIET_BI_OPTIONS = [
 ];
 
 export const TYPE_TON_TAI_LAM_QUANG = {
-  TIEU_CHUAN_QUY_DINH: { code: "TIEU_CHUAN_QUY_DINH", label: "Tồn tại không đạt tiêu chuẩn, quy định" },
-  KHOI_LUONG_CHUA_HOAN_THANH: { code: "KHOI_LUONG_CHUA_HOAN_THANH", label: "Tồn tại khối lượng chưa được hoàn thành" },
+  TIEU_CHUAN_QUY_DINH: {
+    code: "TIEU_CHUAN_QUY_DINH",
+    label: "Tồn tại không đạt tiêu chuẩn, quy định",
+  },
+  KHOI_LUONG_CHUA_HOAN_THANH: {
+    code: "KHOI_LUONG_CHUA_HOAN_THANH",
+    label: "Tồn tại khối lượng chưa được hoàn thành",
+  },
 };
 
 export const TRANG_THAI_TON_TAI = {
@@ -540,12 +716,18 @@ export const DON_VI_THUC_HIEN = {
 
 export const LOCATIONS_CHECKED = {
   DA_KIEM_TRA: { code: "DA_KIEM_TRA", label: "Số lượng vị trí đã kiểm tra" },
-  CHUA_KIEM_TRA: { code: "CHUA_KIEM_TRA", label: "Số lượng vị trí chưa kiểm tra" },
+  CHUA_KIEM_TRA: {
+    code: "CHUA_KIEM_TRA",
+    label: "Số lượng vị trí chưa kiểm tra",
+  },
 };
 
 export const TRANG_THAI_CONG_VIEC = {
   DA_HOAN_THANH: { code: "DA_HOAN_THANH", label: "Công việc giao hoàn thành" },
-  CHUA_HOAN_THANH: { code: "CHUA_HOAN_THANH", label: "Công việc giao chưa hoàn thành" },
+  CHUA_HOAN_THANH: {
+    code: "CHUA_HOAN_THANH",
+    label: "Công việc giao chưa hoàn thành",
+  },
 };
 
 export const DOI_TUONG_SU_CO = {
@@ -554,7 +736,17 @@ export const DOI_TUONG_SU_CO = {
   TAI_SAN_DON_VI: { code: "TAI_SAN_DON_VI", label: "Tài sản đơn vị" },
 };
 
-export const COMMON_FILE_NAME_EXTENSION = ["doc", "docx", "odt", "pdf", "xls", "xlsx", "ppt", "pptx", "txt"];
+export const COMMON_FILE_NAME_EXTENSION = [
+  "doc",
+  "docx",
+  "odt",
+  "pdf",
+  "xls",
+  "xlsx",
+  "ppt",
+  "pptx",
+  "txt",
+];
 
 export const IMAGE_FILE_EXTENSION = ["jpg", "jpeg", "png", "svg"];
 
@@ -562,5 +754,9 @@ export const ROLE_SYSTEM = {
   ADMIN: "admin",
   USER: "user",
   TEACHER: "teacher",
-}
-
+};
+export const VI_ROLE_SYSTEM = {
+  ADMIN: "Người quản trị",
+  USER: "Người dùng",
+  TEACHER: "Giáo viên",
+};

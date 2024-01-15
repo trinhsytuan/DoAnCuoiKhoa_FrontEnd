@@ -36,7 +36,7 @@ export function getUserByToken() {
 export function updateMyInfo(dataUpdate) {
   return axios.put(API.UPDATE_MY_INFO, dataUpdate)
     .then(response => {
-      if (response?.status === 200) return convertSnakeCaseToCamelCase(response?.data?.data);
+      if (response?.status === 200) return convertSnakeCaseToCamelCase(response?.data);
       return null;
     })
     .catch((err) => {
@@ -95,7 +95,7 @@ export function requestResetPassword(token, data) {
 export function requestChangePassword(data) {
   return axios.put(API.USER_CHANGE_PASSWORD, convertCamelCaseToSnakeCase(data))
     .then(response => {
-      if (response.status === 200) return convertSnakeCaseToCamelCase(response?.data?.data);
+      if (response.status === 200) return convertSnakeCaseToCamelCase(response?.data);
       return null;
     })
     .catch((err) => {

@@ -50,7 +50,7 @@ function HeaderMenu({ token, history, myInfo, isBroken, siderCollapsed, ...props
                 && <img onLoad={() => setAvatarLoader(true)} src={API.PREVIEW_ID.format(myInfo.avatar)}
                         style={{ borderRadius: '12px', display: isAvatarLoader ? 'block' : 'none' }} alt=""/>}
               {(!isAvatarLoader || !myInfo?.avatar) && <img src={USER} alt=""/>}
-              <span className="my-info__name">{myInfo.hoTen}</span>
+              <span className="my-info__name">{myInfo.username}</span>
             </div>
           </div>
         </Dropdown>
