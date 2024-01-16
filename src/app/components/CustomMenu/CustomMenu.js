@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu } from "antd";
-import { connect } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Menu } from 'antd';
+import { connect } from 'react-redux';
 
-import { ConstantsRoutes } from "@app/router/ConstantsRoutes";
-import { checkPermission } from "@app/rbac/checkPermission";
-import { checkLoaded, formatUnique } from "@app/common/functionCommons";
+import { ConstantsRoutes } from '@app/router/ConstantsRoutes';
+import { checkPermission } from '@app/rbac/checkPermission';
+import { checkLoaded, formatUnique } from '@app/common/functionCommons';
 
-import * as app from "@app/store/ducks/app.duck";
+import * as app from '@app/store/ducks/app.duck';
 
-import "./CustomMenu.scss";
+import './CustomMenu.scss';
 
 function CustomMenu({
   siderCollapsed,

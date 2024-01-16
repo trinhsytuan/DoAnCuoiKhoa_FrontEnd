@@ -1,6 +1,6 @@
-import * as permission from "./permissionHelper";
-import resources from "./resources";
-import actions from "./actions";
+import * as permission from './permissionHelper';
+import resources from './resources';
+import actions from './actions';
 
 function authorizePermission(permissionGranted, requiredPermissions) {
   if (

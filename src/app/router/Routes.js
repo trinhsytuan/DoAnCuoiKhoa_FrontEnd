@@ -5,8 +5,6 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Loading from '@components/Loading';
 import LoginRoutes from '@app/router/LoginRoutes';
 import NoMatch from '@containers/NoMatch';
-
-import { URL } from '@url';
 import { ConstantsRoutes } from '@app/router/ConstantsRoutes';
 import { checkPermission } from '@app/rbac/checkPermission';
 

@@ -1,9 +1,8 @@
-import React, { Suspense, lazy } from 'react';
+import React, { lazy } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import { URL } from '@url';
 import '@src/app/common/prototype';
-import Loading from '@components/Loading';
 
 const ResetPassword = lazy(() => import('@containers/Authenticator/ResetPassword/index'));
 const ForgetPassword = lazy(() => import('@containers/Authenticator/ForgetPassword/index'));

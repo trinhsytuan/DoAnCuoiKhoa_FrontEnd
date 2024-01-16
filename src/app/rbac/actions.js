@@ -1,4 +1,4 @@
-import { ACTIONS } from "@app/rbac/commons";
+import { ACTIONS } from '@app/rbac/commons';
 
 const actions = {};
 ACTIONS.map((resource) => {

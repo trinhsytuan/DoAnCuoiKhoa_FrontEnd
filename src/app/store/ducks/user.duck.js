@@ -1,22 +1,17 @@
-import { put, takeLatest } from "redux-saga/effects";
-import Cookies from "js-cookie";
+import { put, takeLatest } from 'redux-saga/effects';
+import Cookies from 'js-cookie';
 
-import { URL } from "@url";
-import { CONSTANTS } from "@constants";
+import { URL } from '@url';
+import { CONSTANTS } from '@constants';
 
-import { convertSnakeCaseToCamelCase } from "@app/common/dataConverter";
-import { getUserByToken, updateMyInfo } from "@app/services/User";
-import {
-  checkTokenExp,
-  cloneObj,
-  formatUnique,
-  toast,
-} from "@app/common/functionCommons";
+import { convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
+import { getUserByToken, updateMyInfo } from '@app/services/User';
+import { checkTokenExp, toast } from '@app/common/functionCommons';
 
-import resources from "@app/rbac/resources";
-import { ACTIONS } from "@app/rbac/commons";
-import { authorizePermission } from "@app/rbac/authorizationHelper";
-import { create } from "@app/rbac/permissionHelper";
+import resources from '@app/rbac/resources';
+import { ACTIONS } from '@app/rbac/commons';
+import { authorizePermission } from '@app/rbac/authorizationHelper';
+import { create } from '@app/rbac/permissionHelper';
 
 export const actionTypes = {
   RequestUser: "User/RequestUser",

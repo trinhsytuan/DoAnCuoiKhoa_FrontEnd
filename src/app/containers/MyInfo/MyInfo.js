@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined,
-  SaveFilled,
-} from "@ant-design/icons";
-import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from 'antd';
+import { DeleteOutlined, EditOutlined, PlusOutlined, SaveFilled } from '@ant-design/icons';
 
-import CustomSkeleton from "@components/CustomSkeleton";
-import DropzoneImage from "@components/DropzoneImage";
-import "./MyInfo.scss";
-import {
-  CONSTANTS,
-  GENDER_OPTIONS,
-  LOAI_TAI_KHOAN,
-  RULES,
-  VI_ROLE_SYSTEM,
-} from "@constants";
-import { cloneObj, formatSTT, toast } from "@app/common/functionCommons";
-import { convertObjectToSnakeCase } from "@app/common/dataConverter";
-import { requestChangePassword } from "@app/services/User";
+import CustomSkeleton from '@components/CustomSkeleton';
+import DropzoneImage from '@components/DropzoneImage';
+import './MyInfo.scss';
+import { CONSTANTS, LOAI_TAI_KHOAN, RULES, VI_ROLE_SYSTEM } from '@constants';
+import { cloneObj, formatSTT, toast, validateSpaceNull } from '@app/common/functionCommons';
+import { requestChangePassword } from '@app/services/User';
 
-import * as user from "@app/store/ducks/user.duck";
-import * as app from "@app/store/ducks/app.duck";
-import { API } from "@api";
-import { validateSpaceNull } from "@app/common/functionCommons";
-import { createCategory } from "@app/services/Category";
+import * as user from '@app/store/ducks/user.duck';
+import * as app from '@app/store/ducks/app.duck';
+import { createCategory } from '@app/services/Category';
 
 function MyInfo({ myInfo, isLoading, roleList, ...props }) {
   const [formInfo] = Form.useForm();

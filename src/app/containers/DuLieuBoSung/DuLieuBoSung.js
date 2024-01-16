@@ -9,7 +9,7 @@ import ActionCell from '@components/ActionCell';
 import CustomModal from '@components/CustomModal';
 
 import { CONSTANTS, EXTRA_FIELD, KIEU_DU_LIEU, RULES } from '@constants';
-import { createTruongDuLieu, updateTruongDuLieu, deleteTruongDuLieu } from '@app/services/DuLieuBoSung';
+import { createTruongDuLieu, deleteTruongDuLieu, updateTruongDuLieu } from '@app/services/DuLieuBoSung';
 import { cloneObj, toast } from '@app/common/functionCommons';
 
 import * as extraField from '@app/store/ducks/extraField.duck';

@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './Register.scss'
+import './Register.scss';
 import AuthBase from '../AuthBase';
 import { Button, Form, Input, Row, Select } from 'antd';
 import { CONSTANTS, ROLE_SYSTEM, RULES } from '@constants';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { URL } from '@url';
 import { connect } from 'react-redux';
 import { signUpServices } from '@app/services/User';
 import { toast } from '@app/common/functionCommons';
+
 Register.propTypes = {
 
 };

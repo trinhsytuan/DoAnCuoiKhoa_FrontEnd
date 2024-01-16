@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import "./UploadImage.scss";
-import IconImage from "@assets/icons/UploadImage.svg";
-import CustomImage from "@components/CustomImage/CustomImage";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import './UploadImage.scss';
+import IconImage from '@assets/icons/UploadImage.svg';
+import CustomImage from '@components/CustomImage/CustomImage';
+
 UploadImage.propTypes = {
   disabled: PropTypes.bool,
   data: PropTypes.array,
