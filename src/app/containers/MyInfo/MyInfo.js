@@ -1,32 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from 'antd';
-import { DeleteOutlined, EditOutlined, PlusOutlined, SaveFilled } from '@ant-design/icons';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  SaveFilled,
+} from "@ant-design/icons";
 
-import CustomSkeleton from '@components/CustomSkeleton';
-import DropzoneImage from '@components/DropzoneImage';
-import './MyInfo.scss';
-import { CONSTANTS, LOAI_TAI_KHOAN, RULES, VI_ROLE_SYSTEM } from '@constants';
-import { cloneObj, formatSTT, toast, validateSpaceNull } from '@app/common/functionCommons';
-import { requestChangePassword } from '@app/services/User';
+import CustomSkeleton from "@components/CustomSkeleton";
+import DropzoneImage from "@components/DropzoneImage";
+import "./MyInfo.scss";
+import { CONSTANTS, LOAI_TAI_KHOAN, RULES, VI_ROLE_SYSTEM } from "@constants";
+import {
+  cloneObj,
+  formatSTT,
+  toast,
+  validateSpaceNull,
+} from "@app/common/functionCommons";
+import { requestChangePassword } from "@app/services/User";
 
-import * as user from '@app/store/ducks/user.duck';
-import * as app from '@app/store/ducks/app.duck';
-import { createCategory } from '@app/services/Category';
+import * as user from "@app/store/ducks/user.duck";
+import * as app from "@app/store/ducks/app.duck";
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategory,
+  updateCategory,
+} from "@app/services/Category";
+import DialogDeleteConfim from "@components/DialogDeleteConfim/DialogDeleteConfim";
 
-function MyInfo({ myInfo, isLoading, roleList, ...props }) {
+function MyInfo({
+  myInfo,
+  isLoading,
+  roleList,
+  requestChuyenMuc,
+  chuyenMuc,
+  ...props
+}) {
   const [formInfo] = Form.useForm();
   const [formChangePassword] = Form.useForm();
   const [avatarTemp, setAvatarTemp] = useState(null);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+  const [visibleDelete, setVisibleDelete] = useState(false);
   const [form] = Form.useForm();
   const [visibleThemChuyenMuc, setVisibleThemChuyenMuc] = useState(false);
   const cancelThemChuyenMuc = () => {
     setVisibleThemChuyenMuc(!visibleThemChuyenMuc);
     form.resetFields();
   };
-
+  const handleConfim = () => {
+    setVisibleDelete(!visibleDelete);
+  };
   React.useEffect(() => {
     if (myInfo) {
       const dataField = cloneObj(myInfo);
@@ -35,6 +61,12 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
       if (avatarTemp) setAvatarTemp(null);
     }
   }, [myInfo]);
+  useEffect(() => {
+    getListCategory();
+  }, []);
+  const getListCategory = async () => {
+    requestChuyenMuc();
+  };
 
   function handleUpdateMyInfo() {
     const formData = new FormData();
@@ -86,15 +118,13 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
               icon={<EditOutlined />}
               style={{ border: 0 }}
               onClick={() => {
-                history.push(URL.CHI_TIET_CAP_LAI_ID.format(value._id));
+                handleEdit(value);
               }}
             ></Button>
             <Button
               icon={<DeleteOutlined />}
               style={{ border: 0 }}
-              onClick={() => {
-                history.push(URL.CHI_TIET_CAP_LAI_ID.format(value._id));
-              }}
+              onClick={() => deleteChuyenMuc(value)}
             ></Button>
           </div>
         );
@@ -108,18 +138,40 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
     const queryString = queryParams.toString();
     history.push(`?${queryString}`);
   };
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    setPage(parseInt(queryParams.get("page")) || 1);
-    setLimit(parseInt(queryParams.get("limit")) || 10);
-    getAPI();
-  }, [location.search]);
-  const getAPI = async () => {};
+
   const createChuyenMuc = async (e) => {
-    const response = await createCategory(e);
-    if(response) {
-      toast(CONSTANTS.SUCCESS, "Tạo chủ đề thành công");
-      cancelThemChuyenMuc();
+    if (form.getFieldValue("keyId")) {
+      const response = await updateCategory(form.getFieldValue("keyId"), e);
+      if (response) {
+        toast(CONSTANTS.SUCCESS, "Thay đổi chủ đề thành công");
+        cancelThemChuyenMuc();
+        getListCategory();
+      }
+    } else {
+      const response = await createCategory(e);
+      if (response) {
+        toast(CONSTANTS.SUCCESS, "Tạo chủ đề thành công");
+        cancelThemChuyenMuc();
+        getListCategory();
+      }
+    }
+  };
+  const handleEdit = async (value) => {
+    cancelThemChuyenMuc();
+    form.setFieldsValue({ keyId: value._id, name: value.name });
+  };
+  const deleteChuyenMuc = async (value) => {
+    handleConfim();
+    form.setFieldsValue({ keyId: value._id });
+  };
+  const handleDeleteCM = async () => {
+    const id = form.getFieldValue("keyId");
+    form.resetFields();
+    const response = await deleteCategory(id);
+    if (response) {
+      toast(CONSTANTS.SUCCESS, "Xoá chuyên mục thành công");
+      handleConfim();
+      getListCategory();
     }
   };
   return (
@@ -292,7 +344,11 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
               </Button>
             </div>
             <div className="table-instruction">
-              <Table columns={columnChuDe}></Table>
+              <Table
+                columns={columnChuDe}
+                dataSource={chuyenMuc}
+                pagination={false}
+              ></Table>
             </div>
           </div>
         </Tabs.TabPane>
@@ -311,6 +367,7 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
           onFinish={createChuyenMuc}
           className="formCreateChuyenMuc"
         >
+          <Form.Item name="keyId" hidden={true}></Form.Item>
           <Form.Item
             name="name"
             label="Tên chuyên mục"
@@ -319,20 +376,28 @@ function MyInfo({ myInfo, isLoading, roleList, ...props }) {
             <Input placeholder="Vui lòng nhập tên chuyên mục"></Input>
           </Form.Item>
           <div className="btn-submit-actions">
-            <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
-              Thêm mới
+            <Button type="primary" htmlType="submit">
+              {form.getFieldValue("keyId")
+                ? "Lưu thông tin"
+                : "Thêm chuyên mục"}
             </Button>
           </div>
         </Form>
       </Modal>
+      <DialogDeleteConfim
+        visible={visibleDelete}
+        onCancel={handleConfim}
+        onOK={handleDeleteCM}
+      />
     </div>
   );
 }
 
 function mapStateToProps(store) {
-  const { myInfo } = store.user;
+  const { myInfo, chuyenMuc } = store.user;
   const { isLoading } = store.app;
-  return { isLoading, myInfo };
+  const { requestChuyenMuc } = store.user;
+  return { isLoading, myInfo, requestChuyenMuc, chuyenMuc };
 }
 
 export default connect(mapStateToProps, { ...app.actions, ...user.actions })(

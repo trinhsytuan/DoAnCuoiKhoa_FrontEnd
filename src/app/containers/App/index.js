@@ -40,6 +40,7 @@ function App({ isLoading, siderCollapsed, token, history, myInfo, ...props }) {
       // props.getExtraData();
       props.getCaiDatHeThong();
       props.requestUser(history);
+      props.requestChuyenMuc();
     }
   }, [token]);
 

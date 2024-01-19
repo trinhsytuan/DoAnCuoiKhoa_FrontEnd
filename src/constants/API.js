@@ -577,4 +577,7 @@ export const API = {
   REGISTER: "/api/user/signUp",
   PREVIEW_IMAGE: "/api/static/{0}",
   CATEGORY: "/api/category/create",
+  GET_ALL_CATEGORY: "/api/category/details",
+  UPDATE_CATEGORY: "/api/category/update/{0}",
+  DELETE_CATEGORY: "/api/category/delete/{0}",
 };

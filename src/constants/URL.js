@@ -5,7 +5,7 @@ export const URL = {
     DANH_MUC: '/danh-muc',
     DON_VI: '/don-vi',
     KHOI_PHUC_TAI_KHOAN: '/khoi-phuc-tai-khoan',
-    QUAN_LY_NGUOI_DUNG: '/quan-ly-nguoi-dung',
+    CHUYEN_MUC: '/chuyen-muc/{0}',
     USER: '/nguoi-dung',
     ROLE: '/vai-tro',
     DU_LIEU_BO_SUNG: '/du-lieu-bo-sung',

@@ -1,17 +1,18 @@
-import { put, takeLatest } from 'redux-saga/effects';
-import Cookies from 'js-cookie';
+import { put, takeLatest } from "redux-saga/effects";
+import Cookies from "js-cookie";
 
-import { URL } from '@url';
-import { CONSTANTS } from '@constants';
+import { URL } from "@url";
+import { CONSTANTS } from "@constants";
 
-import { convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
-import { getUserByToken, updateMyInfo } from '@app/services/User';
-import { checkTokenExp, toast } from '@app/common/functionCommons';
+import { convertSnakeCaseToCamelCase } from "@app/common/dataConverter";
+import { getUserByToken, updateMyInfo } from "@app/services/User";
+import { checkTokenExp, toast } from "@app/common/functionCommons";
 
-import resources from '@app/rbac/resources';
-import { ACTIONS } from '@app/rbac/commons';
-import { authorizePermission } from '@app/rbac/authorizationHelper';
-import { create } from '@app/rbac/permissionHelper';
+import resources from "@app/rbac/resources";
+import { ACTIONS } from "@app/rbac/commons";
+import { authorizePermission } from "@app/rbac/authorizationHelper";
+import { create } from "@app/rbac/permissionHelper";
+import { getAllCategory } from "@app/services/Category";
 
 export const actionTypes = {
   RequestUser: "User/RequestUser",
@@ -19,11 +20,14 @@ export const actionTypes = {
   UpdateMyInfo: "User/UpdateMyInfo",
   ClearToken: "App/ClearToken",
   GetPermission: "User/GetPermission",
+  GetChuyenMuc: "User/GetChuyenMuc",
+  RequestChuyenMuc: "User/RequestChuyenMuc",
 };
 
 const initialAuthState = {
   permissions: {},
   myInfo: {},
+  chuyenMuc: {},
 };
 
 export const reducer = (state = initialAuthState, action) => {
@@ -47,6 +51,10 @@ export const reducer = (state = initialAuthState, action) => {
       return Object.assign({}, state, {
         permissions: convertSnakeCaseToCamelCase(permissions),
       });
+    }
+    case actionTypes.GetChuyenMuc: {
+      const { infoChuyenMuc } = action.payload;
+      return { ...state, chuyenMuc: infoChuyenMuc };
     }
 
     default:
@@ -72,6 +80,11 @@ export const actions = {
     payload: { token: null },
   }),
   getPermission: () => ({ type: actionTypes.GetPermission }),
+  updateChuyenMuc: (infoChuyenMuc) => ({
+    type: actionTypes.GetChuyenMuc,
+    payload: { infoChuyenMuc },
+  }),
+  requestChuyenMuc: () => ({ type: actionTypes.RequestChuyenMuc }),
 };
 
 export function* saga() {
@@ -90,11 +103,16 @@ export function* saga() {
   });
   yield takeLatest(actionTypes.UpdateMyInfo, function* updateMyInfoSaga(data) {
     const dataResponse = yield updateMyInfo(data?.payload?.myInfo);
-    console.log(dataResponse);
     if (dataResponse) {
       delete dataResponse.password;
       yield put(actions.userLoaded(dataResponse));
       toast(CONSTANTS.SUCCESS, "Cập nhật thông tin thành công");
+    }
+  });
+  yield takeLatest(actionTypes.RequestChuyenMuc, function* getCM() {
+    const dataChuyenMucMoi = yield getAllCategory();
+    if (dataChuyenMucMoi) {
+      yield put(actions.updateChuyenMuc(dataChuyenMucMoi));
     }
   });
 }

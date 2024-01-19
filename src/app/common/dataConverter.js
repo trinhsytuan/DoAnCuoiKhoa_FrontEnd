@@ -181,3 +181,10 @@ export const checkIfLink = (str) => {
 };
 
 //--------------------------------------------------------------------
+export const convertToSlug = (text) => {
+  return text
+    .toLowerCase()
+    .replace(/ /g, '-') // Thay thế khoảng trắng bằng dấu gạch ngang
+    .normalize('NFD') // Chuẩn hóa Unicode để loại bỏ dấu
+    .replace(/[\u0300-\u036f]/g, ''); // Loại bỏ các dấu thanh và dấu mũ
+};

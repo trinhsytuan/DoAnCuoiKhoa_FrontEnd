@@ -1,10 +1,16 @@
-import React, { lazy } from 'react';
-import { HomeIcon, ListIcon, SettingIcon, UserIcon } from '@app/components/Icons';
+import React, { lazy, useEffect, useState } from "react";
+import {
+  HomeIcon,
+  ListIcon,
+  SettingIcon,
+  UserIcon,
+} from "@app/components/Icons";
 
-import { URL } from '@url';
-import { create } from '@app/rbac/permissionHelper';
-import resources from '@app/rbac/resources';
-import actions from '@app/rbac/actions';
+import { URL } from "@url";
+import { create } from "@app/rbac/permissionHelper";
+import resources from "@app/rbac/resources";
+import actions from "@app/rbac/actions";
+import { connect, useSelector } from "react-redux";
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));
@@ -44,6 +50,29 @@ const MY_INFO_ROUTE = {
   permission: [],
 };
 
+export function GetRouterByCategory() {
+  //const chuyenMuc = useSelector(state => state);
+  return [
+    {
+      path: URL.MENU.USER,
+      menuName: "Danh sách nJJJgười dùng",
+      component: User,
+      permission: [create(resources.NGUOI_DUNG, actions.READ)],
+    },
+    {
+      path: URL.MENU.KHOI_PHUC_TAI_KHOAN,
+      menuName: "Khôi phục tài khoản",
+      component: KhoiPhucTaiKhoan,
+      permission: [create(resources.NGUOI_DUNG, actions.READ)],
+    },
+    {
+      path: URL.MENU.ROLE,
+      menuName: "Vai trò",
+      component: Role,
+      permission: [create(resources.VAI_TRO, actions.READ)],
+    },
+  ];
+}
 export const ADMIN_ROUTES = [
   // { isRedirect: true, from: '/', to: URL.MENU.DASHBOARD },
   {
@@ -54,33 +83,14 @@ export const ADMIN_ROUTES = [
     permission: [],
   },
   {
-    key: URL.MENU.QUAN_LY_NGUOI_DUNG,
-    menuName: "Người dùng",
+    key: URL.MENU.CHUYEN_MUC,
+    menuName: "Quản lý file",
     icon: renderIcon(<UserIcon />),
-    children: [
-      {
-        path: URL.MENU.USER,
-        menuName: "Danh sách người dùng",
-        component: User,
-        permission: [create(resources.NGUOI_DUNG, actions.READ)],
-      },
-      {
-        path: URL.MENU.KHOI_PHUC_TAI_KHOAN,
-        menuName: "Khôi phục tài khoản",
-        component: KhoiPhucTaiKhoan,
-        permission: [create(resources.NGUOI_DUNG, actions.READ)],
-      },
-      {
-        path: URL.MENU.ROLE,
-        menuName: "Vai trò",
-        component: Role,
-        permission: [create(resources.VAI_TRO, actions.READ)],
-      },
-    ],
+    children: GetRouterByCategory(),
     permission: [],
   },
   {
-    key: URL.MENU.DANH_MUC,
+    key: URL.MENU.CHUYEN_MUC,
     menuName: "Danh mục",
     icon: renderIcon(<ListIcon />),
     children: [
