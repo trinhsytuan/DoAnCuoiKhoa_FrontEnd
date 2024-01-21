@@ -27,7 +27,7 @@ export const actionTypes = {
 const initialAuthState = {
   permissions: {},
   myInfo: {},
-  chuyenMuc: {},
+  chuyenMuc: [],
 };
 
 export const reducer = (state = initialAuthState, action) => {

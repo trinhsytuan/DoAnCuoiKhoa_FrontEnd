@@ -10,9 +10,9 @@ import { checkPermission } from '@app/rbac/checkPermission';
 
 import '@src/app/common/prototype';
 
-function Routes({ token, myInfo, ...props }) {
+function Routes({ token, myInfo,chuyenMuc, ...props }) {
 
-  const CONSTANTS_ROUTES = ConstantsRoutes();
+  const CONSTANTS_ROUTES = ConstantsRoutes(chuyenMuc);
 
   useEffect(() => {
     
@@ -65,8 +65,8 @@ function Routes({ token, myInfo, ...props }) {
 
 function mapStateToProps(store) {
   const { token } = store.app;
-  const { myInfo } = store.user;
-  return { token, myInfo };
+  const { myInfo, chuyenMuc } = store.user;
+  return { token, myInfo, chuyenMuc };
 }
 
 export default (connect(mapStateToProps)(withRouter(Routes)));

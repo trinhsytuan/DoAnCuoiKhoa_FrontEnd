@@ -16,13 +16,14 @@ function CustomMenu({
   isBroken,
   myInfo,
   locationPathCode,
+  chuyenMuc,
   ...props
 }) {
   const keyRef = useRef([]);
   const [openKeys, setOpenKeys] = useState([]);
   const [pathnameFormat, setPathnameFormat] = useState(null);
 
-  const CONSTANTS_ROUTES = ConstantsRoutes();
+  const CONSTANTS_ROUTES = ConstantsRoutes(chuyenMuc);
 
   useEffect(() => {
     if (siderCollapsed) {
@@ -193,8 +194,8 @@ function CustomMenu({
 
 function mapStateToProps(store) {
   const { siderCollapsed, isBroken, locationPathCode } = store.app;
-  const { myInfo } = store.user;
-  return { siderCollapsed, isBroken, locationPathCode, myInfo };
+  const { myInfo, chuyenMuc } = store.user;
+  return { siderCollapsed, isBroken, locationPathCode, myInfo, chuyenMuc };
 }
 
 export default connect(mapStateToProps, app.actions)(CustomMenu);

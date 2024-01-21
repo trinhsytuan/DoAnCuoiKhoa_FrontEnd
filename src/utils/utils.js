@@ -14,9 +14,9 @@ export function setupAxios(axios, store) {
     dispatch(app.actions.clearToken());
     throw new axios.Cancel(CONSTANTS.CANCEL);
   }
-
   axios.interceptors.request.use(
     config => {
+      
       if (!config.hasOwnProperty('loading')) {
         config.loading = true;
       }

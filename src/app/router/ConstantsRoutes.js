@@ -11,6 +11,7 @@ import { create } from "@app/rbac/permissionHelper";
 import resources from "@app/rbac/resources";
 import actions from "@app/rbac/actions";
 import { connect, useSelector } from "react-redux";
+import { cloneObj } from "@app/common/dataConverter";
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));
@@ -73,8 +74,7 @@ export function GetRouterByCategory() {
     },
   ];
 }
-export const ADMIN_ROUTES = [
-  // { isRedirect: true, from: '/', to: URL.MENU.DASHBOARD },
+export const TRANG_CHU = [
   {
     path: URL.MENU.DASHBOARD,
     menuName: "Trang chủ",
@@ -82,27 +82,8 @@ export const ADMIN_ROUTES = [
     icon: renderIcon(<HomeIcon />),
     permission: [],
   },
-  {
-    key: URL.MENU.CHUYEN_MUC,
-    menuName: "Quản lý file",
-    icon: renderIcon(<UserIcon />),
-    children: GetRouterByCategory(),
-    permission: [],
-  },
-  {
-    key: URL.MENU.CHUYEN_MUC,
-    menuName: "Danh mục",
-    icon: renderIcon(<ListIcon />),
-    children: [
-      {
-        path: URL.MENU.DON_VI,
-        menuName: "Đơn vị",
-        component: DonVi,
-        permission: [create(resources.DON_VI, actions.READ)],
-      },
-    ],
-  },
-
+];
+export const ADMIN_ROUTES = [
   {
     path: URL.MENU.DU_LIEU_BO_SUNG,
     menuName: "Dữ liệu bổ sung",
@@ -121,7 +102,35 @@ export const ADMIN_ROUTES = [
   // not render in menu
   MY_INFO_ROUTE,
 ];
-
-export function ConstantsRoutes() {
-  return ADMIN_ROUTES;
+export const ADMIN_ROUTES2 = {
+  key: URL.MENU.CHUYEN_MUC.format("trang-chu"),
+  menuName: "Chuyên mục",
+  icon: renderIcon(<ListIcon />),
+  children: [],
+};
+export function ConstantsRoutes(chuyenMuc) {
+  let chuyenMucRouter = chuyenMuc.map((res) => {
+    return {
+      path: URL.MENU.CHUYEN_MUC.format(res._id),
+      menuName: res.name,
+      component: DonVi,
+      permission: [],
+    };
+  });
+  const cm = [
+    {
+      ...ADMIN_ROUTES2,
+      children: [
+        {
+          path: URL.MENU.CHUYEN_MUC.format("trang-chu"),
+          menuName: "Tất cả chuyên mục",
+          component: DonVi,
+          permission: [],
+        },
+        ...chuyenMucRouter,
+      ],
+    },
+  ];
+  const combinedArray = [...TRANG_CHU, ...cm, ...ADMIN_ROUTES];
+  return combinedArray;
 }
