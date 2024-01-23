@@ -41,7 +41,7 @@ function CustomBreadcrumb({
 
   function findPathname(pathname, key, value) {
     let pathReturn = pathname;
-    if (key.includes("_ID") && key.indexOf("_ID") === key.length - 3) {
+    if (key.includes("_ID") && key.includes("PM") && key.indexOf("_ID") === key.length - 3) {
       const valueTemp = value.slice(0, value.length - 3);
       if (pathReturn.includes(valueTemp)) {
         pathReturn = value.format(":id");

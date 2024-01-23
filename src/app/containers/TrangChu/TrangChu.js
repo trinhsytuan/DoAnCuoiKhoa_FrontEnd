@@ -4,7 +4,7 @@ import './TrangChu.scss';
 
 function TrangChu({ isLoading, ...props }) {
 
-  return <div className="homepage">
+  return <div>
 
   </div>;
 }

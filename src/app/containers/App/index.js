@@ -110,7 +110,7 @@ function App({ isLoading, siderCollapsed, token, history, myInfo, ...props }) {
         >
           <CustomBreadcrumb />
           <div id="content">
-            <Content className="site-layout-background">
+            <Content>
               <Switch>
                 <Routes />
               </Switch>

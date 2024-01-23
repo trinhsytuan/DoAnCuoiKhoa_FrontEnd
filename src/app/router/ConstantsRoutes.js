@@ -25,7 +25,7 @@ const KhoiPhucTaiKhoan = lazy(() =>
   import("@containers/User/KhoiPhucTaiKhoan")
 );
 const Role = lazy(() => import("@containers/Role/Role"));
-
+const ChuyenMuc = lazy(() => import("@containers/ChuyenMuc/ChuyenMuc"));
 function renderIcon(icon) {
   return (
     <span role="img" className="main-menu__icon">
@@ -103,7 +103,7 @@ export const ADMIN_ROUTES = [
   MY_INFO_ROUTE,
 ];
 export const ADMIN_ROUTES2 = {
-  key: URL.MENU.CHUYEN_MUC.format("trang-chu"),
+  key: URL.MENU.CHUYEN_MUC_FORMAT,
   menuName: "Chuyên mục",
   icon: renderIcon(<ListIcon />),
   children: [],
@@ -111,9 +111,9 @@ export const ADMIN_ROUTES2 = {
 export function ConstantsRoutes(chuyenMuc) {
   let chuyenMucRouter = chuyenMuc.map((res) => {
     return {
-      path: URL.MENU.CHUYEN_MUC.format(res._id),
+      path: URL.MENU.CHUYEN_MUC_FM.format(res._id),
       menuName: res.name,
-      component: DonVi,
+      component: ChuyenMuc,
       permission: [],
     };
   });
@@ -122,9 +122,9 @@ export function ConstantsRoutes(chuyenMuc) {
       ...ADMIN_ROUTES2,
       children: [
         {
-          path: URL.MENU.CHUYEN_MUC.format("trang-chu"),
+          path: URL.MENU.CHUYEN_MUC_FORMAT,
           menuName: "Tất cả chuyên mục",
-          component: DonVi,
+          component: ChuyenMuc,
           permission: [],
         },
         ...chuyenMucRouter,
