@@ -1,24 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu } from "antd";
+import { connect } from "react-redux";
 
-import { ConstantsRoutes } from '@app/router/ConstantsRoutes';
-import { checkPermission } from '@app/rbac/checkPermission';
-import { checkLoaded, formatUnique } from '@app/common/functionCommons';
+import { ConstantsRoutes } from "@app/router/ConstantsRoutes";
+import { checkPermission } from "@app/rbac/checkPermission";
+import { checkLoaded, formatUnique } from "@app/common/functionCommons";
 
-import * as app from '@app/store/ducks/app.duck';
+import * as app from "@app/store/ducks/app.duck";
 
-import './CustomMenu.scss';
-
-function CustomMenu({
-  siderCollapsed,
-  isBroken,
-  myInfo,
-  locationPathCode,
-  chuyenMuc,
-  ...props
-}) {
+import "./CustomMenu.scss";
+import TSHARELOGO from "@assets/images/logo/logo.png";
+function CustomMenu({ siderCollapsed, isBroken, myInfo, locationPathCode, chuyenMuc, ...props }) {
   const keyRef = useRef([]);
   const [openKeys, setOpenKeys] = useState([]);
   const [pathnameFormat, setPathnameFormat] = useState(null);
@@ -39,11 +32,7 @@ function CustomMenu({
     CONSTANTS_ROUTES.forEach((menu) => {
       if (!menu.hide && menu.menuName && Array.isArray(menu.children)) {
         menu.children.forEach((child) => {
-          if (
-            !child.hide &&
-            pathnameFormat &&
-            [child.key, child.path].includes(pathnameFormat)
-          ) {
+          if (!child.hide && pathnameFormat && [child.key, child.path].includes(pathnameFormat)) {
             keys = formatUnique([...keys, "path" + (menu.key || menu.path)]);
           }
         });
@@ -153,12 +142,10 @@ function CustomMenu({
 
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
-      <div
-        className={`sider-logo ${
-          siderCollapsed && !isBroken ? "collapsed" : ""
-        }`}
-      >
-        <div className="logo"></div>
+      <div className={`sider-logo ${siderCollapsed && !isBroken ? "collapsed" : ""}`}>
+        <div className="logo">
+          <img src={TSHARELOGO} className="logo-tshare" />
+        </div>
 
         {/*<div className="toggle-menu">
         <img src={siderCollapsed ? ARROW_RIGHT : ARROW_LEFT} alt="" onClick={props.toggleCollapsed}/>
@@ -174,12 +161,7 @@ function CustomMenu({
             if (!siderCollapsed)
               return (
                 <div className="expand-icon">
-                  <i
-                    className={`fa fa-chevron-right ${
-                      isOpen ? "fa-rotate-90" : ""
-                    }`}
-                    aria-hidden="true"
-                  />
+                  <i className={`fa fa-chevron-right ${isOpen ? "fa-rotate-90" : ""}`} aria-hidden="true" />
                 </div>
               );
             return null;

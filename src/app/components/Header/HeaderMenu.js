@@ -38,11 +38,13 @@ function HeaderMenu({ token, history, myInfo, isBroken, siderCollapsed, ...props
       <span className="toggle-menu">
         <img src={siderCollapsed ? ARROW_RIGHT : ARROW_LEFT} alt="" onClick={toggleCollapsed}/>
       </span>
+      
       <span className="toggle-drawer-menu">
         <img src={ARROW_RIGHT} alt="" onClick={toggleCollapsed}/>
       </span>
 
       <div className="header-action" style={{ width: 'unset' }}>
+        
         <Dropdown overlay={menu} trigger={['click']} placement="bottomRight" arrow>
           <div className="my-info-container">
             <div className="my-info__avatar">
