@@ -84,20 +84,7 @@ export const TRANG_CHU = [
   },
 ];
 export const ADMIN_ROUTES = [
-  {
-    path: URL.MENU.DU_LIEU_BO_SUNG,
-    menuName: "Dữ liệu bổ sung",
-    component: DuLieuBoSung,
-    permission: [create(resources.EXTRA_DATA, actions.READ)],
-    icon: renderIcon(<SettingIcon />),
-  },
-  {
-    path: URL.MENU.SETTING,
-    menuName: "Cài đặt hệ thống",
-    component: Setting,
-    permission: [],
-    icon: renderIcon(<SettingIcon />),
-  },
+  //Dien router vao day neu co menu
 
   // not render in menu
   MY_INFO_ROUTE,
