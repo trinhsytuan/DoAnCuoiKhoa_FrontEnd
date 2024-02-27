@@ -22,7 +22,8 @@ $grid-breakpoints: (
 @import "./scroll";
 @import "./map";
 
-body, html {
+body,
+html {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -32,11 +33,17 @@ body, html {
 //  transition: all .3s !important;
 //}
 
-#root, #root > section {
+#root,
+#root>section {
   height: 100%;
 }
 
-audio, canvas, iframe, img, svg, video {
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
   vertical-align: unset;
 }
 
@@ -54,11 +61,13 @@ button:focus {
   height: 100%;
 }
 
-.cursor-default, .cursor-default * {
+.cursor-default,
+.cursor-default * {
   cursor: default !important;
 }
 
-.cursor-pointer, .cursor-pointer * {
+.cursor-pointer,
+.cursor-pointer * {
   cursor: pointer !important;
 }
 
@@ -92,7 +101,7 @@ button:focus {
 }
 
 .table-no-border {
-  .ant-table.ant-table-bordered > .ant-table-container {
+  .ant-table.ant-table-bordered>.ant-table-container {
     border: 0;
 
     .ant-table-cell {
@@ -109,7 +118,7 @@ button:focus {
       border-bottom: 0;
     }
 
-    .ant-table-tbody > tr.ant-table-row > td {
+    .ant-table-tbody>tr.ant-table-row>td {
       background: #fafafa;
     }
   }
@@ -135,20 +144,26 @@ button:focus {
   background-color: #faad14;
 }
 
-.toast-error, .toast-success, .toast-info, .toast-warning {
+.toast-error,
+.toast-success,
+.toast-info,
+.toast-warning {
   padding: 16px;
 
   .ant-notification-notice-message {
     margin-bottom: 0;
 
-    &:before, &:after {
+    &:before,
+    &:after {
       display: table;
       clear: both;
       content: '';
     }
   }
 
-  .ant-notification-notice-message, .ant-notification-notice-description, svg {
+  .ant-notification-notice-message,
+  .ant-notification-notice-description,
+  svg {
     color: #fff;
   }
 }
@@ -170,7 +185,9 @@ button:focus {
 }
 
 .nodata-small .ant-table-placeholder {
-  .ant-table-cell, .ant-table-cell > .ant-table-expanded-row-fixed {
+
+  .ant-table-cell,
+  .ant-table-cell>.ant-table-expanded-row-fixed {
     padding: 0 !important;
 
     .ant-empty {
@@ -184,7 +201,7 @@ button:focus {
 }
 
 .highlight,
-.highlight > .ant-select-selector,
+.highlight>.ant-select-selector,
 .highlight .ant-input-number-input {
   background-color: #ffd54f !important;
 }
@@ -193,16 +210,21 @@ button:focus {
   width: 100%;
 }
 
-.ant-col.ant-form-item-label.ant-form-item-label-left > label {
+.ant-col.ant-form-item-label.ant-form-item-label-left>label {
   //width: 150px;
 }
 
 .unselected {
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer */
-  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
-  -webkit-user-select: none; /* Chrome, Safari, and Opera */
-  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer */
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/
 }
 
 .ant-form.ant-form-horizontal {
@@ -211,13 +233,13 @@ button:focus {
       margin-bottom: 1rem !important;
     }
 
-    .ant-card-body > .ant-row > .ant-col:last-child > .ant-row.ant-form-item {
+    .ant-card-body>.ant-row>.ant-col:last-child>.ant-row.ant-form-item {
       //margin-bottom: 0;
     }
   }
 }
 
-.ant-form-item-label > label {
+.ant-form-item-label>label {
   &.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
     content: '';
     margin: 0;
@@ -225,8 +247,20 @@ button:focus {
 }
 
 
-$radioColors: ('assign': #fa541c, 'accept': #1890ff, 'reject': #FA8C16, 'normal': #13c2c2, 'weird': #fa8c16);
-$radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'normal': #13c2c2, 'weird': #fa8c16);
+$radioColors: (
+  'assign': #fa541c,
+  'accept': #1890ff,
+  'reject': #FA8C16,
+  'normal': #13c2c2,
+  'weird': #fa8c16
+);
+$radioColorsHover: (
+  'assign': #FA8D6F,
+  'accept': #6DBDFF,
+  'reject': #FCB06A,
+  'normal': #13c2c2,
+  'weird': #fa8c16
+);
 
 .ant-radio-group-solid {
 
@@ -296,8 +330,8 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
   margin: -1rem;
   background-color: #f0f2f5;
 
-  > .ant-card:not(:last-child),
-  > .ant-form:not(:last-child) {
+  >.ant-card:not(:last-child),
+  >.ant-form:not(:last-child) {
     margin-bottom: 1rem !important;
   }
 }
@@ -310,7 +344,8 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
       border: 0;
     }
 
-    .ant-modal-header, .ant-modal-close {
+    .ant-modal-header,
+    .ant-modal-close {
       display: none;
     }
 
@@ -344,7 +379,7 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
 }
 
 .table-editable {
-  .ant-table-cell:not(:hover) > .ant-form-item > .ant-form-item-control {
+  .ant-table-cell:not(:hover)>.ant-form-item>.ant-form-item-control {
     .ant-input:not(:hover):not(:focus) {
       border-color: transparent;
     }
@@ -362,7 +397,7 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
   .ant-table-expanded-row.ant-table-expanded-row-level-1 {
     background-color: transparent;
 
-    > .ant-table-cell {
+    >.ant-table-cell {
       width: 100%;
       padding: 0;
       border-width: 0 !important;
@@ -377,7 +412,7 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
     }
   }
 
-  .ant-table-tbody > tr.ant-table-row:hover > td {
+  .ant-table-tbody>tr.ant-table-row:hover>td {
     background: transparent;
   }
 }
@@ -427,7 +462,7 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
     height: 28px;
     display: flex;
 
-    > img {
+    >img {
       margin: auto;
     }
   }
@@ -464,7 +499,8 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
       color: inherit;
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: #FF00FF;
       border-color: #FF00FF;
       background: #fff;
@@ -558,6 +594,7 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
   .pull-xxl-left {
     float: left;
   }
+
   .pull-xxl-right {
     float: right;
   }
@@ -567,7 +604,27 @@ $radioColorsHover: ('assign': #FA8D6F, 'accept': #6DBDFF, 'reject': #FCB06A, 'no
   .pull-xl-left {
     float: left;
   }
+
   .pull-xl-right {
     float: right;
   }
+}
+
+.grid-4 {
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-2 {
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-6 {
+
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid {
+  display: grid;
 }

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { convertParam, renderMessageError } from '@app/common/functionCommons';
-import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
-import { API } from '@api';
-
+import axios from "axios";
+import { convertParam, renderMessageError } from "@app/common/functionCommons";
+import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from "@app/common/dataConverter";
+import { API } from "@api";
+import queryString from "query-string";
 export function createBase(api, data, loading = true) {
   const config = { loading };
   return axios
@@ -54,6 +54,23 @@ export function getAllBase(api, query, loading = true) {
     .catch(() => {
       return null;
     });
+}
+export function getParamsBase(api, queryObject, loading = true) {
+  const config = { loading };
+  let params = convertParam(queryObject);
+  return axios
+    .get(`${api.format(params)}`, config)
+    .then((response) => {
+      if (response.status === 200) return convertSnakeCaseToCamelCase(response?.data);
+      return null;
+    })
+    .catch(() => {
+      return null;
+    });
+}
+function convertParams2(object) {
+  const paramsString = queryString.stringify(object);
+  return paramsString;
 }
 
 export function getAllPaginationBase(api, currentPage = 1, totalDocs = 0, query, loading = true) {
@@ -185,7 +202,6 @@ export function getByIdBaseNotToast(api, id, loading = true) {
       return null;
     })
     .catch((err) => {
-      
       return null;
     });
 }
@@ -345,5 +361,3 @@ export function deleteImage(data) {
   }
   axios.all(arrFile);
 }
-
-

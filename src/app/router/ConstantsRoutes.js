@@ -1,10 +1,5 @@
 import React, { lazy, useEffect, useState } from "react";
-import {
-  HomeIcon,
-  ListIcon,
-  SettingIcon,
-  UserIcon,
-} from "@app/components/Icons";
+import { HomeIcon, ListIcon, SettingIcon, UserIcon } from "@app/components/Icons";
 
 import { URL } from "@url";
 import { create } from "@app/rbac/permissionHelper";
@@ -16,27 +11,17 @@ import { cloneObj } from "@app/common/dataConverter";
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));
 const Setting = lazy(() => import("@containers/Setting/Setting"));
-const DuLieuBoSung = lazy(() =>
-  import("@containers/DuLieuBoSung/DuLieuBoSung")
-);
+const DuLieuBoSung = lazy(() => import("@containers/DuLieuBoSung/DuLieuBoSung"));
 const User = lazy(() => import("@containers/User/User"));
 const DonVi = lazy(() => import("@containers/DonVi/DonVi"));
-const KhoiPhucTaiKhoan = lazy(() =>
-  import("@containers/User/KhoiPhucTaiKhoan")
-);
+const KhoiPhucTaiKhoan = lazy(() => import("@containers/User/KhoiPhucTaiKhoan"));
 const Role = lazy(() => import("@containers/Role/Role"));
 const ChuyenMuc = lazy(() => import("@containers/ChuyenMuc/ChuyenMuc"));
 function renderIcon(icon) {
   return (
     <span role="img" className="main-menu__icon">
-      <div
-        className="position-absolute"
-        style={{ top: "50%", transform: "translateY(-50%)" }}
-      >
-        <div
-          className="position-relative"
-          style={{ width: "30px", height: "30px" }}
-        >
+      <div className="position-absolute" style={{ top: "50%", transform: "translateY(-50%)" }}>
+        <div className="position-relative" style={{ width: "30px", height: "30px" }}>
           {icon}
         </div>
       </div>
@@ -111,6 +96,12 @@ export function ConstantsRoutes(chuyenMuc) {
         {
           path: URL.MENU.CHUYEN_MUC_FORMAT,
           menuName: "Tất cả chuyên mục",
+          component: ChuyenMuc,
+          permission: [],
+        },
+        {
+          path: URL.MENU.CHUYEN_MUC_FM.format("share-with-me"),
+          menuName: "Được chia sẻ với tôi",
           component: ChuyenMuc,
           permission: [],
         },
