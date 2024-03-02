@@ -40,7 +40,7 @@ function FileAction({ className }) {
 
   return (
     <Dropdown overlay={menu} trigger={["click"]} className={className}>
-      <Button icon={<img src={MORE_ICON} alt="" />} />
+      <Button icon={<img src={MORE_ICON} alt="" />} type="dashed" />
     </Dropdown>
   );
 }

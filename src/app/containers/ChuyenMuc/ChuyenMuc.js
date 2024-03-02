@@ -10,6 +10,8 @@ import NoData from "@components/NoData/NoData";
 import ICON_FILE from "@assets/images/icon/icon-file.svg";
 import { formatTimeDate } from "@app/common/functionCommons";
 import FileAction from "@components/FileAction/FileAction";
+import { Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 ChuyenMuc.propTypes = {};
 
@@ -31,8 +33,14 @@ function ChuyenMuc({ isLoading, myInfo }) {
       setDataFile(response);
     }
   };
+  const handleUploadFile = async () => {};
   return (
     <div className="chuyen-muc-container">
+      <div className="btn-upload-file-chuyen-muc">
+        <Button type="primary" icon={<UploadOutlined />}>
+          Tải file mới
+        </Button>
+      </div>
       <Loading active={isLoading}>
         {!dataFile ||
           (!dataFile.length && (
@@ -43,7 +51,6 @@ function ChuyenMuc({ isLoading, myInfo }) {
         {dataFile && dataFile.length && (
           <div className="file-item-map grid grid-4">
             {dataFile.map((res, index) => {
-              console.log(res);
               return (
                 <div className="file-item" key={index}>
                   <div className="file-item__left">
@@ -54,7 +61,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
                     <span className="file-item__time">{formatTimeDate(res?.createdAt)}</span>
                   </div>
                   <div className="file-item__actions">
-                    <FileAction className={"menu-file-share-actions"} idFile={res?._id}/>
+                    <FileAction className={"menu-file-share-actions"} idFile={res?._id} />
                   </div>
                 </div>
               );
