@@ -3,6 +3,9 @@
   .btn-upload-file-chuyen-muc{
     margin: 10px 0 0 24px;
   }
+  .no-data{
+    margin-top: 16px !important;
+  }
   .file-item {
     background: #fff;
     display: flex;
@@ -30,7 +33,6 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      text-align: justify;
       height: 38px;
     }
 

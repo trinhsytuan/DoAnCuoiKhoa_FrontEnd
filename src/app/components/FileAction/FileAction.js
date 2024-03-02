@@ -7,6 +7,7 @@ import EDIT from "@assets/images/icon/edit.svg";
 import DELETE from "@assets/images/icon/delete.svg";
 import DOWNLOAD from "@assets/images/icon/download.svg";
 import "./FileAction.scss";
+import { EditOutlined } from "@ant-design/icons";
 
 function FileAction({ className }) {
   const handleMoveFile = async () => {};
@@ -22,7 +23,7 @@ function FileAction({ className }) {
       <Menu.Item key="DOWNLOAD" onClick={handleDownload} icon={<img src={DOWNLOAD}/>}>
         Tải về
       </Menu.Item>
-      <Menu.Item key="COPY" onClick={handleMoveFile} icon={<img src={MOVE}/>}>
+      <Menu.Item key="COPY" onClick={handleMoveFile} icon={<EditOutlined/>}>
         Đổi chuyên mục
       </Menu.Item>
       <Menu.Item key="SHARE" onClick={handleShareFile} icon={<img src={SHARE}/>}>

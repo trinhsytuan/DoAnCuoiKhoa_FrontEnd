@@ -580,5 +580,6 @@ export const API = {
   GET_ALL_CATEGORY: "/api/category/details",
   UPDATE_CATEGORY: "/api/category/update/{0}",
   DELETE_CATEGORY: "/api/category/delete/{0}",
-  GET_ALL_FILE: "/api/file/getAll{0}"
+  GET_ALL_FILE: "/api/file/getAll{0}",
+  UPLOAD_FILE: "/api/file/upload"
 };
