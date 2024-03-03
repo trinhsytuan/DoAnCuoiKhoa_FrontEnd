@@ -35,12 +35,14 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
   };
   const handleDownload = async () => {
     const fileData = await downloadFile(infoFile?._id);
-    const url = window.URL.createObjectURL(new Blob([fileData]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", infoFile?.originalFilename);
-    document.body.appendChild(link);
-    link.click();
+    if (fileData) {
+      const url = window.URL.createObjectURL(new Blob([fileData]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", infoFile?.originalFilename);
+      document.body.appendChild(link);
+      link.click();
+    }
   };
   const handleActionDelete = async () => {
     const response = await deleteFile(infoFile?._id);
