@@ -20,7 +20,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
     share: null,
     category: null,
   });
-  
+
   const [dataFile, setDataFile] = useState([]);
   const [fileNameSearch, setFilenameSearch] = useState(null);
   useEffect(() => {
@@ -59,7 +59,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
       });
       onSuccess();
       toast(CONSTANTS.SUCCESS, "File đã được tải lên thành công");
-      setDataFile([response.data, ...dataFile])
+      setDataFile([response.data, ...dataFile]);
     } catch (error) {
       toast(CONSTANTS.ERROR, "File tải lên có lỗi");
       onError(error);
@@ -80,7 +80,13 @@ function ChuyenMuc({ isLoading, myInfo }) {
         {!dataFile ||
           (!dataFile.length && (
             <BaseContent className={"no-data"}>
-              <NoData text={"Chưa có file nào trong mục này, hãy tải file của bạn lên"} />
+              <NoData
+                text={
+                  !filter?.share
+                    ? "Chưa có file nào trong mục này, hãy tải file của bạn lên"
+                    : "Bạn chưa có file được chia sẻ"
+                }
+              />
             </BaseContent>
           ))}
         {!!dataFile.length && (
@@ -94,9 +100,10 @@ function ChuyenMuc({ isLoading, myInfo }) {
                   <div className="file-item__right">
                     <span className="file-item__fileName">{res?.originalFilename}</span>
                     <span className="file-item__time">{formatTimeDate(res?.createdAt)}</span>
+                    <span className="file-item__access">{res?.userOwn != myInfo?._id && "Được chia sẻ với bạn"}</span>
                   </div>
                   <div className="file-item__actions">
-                    <FileAction className={"menu-file-share-actions"} idFile={res?._id} userOwn={res?.userOwn} />
+                    <FileAction className={"menu-file-share-actions"} infoFile={res} getAPI={getAPI} />
                   </div>
                 </div>
               );

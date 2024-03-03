@@ -1,8 +1,9 @@
 import axios from "axios";
-import { convertParam, renderMessageError } from "@app/common/functionCommons";
+import { convertParam, renderMessageError, toast } from "@app/common/functionCommons";
 import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from "@app/common/dataConverter";
 import { API } from "@api";
 import queryString from "query-string";
+import { CONSTANTS } from "@constants";
 export function createBase(api, data, loading = true) {
   const config = { loading };
   return axios
@@ -193,6 +194,19 @@ export function getByIdBase(api, id, loading = true) {
       return null;
     });
 }
+export function downloadFileBase(api, id, loading = true) {
+  const config = { loading };
+  return axios
+    .get(api.format(id), { ...config, responseType: "blob" })
+    .then((response) => {
+      if (response.status === 200) return response?.data;
+      return null;
+    })
+    .catch((err) => {
+      toast(CONSTANTS.ERROR, "Đã có lỗi xảy ra hoặc bạn không có quyền giải mã");
+      return null;
+    });
+}
 export function getByIdBaseNotToast(api, id, loading = true) {
   const config = { loading };
   return axios
@@ -272,7 +286,19 @@ export function updateBaseFormatID(api, id, data, loading = true) {
       return null;
     });
 }
-
+export function updateBaseFormatIDNotConvert(api, id, data, loading = true) {
+  const config = { loading };
+  return axios
+    .put(api.format(id), data, config)
+    .then((response) => {
+      if (response.status === 200) return convertSnakeCaseToCamelCase(response?.data);
+      return null;
+    })
+    .catch((err) => {
+      renderMessageError(err);
+      return null;
+    });
+}
 export function deleteByIdBase(api, id, loading = true) {
   const config = { loading };
   return axios

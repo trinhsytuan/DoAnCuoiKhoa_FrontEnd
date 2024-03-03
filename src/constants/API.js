@@ -581,5 +581,8 @@ export const API = {
   UPDATE_CATEGORY: "/api/category/update/{0}",
   DELETE_CATEGORY: "/api/category/delete/{0}",
   GET_ALL_FILE: "/api/file/getAll{0}",
-  UPLOAD_FILE: "/api/file/upload"
+  UPLOAD_FILE: "/api/file/upload",
+  DOWNLOAD_FILE: "/api/file/download/{0}",
+  DELETE_FILE: "/api/file/deleteFile/{0}",
+  EDIT_FILE: "/api/file/update/{0}",
 };

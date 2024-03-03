@@ -9,11 +9,13 @@ DialogDeleteConfim.propTypes = {
   visible: PropTypes.bool,
   onCancel: PropTypes.func,
   onOK: PropTypes.func,
+  text: PropTypes.string,
 };
 DialogDeleteConfim.defaultProps = {
   visible: false,
+  text: CONSTANT_MESSAGE.REMOVE
 };
-function DialogDeleteConfim({ visible, onCancel, onOK }) {
+function DialogDeleteConfim({ visible, onCancel, onOK, text }) {
   return (
     <div className="delete-confim-container">
       <Modal visible={visible} onCancel={onCancel} footer={null}>
@@ -25,7 +27,7 @@ function DialogDeleteConfim({ visible, onCancel, onOK }) {
             <span>Xác nhận xoá</span>
           </div>
           <div className="delete-confim-body">
-            <span>{CONSTANT_MESSAGE.REMOVE}</span>
+            <span>{text}</span>
           </div>
           <div className="delete-confim-btn">
             <Button className="delete-confim-btnConfim" onClick={onOK}>
