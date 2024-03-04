@@ -1,19 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./ChuyenMuc.scss";
-import BaseContent from "@components/BaseContent";
-import Loading from "@components/Loading";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { getFile } from "@app/services/FileControl";
-import NoData from "@components/NoData/NoData";
-import ICON_FILE from "@assets/images/icon/icon-file.svg";
-import { convertFileName, formatTimeDate, toast } from "@app/common/functionCommons";
-import FileAction from "@components/FileAction/FileAction";
-import { Button, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { API } from "@api";
-import axios from "axios";
-import { CONSTANTS } from "@constants";
+import React, { useEffect, useState } from 'react';
+import './ChuyenMuc.scss';
+import BaseContent from '@components/BaseContent';
+import Loading from '@components/Loading';
+import { connect } from 'react-redux';
+import { getFile } from '@app/services/FileControl';
+import NoData from '@components/NoData/NoData';
+import ICON_FILE from '@assets/images/icon/icon-file.svg';
+import { convertFileName, formatTimeDate, toast } from '@app/common/functionCommons';
+import FileAction from '@components/FileAction/FileAction';
+import { Button, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { API } from '@api';
+import axios from 'axios';
+import { CONSTANTS } from '@constants';
 
 function ChuyenMuc({ isLoading, myInfo }) {
   const [filter, setFilter] = useState({

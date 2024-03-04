@@ -1,8 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./TrangChu.scss";
-import BaseContent from "@components/BaseContent";
-import TLOGO from "@assets/images/logo/tshare-bgg.png";
+import React from 'react';
+import { connect } from 'react-redux';
+import './TrangChu.scss';
+import BaseContent from '@components/BaseContent';
+import TLOGO from '@assets/images/logo/tshare-bgg.png';
+
 function TrangChu({ isLoading, myInfo, ...props }) {
   return (
     <BaseContent>

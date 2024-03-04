@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { Button, Form, Input, Modal } from "antd";
-import './DialogRename.scss'
-import { updateFile } from "@app/services/FileControl";
-import { toast } from "@app/common/functionCommons";
-import { CONSTANTS } from "@constants";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Button, Form, Input, Modal } from 'antd';
+import './DialogRename.scss';
+import { updateFile } from '@app/services/FileControl';
+import { toast } from '@app/common/functionCommons';
+import { CONSTANTS } from '@constants';
+
 DialogRename.propTypes = {
   visible: PropTypes.bool,
   onCancel: PropTypes.func,

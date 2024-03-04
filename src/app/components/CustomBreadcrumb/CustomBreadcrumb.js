@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Breadcrumb } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
-import { ConstantsRoutes } from "@app/router/ConstantsRoutes";
-import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { Breadcrumb } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { ConstantsRoutes } from '@app/router/ConstantsRoutes';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { URL } from "@url";
-import { cloneObj } from "@app/common/functionCommons";
+import { URL } from '@url';
+import { cloneObj } from '@app/common/functionCommons';
 
-import * as app from "@app/store/ducks/app.duck";
+import * as app from '@app/store/ducks/app.duck';
 
 function CustomBreadcrumb({
   locationPathCode,

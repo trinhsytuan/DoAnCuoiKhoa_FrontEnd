@@ -1,9 +1,10 @@
-import axios from "axios";
-import { convertParam, renderMessageError, toast } from "@app/common/functionCommons";
-import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from "@app/common/dataConverter";
-import { API } from "@api";
-import queryString from "query-string";
-import { CONSTANTS } from "@constants";
+import axios from 'axios';
+import { convertParam, renderMessageError, toast } from '@app/common/functionCommons';
+import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
+import { API } from '@api';
+import queryString from 'query-string';
+import { CONSTANTS } from '@constants';
+
 export function createBase(api, data, loading = true) {
   const config = { loading };
   return axios

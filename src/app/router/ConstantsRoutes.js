@@ -1,12 +1,10 @@
-import React, { lazy, useEffect, useState } from "react";
-import { HomeIcon, ListIcon, SettingIcon, UserIcon } from "@app/components/Icons";
+import React, { lazy } from 'react';
+import { HomeIcon, ListIcon } from '@app/components/Icons';
 
-import { URL } from "@url";
-import { create } from "@app/rbac/permissionHelper";
-import resources from "@app/rbac/resources";
-import actions from "@app/rbac/actions";
-import { connect, useSelector } from "react-redux";
-import { cloneObj } from "@app/common/dataConverter";
+import { URL } from '@url';
+import { create } from '@app/rbac/permissionHelper';
+import resources from '@app/rbac/resources';
+import actions from '@app/rbac/actions';
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));

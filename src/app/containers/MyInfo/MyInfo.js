@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined, SaveFilled } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Button, Col, Form, Input, Modal, Row, Table, Tabs } from 'antd';
+import { DeleteOutlined, EditOutlined, PlusOutlined, SaveFilled } from '@ant-design/icons';
 
-import CustomSkeleton from "@components/CustomSkeleton";
-import DropzoneImage from "@components/DropzoneImage";
-import "./MyInfo.scss";
-import { CONSTANTS, LOAI_TAI_KHOAN, RULES, VI_ROLE_SYSTEM } from "@constants";
-import { cloneObj, formatSTT, toast, validateSpaceNull } from "@app/common/functionCommons";
-import { requestChangePassword } from "@app/services/User";
+import CustomSkeleton from '@components/CustomSkeleton';
+import DropzoneImage from '@components/DropzoneImage';
+import './MyInfo.scss';
+import { CONSTANTS, LOAI_TAI_KHOAN, RULES, VI_ROLE_SYSTEM } from '@constants';
+import { cloneObj, formatSTT, toast, validateSpaceNull } from '@app/common/functionCommons';
+import { requestChangePassword } from '@app/services/User';
 
-import * as user from "@app/store/ducks/user.duck";
-import * as app from "@app/store/ducks/app.duck";
-import { createCategory, deleteCategory, getAllCategory, updateCategory } from "@app/services/Category";
-import DialogDeleteConfim from "@components/DialogDeleteConfim/DialogDeleteConfim";
-import BaseContent from "@components/BaseContent";
+import * as user from '@app/store/ducks/user.duck';
+import * as app from '@app/store/ducks/app.duck';
+import { createCategory, deleteCategory, updateCategory } from '@app/services/Category';
+import DialogDeleteConfim from '@components/DialogDeleteConfim/DialogDeleteConfim';
+import BaseContent from '@components/BaseContent';
 
 function MyInfo({ myInfo, isLoading, roleList, requestChuyenMuc, chuyenMuc, ...props }) {
   const [formInfo] = Form.useForm();

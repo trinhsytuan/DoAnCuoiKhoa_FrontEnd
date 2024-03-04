@@ -1,14 +1,5 @@
-import { API } from "@api";
-import {
-  deleteByIdBase,
-  downloadFileBase,
-  getAllBase,
-  getByIdBase,
-  getParamsBase,
-  updateBase,
-  updateBaseFormatID,
-  updateBaseFormatIDNotConvert,
-} from "../Base";
+import { API } from '@api';
+import { deleteByIdBase, downloadFileBase, getParamsBase, updateBaseFormatIDNotConvert } from '../Base';
 
 export const getFile = (category, fileName, share) => {
   return getParamsBase(API.GET_ALL_FILE, { category, fileName, share }, true);

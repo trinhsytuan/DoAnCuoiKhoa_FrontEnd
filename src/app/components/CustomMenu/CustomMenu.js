@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu } from "antd";
-import { connect } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Menu } from 'antd';
+import { connect } from 'react-redux';
 
-import { ConstantsRoutes } from "@app/router/ConstantsRoutes";
-import { checkPermission } from "@app/rbac/checkPermission";
-import { checkLoaded, formatUnique } from "@app/common/functionCommons";
+import { ConstantsRoutes } from '@app/router/ConstantsRoutes';
+import { checkPermission } from '@app/rbac/checkPermission';
+import { checkLoaded, formatUnique } from '@app/common/functionCommons';
 
-import * as app from "@app/store/ducks/app.duck";
+import * as app from '@app/store/ducks/app.duck';
 
-import "./CustomMenu.scss";
-import TSHARELOGO from "@assets/images/logo/logo.png";
+import './CustomMenu.scss';
+import TSHARELOGO from '@assets/images/logo/logo.png';
+
 function CustomMenu({ siderCollapsed, isBroken, myInfo, locationPathCode, chuyenMuc, ...props }) {
   const keyRef = useRef([]);
   const [openKeys, setOpenKeys] = useState([]);

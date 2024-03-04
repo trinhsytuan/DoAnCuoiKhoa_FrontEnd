@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import { Button, Dropdown, Menu } from "antd";
-import MORE_ICON from "@assets/images/icon/more-vertical.svg";
-import MOVE from "@assets/images/icon/move.svg";
-import SHARE from "@assets/images/icon/share.svg";
-import EDIT from "@assets/images/icon/edit.svg";
-import DELETE from "@assets/images/icon/delete.svg";
-import DOWNLOAD from "@assets/images/icon/download.svg";
-import "./FileAction.scss";
-import { EditOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
-import { deleteFile, downloadFile } from "@app/services/FileControl";
-import DialogDeleteConfim from "@components/DialogDeleteConfim/DialogDeleteConfim";
-import { toast } from "@app/common/functionCommons";
-import { CONSTANTS } from "@constants";
-import DialogRename from "@components/DialogRename/DialogRename";
+import React, { useState } from 'react';
+import { Button, Dropdown, Menu } from 'antd';
+import MORE_ICON from '@assets/images/icon/more-vertical.svg';
+import SHARE from '@assets/images/icon/share.svg';
+import EDIT from '@assets/images/icon/edit.svg';
+import DELETE from '@assets/images/icon/delete.svg';
+import DOWNLOAD from '@assets/images/icon/download.svg';
+import './FileAction.scss';
+import { EditOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import { deleteFile, downloadFile } from '@app/services/FileControl';
+import DialogDeleteConfim from '@components/DialogDeleteConfim/DialogDeleteConfim';
+import { toast } from '@app/common/functionCommons';
+import { CONSTANTS } from '@constants';
+import DialogRename from '@components/DialogRename/DialogRename';
 
 function FileAction({ className, infoFile, myInfo, getAPI }) {
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
