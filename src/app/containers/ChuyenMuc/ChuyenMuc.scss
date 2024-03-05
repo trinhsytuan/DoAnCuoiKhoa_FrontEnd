@@ -1,7 +1,22 @@
 .chuyen-muc-container {
   gap: 30px;
+  .input-search{
+    width: 60%;
+    background-color: #ffffff;
+    margin-right: 25px;
+    height: 30px;
+  }
   .btn-upload-file-chuyen-muc{
     margin: 10px 0 0 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .input-flex-end{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+   
   }
   .no-data{
     margin-top: 16px !important;

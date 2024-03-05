@@ -585,4 +585,6 @@ export const API = {
   DOWNLOAD_FILE: "/api/file/download/{0}",
   DELETE_FILE: "/api/file/deleteFile/{0}",
   EDIT_FILE: "/api/file/update/{0}",
+  GET_ALL_USER: "/api/user/getAllUser",
+  SHARE_FILE: "/api/file/shareFile/{0}"
 };

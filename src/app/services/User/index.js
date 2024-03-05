@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { API } from '@api';
 import { renderMessageError } from '@app/common/functionCommons';
-import { createBase, deleteByIdBase, getAllPaginationBase } from '@app/services/Base';
+import { createBase, deleteByIdBase, getAllBase, getAllPaginationBase } from '@app/services/Base';
 import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from '@app/common/dataConverter';
 
 export function login(data) {
@@ -17,9 +17,6 @@ export function login(data) {
     });
 }
 
-export function getAllUser(currentPage = 1, totalDocs = 0, query, loading) {
-  return getAllPaginationBase(API.USERS, currentPage, totalDocs, query, loading);
-}
 
 export function getUserByToken() {
   return axios.get(API.MY_INFO)
@@ -121,4 +118,7 @@ export function requestForgetPassword(data) {
 
 export const signUpServices = (data) => {
   return createBase(API.REGISTER, data);
+}
+export const getAllUser = () => {
+  return getAllBase(API.GET_ALL_USER);
 }

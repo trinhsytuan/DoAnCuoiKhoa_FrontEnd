@@ -1,31 +1,44 @@
-import React, { useState } from 'react';
-import { Button, Dropdown, Menu } from 'antd';
-import MORE_ICON from '@assets/images/icon/more-vertical.svg';
-import SHARE from '@assets/images/icon/share.svg';
-import EDIT from '@assets/images/icon/edit.svg';
-import DELETE from '@assets/images/icon/delete.svg';
-import DOWNLOAD from '@assets/images/icon/download.svg';
-import './FileAction.scss';
-import { EditOutlined } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import { deleteFile, downloadFile } from '@app/services/FileControl';
-import DialogDeleteConfim from '@components/DialogDeleteConfim/DialogDeleteConfim';
-import { toast } from '@app/common/functionCommons';
-import { CONSTANTS } from '@constants';
-import DialogRename from '@components/DialogRename/DialogRename';
+import React, { useState } from "react";
+import { Button, Dropdown, Menu } from "antd";
+import MORE_ICON from "@assets/images/icon/more-vertical.svg";
+import SHARE from "@assets/images/icon/share.svg";
+import EDIT from "@assets/images/icon/edit.svg";
+import DELETE from "@assets/images/icon/delete.svg";
+import DOWNLOAD from "@assets/images/icon/download.svg";
+import "./FileAction.scss";
+import { EditOutlined } from "@ant-design/icons";
+import { connect } from "react-redux";
+import { deleteFile, downloadFile } from "@app/services/FileControl";
+import DialogDeleteConfim from "@components/DialogDeleteConfim/DialogDeleteConfim";
+import { toast } from "@app/common/functionCommons";
+import { CONSTANTS } from "@constants";
+import DialogRename from "@components/DialogRename/DialogRename";
+import DialogChangeCategory from "@components/DialogChangeCategory/DialogChangeCategory";
+import DialogShare from "@components/DialogShare/DialogShare";
 
 function FileAction({ className, infoFile, myInfo, getAPI }) {
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogRename, setOpenDialogRename] = useState(false);
+  const [openDialogChangeCategory, setOpenDialogChangeCategory] = useState(false);
+  const [openDialogShare, setOpenDialogShare] = useState(false);
   const handleOpenCloseDialogConfim = () => {
     setOpenDialogDelete(!openDialogDelete);
   };
   const handleOpenCloseDialogRename = () => {
     setOpenDialogRename(!openDialogRename);
   };
-
-  const handleMoveFile = async () => {};
-  const handleShareFile = async () => {};
+  const handleOpenCloseDialogChangeCategory = () => {
+    setOpenDialogChangeCategory(!openDialogChangeCategory);
+  };
+  const handleChangeDialogShare = () => {
+    setOpenDialogShare(!openDialogShare);
+  };
+  const handleMoveFile = async () => {
+    handleOpenCloseDialogChangeCategory();
+  };
+  const handleShareFile = async () => {
+    handleChangeDialogShare();
+  };
   const handleRenameFile = async () => {
     handleOpenCloseDialogRename();
   };
@@ -93,6 +106,13 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
         onCancel={handleOpenCloseDialogRename}
         getAPI={getAPI}
       />
+      <DialogChangeCategory
+        visible={openDialogChangeCategory}
+        onCancel={handleOpenCloseDialogChangeCategory}
+        data={infoFile}
+        getAPI={getAPI}
+      />
+      <DialogShare visible={openDialogShare} onCancel={handleChangeDialogShare} getAPI={getAPI} dataFile={infoFile} />
     </>
   );
 }

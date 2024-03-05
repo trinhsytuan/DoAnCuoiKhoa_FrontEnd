@@ -13,3 +13,6 @@ export const deleteFile = (idFile) => {
 export const updateFile = (data, idFile) => {
   return updateBaseFormatIDNotConvert(API.EDIT_FILE, idFile, data);
 };
+export const shareFile = (data, idFile) => {
+  return updateBaseFormatIDNotConvert(API.SHARE_FILE, idFile, data);
+}

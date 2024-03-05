@@ -634,3 +634,9 @@ $radioColorsHover: (
   border: 0 !important;
   padding: 0 17px !important;
 }
+.div-actions-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
