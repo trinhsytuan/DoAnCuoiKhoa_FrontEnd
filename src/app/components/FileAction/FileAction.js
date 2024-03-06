@@ -76,6 +76,13 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
   };
   const menu = (
     <Menu>
+      {splitFileExtension() && (
+        <>
+          <Menu.Item key="PREVIEW" onClick={handleShowDialogPreview} icon={<PlayCircleOutlined />}>
+            Xem trước Video
+          </Menu.Item>
+        </>
+      )}
       <Menu.Item key="DOWNLOAD" onClick={handleDownload} icon={<img src={DOWNLOAD} />}>
         Tải về
       </Menu.Item>
@@ -95,13 +102,7 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
           </Menu.Item>
         </>
       )}
-      {splitFileExtension() && (
-        <>
-          <Menu.Item key="PREVIEW" onClick={handleShowDialogPreview} icon={<PlayCircleOutlined />}>
-            Xem trước Video
-          </Menu.Item>
-        </>
-      )}
+      
     </Menu>
   );
 
