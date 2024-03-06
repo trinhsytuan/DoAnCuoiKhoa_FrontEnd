@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { getFile } from "@app/services/FileControl";
 import NoData from "@components/NoData/NoData";
 import ICON_FILE from "@assets/images/icon/icon-file.svg";
+import ICON_VIDEO from "@assets/images/icon/icon-video.svg";
 import { convertFileName, formatTimeDate, toast } from "@app/common/functionCommons";
 import FileAction from "@components/FileAction/FileAction";
 import { Button, Input, Upload } from "antd";
@@ -16,6 +17,7 @@ import { CONSTANTS } from "@constants";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ChuyenMuc({ isLoading, myInfo }) {
+  const videoExtensions = ["mp4", "avi", "mkv", "mov", "wmv"];
   const history = useHistory();
   const [isCheckLoading, setLoading] = useState(false);
   const [fileNameSearch, setFilenameSearch] = useState(null);
@@ -84,13 +86,17 @@ function ChuyenMuc({ isLoading, myInfo }) {
   const onChangeSearch = (e) => {
     setFilenameSearch(e.target.value);
   };
+  const splitFileExtension = (fileName) => {
+    const extension = fileName.split(".").pop().toLowerCase();
+    return videoExtensions.includes(extension);
+  };
   return (
     <div className="chuyen-muc-container">
       <div className={`btn-upload-file-chuyen-muc ${filter?.share && "input-flex-end"}`}>
         {!filter?.share && (
-          <Upload customRequest={customRequest} defaultFileList={[]} showUploadList={{ showProgress: true }}>
+          <Upload customRequest={customRequest} defaultFileList={[]} showUploadList={{ showProgress: true }} accept="video/*">
             <Button icon={<UploadOutlined />} type="primary">
-              Tải file lên
+              Tải Video của bạn
             </Button>
           </Upload>
         )}
@@ -125,7 +131,8 @@ function ChuyenMuc({ isLoading, myInfo }) {
               return (
                 <div className="file-item" key={index}>
                   <div className="file-item__left">
-                    <img src={ICON_FILE} />
+                    {splitFileExtension(res?.originalFilename) ? <img src={ICON_VIDEO} /> : <img src={ICON_FILE}/>}
+                    
                   </div>
                   <div className="file-item__right">
                     <span className="file-item__fileName">{res?.originalFilename}</span>

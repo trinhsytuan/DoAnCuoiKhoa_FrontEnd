@@ -7,11 +7,7 @@ import TLOGO from '@assets/images/logo/tshare-bgg.png';
 function TrangChu({ isLoading, myInfo, ...props }) {
   return (
     <BaseContent>
-      <div className="trang-chu-container">
-        <h1>Hệ thống chia sẻ dữ liệu trực tuyến TShare</h1>
-        <h1>Chào bạn! {myInfo?.username}</h1>
-        <img src={TLOGO} />
-      </div>
+     
     </BaseContent>
   );
 }
