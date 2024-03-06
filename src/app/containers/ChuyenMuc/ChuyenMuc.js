@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ChuyenMuc({ isLoading, myInfo }) {
   const history = useHistory();
+  const [isCheckLoading, setLoading] = useState(false);
   const [fileNameSearch, setFilenameSearch] = useState(null);
   const [filter, setFilter] = useState({
     share: null,
@@ -30,6 +31,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
     }
   }, [window.location, myInfo, location.search]);
   const getAPI = async () => {
+    setLoading(true);
     const queryParams = new URLSearchParams(window.location.search);
     const fileSearch = queryParams.get("filename");
     setFilenameSearch(fileSearch);
@@ -47,6 +49,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
     if (response) {
       setDataFile(response);
     }
+    setLoading(false);
   };
   const customRequest = async ({ file, onSuccess, onError, onProgress }) => {
     try {
@@ -103,7 +106,7 @@ function ChuyenMuc({ isLoading, myInfo }) {
         />
       </div>
 
-      <Loading active={isLoading}>
+      <Loading active={isCheckLoading}>
         {!dataFile ||
           (!dataFile.length && (
             <BaseContent className={"no-data"}>

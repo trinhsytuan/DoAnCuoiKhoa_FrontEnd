@@ -6,7 +6,7 @@ import EDIT from "@assets/images/icon/edit.svg";
 import DELETE from "@assets/images/icon/delete.svg";
 import DOWNLOAD from "@assets/images/icon/download.svg";
 import "./FileAction.scss";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { deleteFile, downloadFile } from "@app/services/FileControl";
 import DialogDeleteConfim from "@components/DialogDeleteConfim/DialogDeleteConfim";
@@ -15,12 +15,18 @@ import { CONSTANTS } from "@constants";
 import DialogRename from "@components/DialogRename/DialogRename";
 import DialogChangeCategory from "@components/DialogChangeCategory/DialogChangeCategory";
 import DialogShare from "@components/DialogShare/DialogShare";
+import DialogPreview from "@components/DialogPreview/DialogPreview";
 
 function FileAction({ className, infoFile, myInfo, getAPI }) {
+  const videoExtensions = ["mp4", "avi", "mkv", "mov", "wmv"];
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogRename, setOpenDialogRename] = useState(false);
   const [openDialogChangeCategory, setOpenDialogChangeCategory] = useState(false);
   const [openDialogShare, setOpenDialogShare] = useState(false);
+  const [isShowDialogPreview, setShowDialogPreview] = useState(false);
+  const handleShowDialogPreview = () => {
+    setShowDialogPreview(!isShowDialogPreview);
+  };
   const handleOpenCloseDialogConfim = () => {
     setOpenDialogDelete(!openDialogDelete);
   };
@@ -64,7 +70,10 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
       handleOpenCloseDialogConfim();
     }
   };
-
+  const splitFileExtension = () => {
+    const extension = infoFile?.originalFilename.split(".").pop().toLowerCase();
+    return videoExtensions.includes(extension);
+  };
   const menu = (
     <Menu>
       <Menu.Item key="DOWNLOAD" onClick={handleDownload} icon={<img src={DOWNLOAD} />}>
@@ -83,6 +92,13 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
           </Menu.Item>
           <Menu.Item key="DELETE" onClick={handleDeleteFile} icon={<img src={DELETE} />}>
             Xoá
+          </Menu.Item>
+        </>
+      )}
+      {splitFileExtension() && (
+        <>
+          <Menu.Item key="PREVIEW" onClick={handleShowDialogPreview} icon={<PlayCircleOutlined />}>
+            Xem trước Video
           </Menu.Item>
         </>
       )}
@@ -113,6 +129,7 @@ function FileAction({ className, infoFile, myInfo, getAPI }) {
         getAPI={getAPI}
       />
       <DialogShare visible={openDialogShare} onCancel={handleChangeDialogShare} getAPI={getAPI} dataFile={infoFile} />
+      <DialogPreview visible={isShowDialogPreview} onCancel={handleShowDialogPreview} infoFile={infoFile} />
     </>
   );
 }
