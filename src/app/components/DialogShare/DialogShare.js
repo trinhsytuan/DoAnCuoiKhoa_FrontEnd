@@ -6,6 +6,8 @@ import { Button, Form, Modal, Select } from "antd";
 import Loading from "@components/Loading";
 import { getAllUser } from "@app/services/User";
 import { shareFile, updateFile } from "@app/services/FileControl";
+import { toast } from "@app/common/functionCommons";
+import { CONSTANTS } from "@constants";
 DialogShare.propTypes = {
   visible: PropTypes.bool,
   onCancel: PropTypes.func,
@@ -33,24 +35,28 @@ function DialogShare({ visible, onCancel, getAPI, dataFile, isLoading }) {
     formShare.resetFields();
     onCancel();
   };
-  const optionsFile = allUser.map((res) => {
-    return {
-      label: res?.username,
-      value: res?._id,
-    };
-  },[dataFile]);
+  const optionsFile = allUser.map(
+    (res) => {
+      return {
+        label: res?.username,
+        value: res?._id,
+      };
+    },
+    [dataFile]
+  );
 
-  const submitForm = async(e) => {
-    const response = await shareFile({listUser: e?.userDecription}, dataFile?._id);
-    if(response) {
+  const submitForm = async (e) => {
+    const response = await shareFile({ listUser: e?.userDecription }, dataFile?._id);
+    if (response) {
       getAPI();
       closeForm();
+      toast(CONSTANTS.SUCCESS, "Bạn đã chia sẻ file thành công")
     }
   };
   return (
     <div>
-      <Loading active={isLoading}>
-        <Modal visible={visible} onCancel={closeForm} footer={null} title="Thay đổi quyền truy cập">
+      <Modal visible={visible} onCancel={closeForm} footer={null} title="Thay đổi quyền truy cập">
+        <Loading active={isLoading}>
           <Form form={formShare} layout="vertical" onFinish={submitForm}>
             <Form.Item label="Vui lòng chọn người mà bạn muốn chia sẻ" name="userDecription">
               <Select
@@ -62,12 +68,16 @@ function DialogShare({ visible, onCancel, getAPI, dataFile, isLoading }) {
               />
             </Form.Item>
             <div className="div-actions-center">
-              <Button className="btn-xoa" onClick={closeForm}>Huỷ</Button>
-              <Button type="primary" htmlType="submit">Lưu</Button>
+              <Button className="btn-xoa" onClick={closeForm}>
+                Huỷ
+              </Button>
+              <Button type="primary" htmlType="submit">
+                Lưu
+              </Button>
             </div>
           </Form>
-        </Modal>
-      </Loading>
+        </Loading>
+      </Modal>
     </div>
   );
 }
