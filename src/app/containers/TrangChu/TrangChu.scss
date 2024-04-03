@@ -1,18 +1,11 @@
-.homepage {
+.home-page-container {
   height: calc(100vh - 122px);
-}
-.trang-chu-container{
+  h1{
+    height: auto;
+  }
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  h1{
-    
-    color: red;
-  }
-  img{
-    width: 30%;
-    height: 30%;
-  }
 }

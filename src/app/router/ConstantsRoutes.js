@@ -1,10 +1,10 @@
-import React, { lazy } from 'react';
-import { HomeIcon, ListIcon } from '@app/components/Icons';
+import React, { lazy } from "react";
+import { HomeIcon, ListIcon, SettingIcon } from "@app/components/Icons";
 
-import { URL } from '@url';
-import { create } from '@app/rbac/permissionHelper';
-import resources from '@app/rbac/resources';
-import actions from '@app/rbac/actions';
+import { URL } from "@url";
+import { create } from "@app/rbac/permissionHelper";
+import resources from "@app/rbac/resources";
+import actions from "@app/rbac/actions";
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));
@@ -15,6 +15,7 @@ const DonVi = lazy(() => import("@containers/DonVi/DonVi"));
 const KhoiPhucTaiKhoan = lazy(() => import("@containers/User/KhoiPhucTaiKhoan"));
 const Role = lazy(() => import("@containers/Role/Role"));
 const ChuyenMuc = lazy(() => import("@containers/ChuyenMuc/ChuyenMuc"));
+const QuanLyNhom = lazy(() => import("@containers/QuanLyNhom/QuanLyNhom"));
 function renderIcon(icon) {
   return (
     <span role="img" className="main-menu__icon">
@@ -78,11 +79,20 @@ export const ADMIN_ROUTES2 = {
   icon: renderIcon(<ListIcon />),
   children: [],
 };
+export const QUAN_LY_NHOM = [
+  {
+    path: URL.MENU.QUAN_LY_NHOM,
+    menuName: "Quản lý nhóm",
+    component: QuanLyNhom,
+    icon: renderIcon(<SettingIcon />),
+    children: [],
+  },
+];
 export function ConstantsRoutes(chuyenMuc) {
   let chuyenMucRouter = chuyenMuc.map((res) => {
     return {
       path: URL.MENU.CHUYEN_MUC_FM.format(res._id),
-      menuName: res.name,
+      menuName: res.nameGroup,
       component: ChuyenMuc,
       permission: [],
     };
@@ -97,16 +107,17 @@ export function ConstantsRoutes(chuyenMuc) {
           component: ChuyenMuc,
           permission: [],
         },
+
+        ...chuyenMucRouter,
         {
           path: URL.MENU.CHUYEN_MUC_FM.format("share-with-me"),
           menuName: "Được chia sẻ với tôi",
           component: ChuyenMuc,
           permission: [],
         },
-        ...chuyenMucRouter,
       ],
     },
   ];
-  const combinedArray = [...TRANG_CHU, ...cm, ...ADMIN_ROUTES];
+  const combinedArray = [...TRANG_CHU, ...cm, ...ADMIN_ROUTES, ...QUAN_LY_NHOM];
   return combinedArray;
 }

@@ -587,5 +587,9 @@ export const API = {
   EDIT_FILE: "/api/file/update/{0}",
   GET_ALL_USER: "/api/user/getAllUser",
   SHARE_FILE: "/api/file/shareFile/{0}",
-  PREVIEW_FILE: "/api/file/playVideo/{0}"
+  PREVIEW_FILE: "/api/file/playVideo/{0}",
+  CREATE_GROUP: "/api/group/create",
+  EDIT_GROUP: "/api/group/update/{0}",
+  GET_ALL_GROUP_JOIN: "/api/group/getAllGroupJoin",
+  LEFT_GROUP: "/api/group/leave/{0}"
 };

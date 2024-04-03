@@ -1,13 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import './TrangChu.scss';
-import BaseContent from '@components/BaseContent';
-import TLOGO from '@assets/images/logo/tshare-bgg.png';
-
+import React from "react";
+import { connect } from "react-redux";
+import "./TrangChu.scss";
+import BaseContent from "@components/BaseContent";
+import TLOGO from "@assets/images/logo/tshare-bgg.png";
+import HOMEPAGECENTER from "@assets/images/logo/homepage-center.svg";
 function TrangChu({ isLoading, myInfo, ...props }) {
   return (
-    <BaseContent>
-     
+    <BaseContent className={"home-page-container"}>
+      <div>
+        <h1>Chào mừng các thầy cô và các bạn đến với TShare</h1>
+        <img src={HOMEPAGECENTER} />
+      </div>
     </BaseContent>
   );
 }

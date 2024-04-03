@@ -13,6 +13,7 @@ import { ACTIONS } from '@app/rbac/commons';
 import { authorizePermission } from '@app/rbac/authorizationHelper';
 import { create } from '@app/rbac/permissionHelper';
 import { getAllCategory } from '@app/services/Category';
+import { getAllGroupJoin } from '@app/services/GroupManager';
 
 export const actionTypes = {
   RequestUser: "User/RequestUser",
@@ -110,8 +111,9 @@ export function* saga() {
     }
   });
   yield takeLatest(actionTypes.RequestChuyenMuc, function* getCM() {
-    const dataChuyenMucMoi = yield getAllCategory();
+    const dataChuyenMucMoi = yield getAllGroupJoin();
     if (dataChuyenMucMoi) {
+      console.log(dataChuyenMucMoi);
       yield put(actions.updateChuyenMuc(dataChuyenMucMoi));
     }
   });

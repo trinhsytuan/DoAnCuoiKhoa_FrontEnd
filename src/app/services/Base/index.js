@@ -18,6 +18,20 @@ export function createBase(api, data, loading = true) {
       return null;
     });
 }
+
+export function createBaseNotConvert(api, data, loading = true) {
+  const config = { loading };
+  return axios
+    .post(`${api}`, data, config)
+    .then((response) => {
+      if (response.status === 200) return convertSnakeCaseToCamelCase(response?.data);
+      return null;
+    })
+    .catch((err) => {
+      renderMessageError(err);
+      return null;
+    });
+}
 export function postBaseNotNotifcation(api, data, loading = true) {
   const config = { loading };
   return axios
