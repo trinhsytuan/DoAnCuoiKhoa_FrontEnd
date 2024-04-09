@@ -17,6 +17,7 @@ export const URL = {
   THONG_TIN_CA_NHAN: '/thong-tin-ca-nhan',
   RESET_PASSWORD: '/reset-password',
   FORGET_PASSWORD: '/forget-password',
+  CREATE_LIVESTREAM: '/create-livestream/{0}',
 
   DOCS_VIEWER: `https://docs.google.com/viewer?url=${window.location.origin}{0}&embedded=true`,
 };

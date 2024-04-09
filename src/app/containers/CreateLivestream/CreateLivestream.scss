@@ -1,0 +1,12 @@
+.create-livestream{
+  .is-confim{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .btn-actions-livestream{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+}

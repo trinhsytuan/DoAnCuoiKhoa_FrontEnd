@@ -5,6 +5,7 @@ import { URL } from "@url";
 import { create } from "@app/rbac/permissionHelper";
 import resources from "@app/rbac/resources";
 import actions from "@app/rbac/actions";
+import CreateLivestream from "@containers/CreateLivestream/CreateLivestream";
 
 const MyInfo = lazy(() => import("@containers/MyInfo/MyInfo"));
 const TrangChu = lazy(() => import("@containers/TrangChu/TrangChu"));
@@ -41,7 +42,7 @@ export function GetRouterByCategory() {
   return [
     {
       path: URL.MENU.USER,
-      menuName: "Danh sách nJJJgười dùng",
+      menuName: "Danh sách người dùng",
       component: User,
       permission: [create(resources.NGUOI_DUNG, actions.READ)],
     },
@@ -57,6 +58,7 @@ export function GetRouterByCategory() {
       component: Role,
       permission: [create(resources.VAI_TRO, actions.READ)],
     },
+    
   ];
 }
 export const TRANG_CHU = [
@@ -65,6 +67,12 @@ export const TRANG_CHU = [
     menuName: "Trang chủ",
     component: TrangChu,
     icon: renderIcon(<HomeIcon />),
+    permission: [],
+  },
+  {
+    path: URL.CREATE_LIVESTREAM.format(":id"),
+    key: "Tạo livestream",
+    component: CreateLivestream,
     permission: [],
   },
 ];

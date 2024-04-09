@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import BaseContent from "@components/BaseContent";
 import "./InfoGroup.scss";
-import { Button, Input, Modal, Upload } from "antd";
+import { Button, Input, Modal, Avatar } from "antd";
 import CustomDivider from "@components/CustomDivider";
 import { VideoCameraAddOutlined } from "@ant-design/icons";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -13,9 +13,14 @@ import { CONSTANTS } from "@constants";
 import UploadImage from "@components/UploadImage/UploadImage";
 import { createPost, uploadImagePost } from "@app/services/Post";
 import UploadFile from "@components/UploadFile/UploadFile";
+import { connect } from "react-redux";
+import USER from '@assets/images/icon/user.svg';
+import { API } from "@api";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { URL } from "@url";
 InfoGroup.propTypes = {};
 
-function InfoGroup(props) {
+function InfoGroup({ myInfo }) {
   const [fileUpload, setFileUpload] = useState([]);
   const [fileRemove, setFileRemove] = useState([]);
   const openDialogPost = (data = {}) => {
@@ -53,28 +58,35 @@ function InfoGroup(props) {
     await uploadImagePost(image, remove, fileUpload, fileRemove, id);
     const responsePost = await createPost(editorContent, id);
     toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã được đăng");
-    setShowModalPost({open: false, data: null});
-    setEditorContent('<p></p>');
+    setShowModalPost({ open: false, data: null });
+    setEditorContent("<p></p>");
     setFileUpload([]);
     setFileRemove([]);
     setImage([]);
     setRemove([]);
   };
-
+  
   return (
     <div>
       <BaseContent className={"info-group-container"}>
-        <div className="filter-search">fsdfds</div>
         <div className="post-group-container">
-          <Input
-            placeholder="Bạn muốn đăng gì không ?"
-            style={{ backgroundColor: "#f5f5f5" }}
-            onClick={openDialogPost}
-          ></Input>
+          <div className="post-group-header">
+            <Avatar src={myInfo?.avatar ? API.PREVIEW_ID.format(myInfo.avatar) : USER} />
+            <Input
+              placeholder="Bạn muốn đăng gì không ?"
+              style={{ backgroundColor: "#f5f5f5" }}
+              onClick={openDialogPost}
+              value={""}
+            ></Input>
+          </div>
           <CustomDivider></CustomDivider>
-          <Button icon={<VideoCameraAddOutlined />} type="primary">
-            Video trực tiếp
-          </Button>
+          <div className="video-tt">
+            <Link to={URL.CREATE_LIVESTREAM.format(id)}>
+            <Button icon={<VideoCameraAddOutlined />} type="primary">
+              Video trực tiếp
+            </Button>
+            </Link>
+          </div>
         </div>
       </BaseContent>
       <Modal
@@ -97,7 +109,7 @@ function InfoGroup(props) {
           <div className="upload-image-container">Tải ảnh lên</div>
           <UploadImage data={image} onChange={pushNewData} onRemove={removeData} remove={remove} type="imageGroup" />
           <div className="tai-file-len">Tải file lên</div>
-          <UploadFile data={fileUpload} onChange={pushNewFileData} onRemove={removeFileData} remove={fileRemove}/>
+          <UploadFile data={fileUpload} onChange={pushNewFileData} onRemove={removeFileData} remove={fileRemove} />
           <div className="btn-dangbai">
             <Button type="primary" onClick={handleCreatePost}>
               Đăng bài
@@ -108,5 +120,8 @@ function InfoGroup(props) {
     </div>
   );
 }
-
-export default InfoGroup;
+function mapStateToProps(store) {
+  const { myInfo } = store.user;
+  return { myInfo };
+}
+export default connect(mapStateToProps)(InfoGroup);
