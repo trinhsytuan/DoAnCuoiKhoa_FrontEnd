@@ -16,6 +16,7 @@ const KhoiPhucTaiKhoan = lazy(() => import("@containers/User/KhoiPhucTaiKhoan"))
 const Role = lazy(() => import("@containers/Role/Role"));
 const ChuyenMuc = lazy(() => import("@containers/ChuyenMuc/ChuyenMuc"));
 const QuanLyNhom = lazy(() => import("@containers/QuanLyNhom/QuanLyNhom"));
+const InfoGroup = lazy(() => import("@containers/InfoGroup/InfoGroup"));
 function renderIcon(icon) {
   return (
     <span role="img" className="main-menu__icon">
@@ -75,7 +76,7 @@ export const ADMIN_ROUTES = [
 ];
 export const ADMIN_ROUTES2 = {
   key: URL.MENU.CHUYEN_MUC_FORMAT,
-  menuName: "Chuyên mục",
+  menuName: "Nhóm",
   icon: renderIcon(<ListIcon />),
   children: [],
 };
@@ -93,7 +94,7 @@ export function ConstantsRoutes(chuyenMuc) {
     return {
       path: URL.MENU.CHUYEN_MUC_FM.format(res._id),
       menuName: res.nameGroup,
-      component: ChuyenMuc,
+      component: InfoGroup,
       permission: [],
     };
   });
@@ -101,20 +102,9 @@ export function ConstantsRoutes(chuyenMuc) {
     {
       ...ADMIN_ROUTES2,
       children: [
-        {
-          path: URL.MENU.CHUYEN_MUC_FORMAT,
-          menuName: "Tất cả chuyên mục",
-          component: ChuyenMuc,
-          permission: [],
-        },
 
         ...chuyenMucRouter,
-        {
-          path: URL.MENU.CHUYEN_MUC_FM.format("share-with-me"),
-          menuName: "Được chia sẻ với tôi",
-          component: ChuyenMuc,
-          permission: [],
-        },
+        
       ],
     },
   ];

@@ -591,5 +591,8 @@ export const API = {
   CREATE_GROUP: "/api/group/create",
   EDIT_GROUP: "/api/group/update/{0}",
   GET_ALL_GROUP_JOIN: "/api/group/getAllGroupJoin",
-  LEFT_GROUP: "/api/group/leave/{0}"
+  LEFT_GROUP: "/api/group/leave/{0}",
+  UPLOAD_IMAGE: "/api/file/uploadImage",
+  REMOVE_IMAGE: "/api/file/removeImage/{0}",
+  POST: "/api/post",
 };

@@ -1,0 +1,43 @@
+.info-group-container {
+  margin: 24px 16px 0px 16px !important;
+
+}
+
+.modal-dangbai {
+  .btn-dangbai {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .upload-image-container {
+    display: flex;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .item-disabled {
+    margin-bottom: 15px;
+  }
+
+  .tai-file-len {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .file-name-outline {
+    background-color: #ddd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .btn-dangbai {
+    .ant-btn-primary {
+      font-weight: bold;
+    }
+  }
+}

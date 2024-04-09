@@ -363,7 +363,7 @@ export function getSimple(api, page, limit, query = "") {
       return null;
     });
 }
-export async function uploadImageArray(data, idForm) {
+export async function uploadImageArray(data, category) {
   let uploadPromises = data
     .filter((image) => image?.newUp === true)
     .map((image) => {
@@ -372,7 +372,7 @@ export async function uploadImageArray(data, idForm) {
       formData.append(
         "jsonData",
         JSON.stringify({
-          idForm,
+          category,
           type: image.type,
         })
       );
@@ -393,11 +393,51 @@ export async function uploadImageArray(data, idForm) {
   }, {});
   return responseData;
 }
+export async function uploadFileArray(data, category) {
+  let uploadPromises = data
+    .filter((image) => image?.newUp === true)
+    .map((image) => {
+      let formData = new FormData();
+      formData.append("file", image.url);
+      formData.append(
+        "jsonData",
+        JSON.stringify({
+          category,
+          fileName: data?.fileName,
+        })
+      );
+
+      return axios.post(API.UPLOAD_FILE, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    });
+
+  const responses = await axios.all(uploadPromises);
+
+  const responseData = responses.reduce((result, response, index) => {
+    if (!response?.data) return;
+    result[index] = response.data;
+    return result;
+  }, {});
+  return responseData;
+}
 export function deleteImage(data) {
   const arrFile = [];
   for (let i = 0; i < data.length; i++) {
-    let fileDelete = data[i].fileName;
-    const itemFile = axios.delete(API.DELETE_IMAGE_FILENAME.format(fileDelete));
+    let fileDelete = data[i]._id;
+    const itemFile = axios.delete(API.REMOVE_IMAGE.format(fileDelete));
+    arrFile.push(itemFile);
+  }
+  axios.all(arrFile);
+}
+
+export function deleteFile(data) {
+  const arrFile = [];
+  for (let i = 0; i < data.length; i++) {
+    let fileDelete = data[i]._id;
+    const itemFile = axios.delete(API.DELETE_FILE.format(fileDelete));
     arrFile.push(itemFile);
   }
   axios.all(arrFile);
