@@ -24,6 +24,7 @@ function UploadFile({ data, onChange, onRemove, remove, disabled, type }) {
     if (selectedFile) {
       onAdd({
         fileName: selectedFile.name,
+        originalFilename: selectedFile.name,
         url: selectedFile,
         type,
         newUp: true,

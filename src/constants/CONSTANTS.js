@@ -755,3 +755,7 @@ export const VI_ROLE_SYSTEM = {
   USER: "Người dùng",
   TEACHER: "Giáo viên",
 };
+export const TYPE_POST = {
+  POST: "post",
+  LIVE: "live"
+}

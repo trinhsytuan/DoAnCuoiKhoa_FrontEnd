@@ -363,7 +363,7 @@ export function getSimple(api, page, limit, query = "") {
       return null;
     });
 }
-export async function uploadImageArray(data, category) {
+export async function uploadImageArray(data, postId) {
   let uploadPromises = data
     .filter((image) => image?.newUp === true)
     .map((image) => {
@@ -372,7 +372,7 @@ export async function uploadImageArray(data, category) {
       formData.append(
         "jsonData",
         JSON.stringify({
-          category,
+          postId,
           type: image.type,
         })
       );
@@ -393,7 +393,7 @@ export async function uploadImageArray(data, category) {
   }, {});
   return responseData;
 }
-export async function uploadFileArray(data, category) {
+export async function uploadFileArray(data, postId, originalFilename) {
   let uploadPromises = data
     .filter((image) => image?.newUp === true)
     .map((image) => {
@@ -402,8 +402,9 @@ export async function uploadFileArray(data, category) {
       formData.append(
         "jsonData",
         JSON.stringify({
-          category,
-          fileName: data?.fileName,
+          postId,
+          originalFilename: image?.originalFilename,
+          fileName: image?.fileName,
         })
       );
 

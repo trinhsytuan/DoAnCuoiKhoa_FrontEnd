@@ -51,3 +51,24 @@
   }
   
 }
+.post-item-category{
+  padding: 0 10px;
+  .post-item-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+  .post-item-header-right{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .post-item-userOwn{
+      font-weight: 600;
+      font-family: inherit;
+    }
+    .post-item-time{
+      color: #828FA2;
+    }
+  }
+}

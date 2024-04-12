@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import BaseContent from "@components/BaseContent";
 import "./InfoGroup.scss";
@@ -8,19 +8,21 @@ import { VideoCameraAddOutlined } from "@ant-design/icons";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { toast } from "@app/common/functionCommons";
-import { CONSTANTS } from "@constants";
+import { formatDateTime, toast } from "@app/common/functionCommons";
+import { CONSTANTS, TYPE_POST } from "@constants";
 import UploadImage from "@components/UploadImage/UploadImage";
-import { createPost, uploadImagePost } from "@app/services/Post";
+import { createPost, getPostByCategory, uploadImagePost } from "@app/services/Post";
 import UploadFile from "@components/UploadFile/UploadFile";
 import { connect } from "react-redux";
-import USER from '@assets/images/icon/user.svg';
+import USER from "@assets/images/icon/user.svg";
 import { API } from "@api";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { URL } from "@url";
+import Loading from "@components/Loading";
+import PostView from "./PostView";
 InfoGroup.propTypes = {};
 
-function InfoGroup({ myInfo }) {
+function InfoGroup({ myInfo, isLoading }) {
   const [fileUpload, setFileUpload] = useState([]);
   const [fileRemove, setFileRemove] = useState([]);
   const openDialogPost = (data = {}) => {
@@ -28,6 +30,8 @@ function InfoGroup({ myInfo }) {
   };
   const [image, setImage] = useState([]);
   const [remove, setRemove] = useState([]);
+  const [allPostCategory, setPostCategory] = useState([]);
+  console.log(allPostCategory);
   const pushNewData = (data) => {
     setImage(data);
   };
@@ -40,6 +44,7 @@ function InfoGroup({ myInfo }) {
   const removeFileData = (data) => {
     setFileRemove([...fileRemove, data]);
   };
+
   const url = window.location.href;
   const urlPath = url.split("/");
   let id = urlPath[urlPath.length - 1];
@@ -47,7 +52,13 @@ function InfoGroup({ myInfo }) {
     open: false,
     data: {},
   });
-
+  useEffect(() => {
+    getPostCategory();
+  }, []);
+  const getPostCategory = async () => {
+    const response = await getPostByCategory(id);
+    if (response) setPostCategory(response);
+  };
   const [editorContent, setEditorContent] = useState();
 
   const handleEditorChange = (event, editor) => {
@@ -55,8 +66,9 @@ function InfoGroup({ myInfo }) {
     setEditorContent(data);
   };
   const handleCreatePost = async () => {
-    await uploadImagePost(image, remove, fileUpload, fileRemove, id);
     const responsePost = await createPost(editorContent, id);
+    await uploadImagePost(image, remove, fileUpload, fileRemove, responsePost?._id);
+    
     toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã được đăng");
     setShowModalPost({ open: false, data: null });
     setEditorContent("<p></p>");
@@ -64,8 +76,9 @@ function InfoGroup({ myInfo }) {
     setFileRemove([]);
     setImage([]);
     setRemove([]);
+    getPostCategory();
   };
-  
+
   return (
     <div>
       <BaseContent className={"info-group-container"}>
@@ -82,13 +95,31 @@ function InfoGroup({ myInfo }) {
           <CustomDivider></CustomDivider>
           <div className="video-tt">
             <Link to={URL.CREATE_LIVESTREAM.format(id)}>
-            <Button icon={<VideoCameraAddOutlined />} type="primary">
-              Video trực tiếp
-            </Button>
+              <Button icon={<VideoCameraAddOutlined />} type="primary">
+                Video trực tiếp
+              </Button>
             </Link>
           </div>
         </div>
+
+        {allPostCategory.map((res, index) => {
+          return (
+            <div className="post-item-category" key={index}>
+              <div className="post-item-header">
+                <div className="post-item-header-left">
+                  <Avatar src={res?.userOwn?.avatar ? API.PREVIEW_ID.format(res?.userOwn?.avatar) : USER}></Avatar>
+                </div>
+                <div className="post-item-header-right">
+                  <span className="post-item-userOwn">{res?.userOwn?.username}</span>
+                  <span className="post-item-time">{formatDateTime(res?.createdAt)}</span>
+                </div>
+              </div>
+              {res?.type == TYPE_POST.POST && (<PostView data={res}/>)}
+            </div>
+          );
+        })}
       </BaseContent>
+      <Loading active={isLoading} />
       <Modal
         visible={showModalPost.open}
         title="Đăng bài"
@@ -122,6 +153,7 @@ function InfoGroup({ myInfo }) {
 }
 function mapStateToProps(store) {
   const { myInfo } = store.user;
-  return { myInfo };
+  const { isLoading } = store.app;
+  return { myInfo, isLoading };
 }
 export default connect(mapStateToProps)(InfoGroup);
