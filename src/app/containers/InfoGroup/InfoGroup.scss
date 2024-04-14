@@ -57,7 +57,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 14px;
+  }
+  .post-item-header-left-left{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
   }
   .post-item-header-right{
     display: flex;

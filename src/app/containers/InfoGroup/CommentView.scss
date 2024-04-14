@@ -4,3 +4,16 @@
   flex-direction: row;
   gap: 20px;
 }
+
+.list-show-comment-item{
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+.show-content-comment{
+  color: black;
+}
+.name-user{
+  font-weight: bold;
+  color: black;
+}

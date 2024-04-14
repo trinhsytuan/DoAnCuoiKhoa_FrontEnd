@@ -1,14 +1,14 @@
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import React from 'react';
-import moment from 'moment';
-import { TreeSelect } from 'antd';
-import { isEqual, isObject, kebabCase, snakeCase, transform } from 'lodash';
-import queryString from 'query-string';
-import * as toastify from 'react-toastify';
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import React from "react";
+import moment from "moment";
+import { TreeSelect } from "antd";
+import { isEqual, isObject, kebabCase, snakeCase, transform } from "lodash";
+import queryString from "query-string";
+import * as toastify from "react-toastify";
 
-import { CONSTANTS, KIEU_DU_LIEU, PAGINATION_CONFIG, TOAST_MESSAGE } from '@constants';
-import { convertObjectToSnakeCase } from './dataConverter';
+import { CONSTANTS, KIEU_DU_LIEU, PAGINATION_CONFIG, TOAST_MESSAGE } from "@constants";
+import { convertObjectToSnakeCase } from "./dataConverter";
 
 export function cloneObj(input = {}) {
   return JSON.parse(JSON.stringify(input));
@@ -253,6 +253,30 @@ export function formatDateTime(dateTime) {
   } catch (e) {
     return null;
   }
+}
+export function formatVuaXong(dataTime) {
+  const now = moment();
+  const timeAgo = moment(dataTime);
+  const diffHours = now.diff(timeAgo, "hours");
+
+  let formattedDateTime;
+  if (diffHours < 24) {
+    if (diffHours === 0) {
+      const diffMinutes = now.diff(timeAgo, "minutes");
+      if (diffMinutes < 2) {
+        formattedDateTime = "Vừa xong";
+      } else if (diffMinutes < 60) {
+        formattedDateTime = `${diffMinutes} phút trước`;
+      }
+    } else if (diffHours === 1) {
+      formattedDateTime = "1 giờ trước";
+    } else {
+      formattedDateTime = `${diffHours} giờ trước`;
+    }
+  } else {
+    formattedDateTime = timeAgo.format("DD/MM/YYYY [lúc] HH:mm"); // Định dạng rõ ràng ngày và thời gian
+  }
+  return formattedDateTime;
 }
 
 export function formatTimeDate(dateTime) {
@@ -537,4 +561,3 @@ export const isUsernameValid = async (_, username) => {
     throw new Error("Tên tài khoản không hợp lệ");
   }
 };
-

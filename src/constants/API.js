@@ -595,7 +595,9 @@ export const API = {
   UPLOAD_IMAGE: "/api/file/uploadImage",
   REMOVE_IMAGE: "/api/file/removeImage/{0}",
   POST: "/api/post",
+  POST_ID: "/api/post/{0}",
   CREATE_LIVESTREAM: "/api/post/getKeyLivestream",
   GET_POST_BY_CATEGORY: "/api/post/getPostByCategory/{0}",
-  COMMENT: "/api/comment"
+  COMMENT: "/api/comment",
+  COMMENT_ID: "/api/comment/{0}"
 };

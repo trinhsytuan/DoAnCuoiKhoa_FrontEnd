@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import BaseContent from "@components/BaseContent";
 import "./InfoGroup.scss";
-import { Button, Input, Modal, Avatar } from "antd";
+import { Button, Input, Modal, Avatar, Menu, Dropdown } from "antd";
 import CustomDivider from "@components/CustomDivider";
-import { VideoCameraAddOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, VideoCameraAddOutlined } from "@ant-design/icons";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { formatDateTime, toast } from "@app/common/functionCommons";
 import { CONSTANTS, TYPE_POST } from "@constants";
 import UploadImage from "@components/UploadImage/UploadImage";
-import { createPost, getPostByCategory, uploadImagePost } from "@app/services/Post";
+import { createPost, editPost, getPostByCategory, uploadImagePost } from "@app/services/Post";
 import UploadFile from "@components/UploadFile/UploadFile";
 import { connect } from "react-redux";
 import USER from "@assets/images/icon/user.svg";
@@ -20,6 +20,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { URL } from "@url";
 import Loading from "@components/Loading";
 import PostView from "./PostView";
+import PostAction from "./PostAction";
+
 InfoGroup.propTypes = {};
 
 function InfoGroup({ myInfo, isLoading }) {
@@ -31,7 +33,6 @@ function InfoGroup({ myInfo, isLoading }) {
   const [image, setImage] = useState([]);
   const [remove, setRemove] = useState([]);
   const [allPostCategory, setPostCategory] = useState([]);
-  console.log(allPostCategory);
   const pushNewData = (data) => {
     setImage(data);
   };
@@ -66,17 +67,44 @@ function InfoGroup({ myInfo, isLoading }) {
     setEditorContent(data);
   };
   const handleCreatePost = async () => {
-    const responsePost = await createPost(editorContent, id);
-    await uploadImagePost(image, remove, fileUpload, fileRemove, responsePost?._id);
-    
-    toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã được đăng");
-    setShowModalPost({ open: false, data: null });
-    setEditorContent("<p></p>");
-    setFileUpload([]);
-    setFileRemove([]);
-    setImage([]);
-    setRemove([]);
-    getPostCategory();
+    if (!showModalPost?.data) {
+      const responsePost = await createPost(editorContent, id);
+      await uploadImagePost(image, remove, fileUpload, fileRemove, responsePost?._id);
+
+      toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã được đăng");
+      setShowModalPost({ open: false, data: null });
+      setEditorContent("<p></p>");
+      setFileUpload([]);
+      setFileRemove([]);
+      setImage([]);
+      setRemove([]);
+      getPostCategory();
+    } else {
+      const responsePost = await editPost(editorContent, showModalPost?.data?._id);
+      await uploadImagePost(image, remove, fileUpload, fileRemove, showModalPost?.data?._id);
+
+      toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã sửa thành công");
+      setShowModalPost({ open: false, data: null });
+      setEditorContent("<p></p>");
+      setFileUpload([]);
+      setFileRemove([]);
+      setImage([]);
+      setRemove([]);
+      getPostCategory();
+    }
+  };
+  const removePost = (id) => {
+    const newPost = allPostCategory.filter((value) => value?._id != id);
+    setPostCategory(newPost);
+  };
+
+  const onEditPost = (data) => {
+    setShowModalPost({ open: true, data: data });
+    setEditorContent(data?.content);
+    const image = data?.attachment.filter((data) => data?.fileType == "image");
+    const FileImage = data?.attachment.filter((data) => data?.fileType == "file");
+    setImage(image);
+    setFileUpload(FileImage);
   };
 
   return (
@@ -106,15 +134,20 @@ function InfoGroup({ myInfo, isLoading }) {
           return (
             <div className="post-item-category" key={index}>
               <div className="post-item-header">
-                <div className="post-item-header-left">
-                  <Avatar src={res?.userOwn?.avatar ? API.PREVIEW_ID.format(res?.userOwn?.avatar) : USER}></Avatar>
+                <div className="post-item-header-left-left">
+                  <div className="post-item-header-left">
+                    <Avatar src={res?.userOwn?.avatar ? API.PREVIEW_ID.format(res?.userOwn?.avatar) : USER}></Avatar>
+                  </div>
+                  <div className="post-item-header-right">
+                    <span className="post-item-userOwn">{res?.userOwn?.username}</span>
+                    <span className="post-item-time">{formatDateTime(res?.createdAt)}</span>
+                  </div>
                 </div>
-                <div className="post-item-header-right">
-                  <span className="post-item-userOwn">{res?.userOwn?.username}</span>
-                  <span className="post-item-time">{formatDateTime(res?.createdAt)}</span>
+                <div className="post-item-header-left-right">
+                  <PostAction data={res} setDataAfterRemove={removePost} onEditPost={onEditPost} />
                 </div>
               </div>
-              {res?.type == TYPE_POST.POST && (<PostView data={res}/>)}
+              {res?.type == TYPE_POST.POST && <PostView data={res} />}
             </div>
           );
         })}
@@ -122,7 +155,7 @@ function InfoGroup({ myInfo, isLoading }) {
       <Loading active={isLoading} />
       <Modal
         visible={showModalPost.open}
-        title="Đăng bài"
+        title={showModalPost?.data ? "Sửa bài viết" : "Đăng bài viết"}
         footer={null}
         width={1000}
         className="modal-dangbai"
@@ -143,7 +176,7 @@ function InfoGroup({ myInfo, isLoading }) {
           <UploadFile data={fileUpload} onChange={pushNewFileData} onRemove={removeFileData} remove={fileRemove} />
           <div className="btn-dangbai">
             <Button type="primary" onClick={handleCreatePost}>
-              Đăng bài
+              {showModalPost?.data ? "Lưu" : "Đăng bài viết"}
             </Button>
           </div>
         </div>

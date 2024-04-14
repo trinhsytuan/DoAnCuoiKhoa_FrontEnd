@@ -8,7 +8,6 @@ import { downloadFile } from "@app/services/FileControl";
 ImageView.propTypes = {};
 
 function ImageView({ data }) {
-  console.log(data);
   const newImageData = useMemo(() => {
     return data.filter((res) => res?.fileType === "image");
   }, [data]);
@@ -47,7 +46,7 @@ function ImageView({ data }) {
           <h4>Tệp tin đính kèm:</h4>
           <div className="file-attactment-image-view">
             {newFileData.map((res, index) => (
-              <Tooltip title="Tải file xuống">
+              <Tooltip title="Tải file xuống" key={index}>
                 <div className="file-item-image-view" onClick={() => handleDownload(res?._id, res?.originalFilename)}>
                   <DownloadOutlined /> {res?.originalFilename}
                 </div>

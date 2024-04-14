@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./CustomImage.scss";
 import { Dropdown, Image, Menu, Modal } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
+import { API } from "@api";
 CustomImage.propTypes = {};
 
 function CustomImage({ data, onRemove, disabled, idIndex }) {
@@ -10,7 +11,7 @@ function CustomImage({ data, onRemove, disabled, idIndex }) {
     if (image instanceof Blob || image instanceof File) {
       return URL.createObjectURL(image);
     } else if (typeof image === "string") {
-      return image;
+      return API.PREVIEW_IMAGE.format(image);
     }
   };
   const [visible, setVisible] = useState(false);
@@ -42,9 +43,9 @@ function CustomImage({ data, onRemove, disabled, idIndex }) {
       </div>
       <div className="border-out">
         <div className="image-in">
-          <Image src={typeUrl(data.url)} width={152} height={140} preview={false} onClick={handlePreview} />
+          <Image src={typeUrl(data.url || data?.fileName)} width={152} height={140} preview={false} onClick={handlePreview} />
           <Modal visible={visible} onCancel={handleClose} footer={null} title={data.fileName} width={800}>
-            <img src={typeUrl(data.url)} alt="Preview" style={{ width: "100%", height: "100%" }} />
+            <img src={typeUrl(data.url || data?.fileName)} alt="Preview" style={{ width: "100%", height: "100%" }} />
           </Modal>
         </div>
         

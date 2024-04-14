@@ -113,7 +113,6 @@ export function* saga() {
   yield takeLatest(actionTypes.RequestChuyenMuc, function* getCM() {
     const dataChuyenMucMoi = yield getAllGroupJoin();
     if (dataChuyenMucMoi) {
-      console.log(dataChuyenMucMoi);
       yield put(actions.updateChuyenMuc(dataChuyenMucMoi));
     }
   });
