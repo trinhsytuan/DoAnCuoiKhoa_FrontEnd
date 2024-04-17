@@ -7,7 +7,7 @@ import MORE_ICON from "@assets/images/icon/more-vertical.svg";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { deletePost } from "@app/services/Post";
 import { toast } from "@app/common/functionCommons";
-import { CONSTANTS } from "@constants";
+import { CONSTANTS, TYPE_POST } from "@constants";
 
 function PostAction({data, setDataAfterRemove, onEditPost}) {
   const onDelete = async() => {
@@ -20,11 +20,13 @@ function PostAction({data, setDataAfterRemove, onEditPost}) {
   const onEdit = () => {
     onEditPost(data);
   }
+  
   const menu = (
     <Menu>
+      {data?.type === TYPE_POST.POST && (
       <Menu.Item key="EDIT" icon={<EditOutlined />} onClick={onEdit}>
         Sửa
-      </Menu.Item>
+      </Menu.Item>)}
       <Menu.Item key="DELETE" icon={<DeleteOutlined />} onClick={onDelete}>
         Xoá
       </Menu.Item>

@@ -13,8 +13,8 @@ function CreateLivestream(props) {
   const history = useHistory();
   const isProd = process.env.NODE_ENV === "production";
   let isUrl = null;
-  if (!isProd) isUrl = "rtmp://localhost:8080";
-  else isUrl = "rtmp://tshare.sytuan.net:3000";
+  if (!isProd) isUrl = "rtmp://localhost:8081/live";
+  else isUrl = "rtmp://tshare.sytuan.net:3000/live";
   const [isCreate, setIsCreate] = useState(false);
   const isCreateLivestream = async() => {
     const response = await servicesCreateLivestream(id);

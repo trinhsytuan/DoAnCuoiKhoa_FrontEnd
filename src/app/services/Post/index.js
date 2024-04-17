@@ -1,10 +1,10 @@
 import { API } from "@api";
 import { createBase, createBaseNotConvert, deleteBase, deleteByIdBase, deleteFile, deleteImage, getByIdBase, updateBaseFormatID, uploadFileArray, uploadImageArray } from "../Base"
 
-export const uploadImagePost = async (dataImage, removeImage, dataFile, removeFile, postId) => {
+export const uploadImagePost = async (dataImage, removeImage, dataFile, removeFile, postId, category) => {
   const response = await uploadImageArray(dataImage, postId);
   deleteImage(removeImage);
-  await uploadFileArray(dataFile, postId);
+  await uploadFileArray(dataFile, postId, category);
   await deleteFile(removeFile);
 }
 export const createPost = async(content,  idGroup) => {

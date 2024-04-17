@@ -21,14 +21,15 @@ import { URL } from "@url";
 import Loading from "@components/Loading";
 import PostView from "./PostView";
 import PostAction from "./PostAction";
+import LivestreamView from "./LivestreamView";
 
 InfoGroup.propTypes = {};
 
 function InfoGroup({ myInfo, isLoading }) {
   const [fileUpload, setFileUpload] = useState([]);
   const [fileRemove, setFileRemove] = useState([]);
-  const openDialogPost = (data = {}) => {
-    setShowModalPost({ open: true, data });
+  const openDialogPost = () => {
+    setShowModalPost({ open: true, data: null });
   };
   const [image, setImage] = useState([]);
   const [remove, setRemove] = useState([]);
@@ -69,7 +70,7 @@ function InfoGroup({ myInfo, isLoading }) {
   const handleCreatePost = async () => {
     if (!showModalPost?.data) {
       const responsePost = await createPost(editorContent, id);
-      await uploadImagePost(image, remove, fileUpload, fileRemove, responsePost?._id);
+      await uploadImagePost(image, remove, fileUpload, fileRemove, responsePost?._id, id);
 
       toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã được đăng");
       setShowModalPost({ open: false, data: null });
@@ -81,7 +82,7 @@ function InfoGroup({ myInfo, isLoading }) {
       getPostCategory();
     } else {
       const responsePost = await editPost(editorContent, showModalPost?.data?._id);
-      await uploadImagePost(image, remove, fileUpload, fileRemove, showModalPost?.data?._id);
+      await uploadImagePost(image, remove, fileUpload, fileRemove, showModalPost?.data?._id, id);
 
       toast(CONSTANTS.SUCCESS, "Bài viết của bạn đã sửa thành công");
       setShowModalPost({ open: false, data: null });
@@ -106,6 +107,7 @@ function InfoGroup({ myInfo, isLoading }) {
     setImage(image);
     setFileUpload(FileImage);
   };
+ 
 
   return (
     <div>
@@ -147,7 +149,7 @@ function InfoGroup({ myInfo, isLoading }) {
                   <PostAction data={res} setDataAfterRemove={removePost} onEditPost={onEditPost} />
                 </div>
               </div>
-              {res?.type == TYPE_POST.POST && <PostView data={res} />}
+              {res?.type == TYPE_POST.POST ? <PostView data={res}/> : <LivestreamView data={res} />}
             </div>
           );
         })}

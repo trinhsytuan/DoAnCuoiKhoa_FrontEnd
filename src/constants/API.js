@@ -599,5 +599,7 @@ export const API = {
   CREATE_LIVESTREAM: "/api/post/getKeyLivestream",
   GET_POST_BY_CATEGORY: "/api/post/getPostByCategory/{0}",
   COMMENT: "/api/comment",
-  COMMENT_ID: "/api/comment/{0}"
+  COMMENT_ID: "/api/comment/{0}",
+  GET_VIDEO_LIVESTREAM: "/api/post/getLivestream/{0}",
+  UPLOAD_IN_POST: "/api/file/upload-in-post"
 };

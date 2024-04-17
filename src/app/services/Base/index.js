@@ -393,7 +393,7 @@ export async function uploadImageArray(data, postId) {
   }, {});
   return responseData;
 }
-export async function uploadFileArray(data, postId, originalFilename) {
+export async function uploadFileArray(data, postId, category) {
   let uploadPromises = data
     .filter((image) => image?.newUp === true)
     .map((image) => {
@@ -403,12 +403,13 @@ export async function uploadFileArray(data, postId, originalFilename) {
         "jsonData",
         JSON.stringify({
           postId,
+          category,
           originalFilename: image?.originalFilename,
           fileName: image?.fileName,
         })
       );
 
-      return axios.post(API.UPLOAD_FILE, formData, {
+      return axios.post(API.UPLOAD_IN_POST, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
