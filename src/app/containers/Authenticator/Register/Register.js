@@ -61,7 +61,7 @@ function Register({ isLoading }) {
 
             >
               <Select.Option value={ROLE_SYSTEM.TEACHER}>Giáo viên</Select.Option>
-              <Select.Option value={ROLE_SYSTEM.USER}>Người dùng</Select.Option>
+              <Select.Option value={ROLE_SYSTEM.USER}>Sinh viên</Select.Option>
             </Select>
           </Form.Item>
 

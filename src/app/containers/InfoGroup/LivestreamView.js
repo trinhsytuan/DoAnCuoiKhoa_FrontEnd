@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import flv from "flv.js";
 import { getVideoLivestream } from "@app/services/liveStream";
 import { API } from "@api";
+import { Divider } from "antd";
+import CommentView from "./CommentView";
 LivestreamView.propTypes = {};
 
 function LivestreamView({ data }) {
@@ -47,6 +49,8 @@ function LivestreamView({ data }) {
   return (
     <div>
       <video ref={videoRef} controls style={{width: '100%', height: '100%', marginTop: '10px'}} />
+      <Divider/>
+      <CommentView data={data}/>
     </div>
   );
 }
