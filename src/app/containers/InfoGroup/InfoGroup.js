@@ -172,10 +172,10 @@ function InfoGroup({ myInfo, isLoading }) {
               style={{ width: "100%" }}
             />
           </div>
-          <div className="upload-image-container">Tải ảnh lên</div>
+          <div className="upload-image-container">Tải video lên</div>
           <UploadImage data={image} onChange={pushNewData} onRemove={removeData} remove={remove} type="imageGroup" />
-          <div className="tai-file-len">Tải file lên</div>
-          <UploadFile data={fileUpload} onChange={pushNewFileData} onRemove={removeFileData} remove={fileRemove} />
+          {/* <div className="tai-file-len">Tải file lên</div>
+          <UploadFile data={fileUpload} onChange={pushNewFileData} onRemove={removeFileData} remove={fileRemove} /> */}
           <div className="btn-dangbai">
             <Button type="primary" onClick={handleCreatePost}>
               {showModalPost?.data ? "Lưu" : "Đăng bài viết"}

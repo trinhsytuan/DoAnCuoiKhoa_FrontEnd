@@ -22,7 +22,7 @@ function UploadImage({ data, onChange, onRemove, remove, disabled, type }) {
   const ImageChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile.type.startsWith("image/")) {
+      if (selectedFile.type.startsWith("video/")) {
         onAdd({
           fileName: selectedFile.name,
           url: selectedFile,
@@ -50,6 +50,7 @@ function UploadImage({ data, onChange, onRemove, remove, disabled, type }) {
     <div className="upload-image-container">
       <div className="image-show">
         {data.map((res, index) => {
+          console.log(res);
           return <CustomImage data={res} key={index} disabled={disabled} onRemove={onRemoveImage} idIndex={index} />;
         })}
       </div>
@@ -58,7 +59,7 @@ function UploadImage({ data, onChange, onRemove, remove, disabled, type }) {
           <img src={IconImage} onClick={handleButtonClick}></img>
         </div>
       )}
-      <input type="file" accept="image/*" onChange={ImageChange} style={{ display: "none" }} ref={fileInputRef} />
+      <input type="file" accept="video/*" onChange={ImageChange} style={{ display: "none" }} ref={fileInputRef} />
     </div>
   );
 }

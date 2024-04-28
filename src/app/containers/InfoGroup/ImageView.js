@@ -30,12 +30,12 @@ function ImageView({ data }) {
     <>
       <div className="image-container">
         <div className={`image-left-container ${newImageData && newImageData?.length == 1 && "image-one"}`}>
-          {newImageData && newImageData[0] && <img src={API.PREVIEW_ID.format(newImageData[0]?.fileName)} />}
+          {newImageData && newImageData[0] && <video controls><source src={API.PREVIEW_ID.format(newImageData[0]?.fileName)} /></video>}
         </div>
         {newImageData.length > 1 && (
           <div className="image-right-container">
             {newImageData.map((res, index) => {
-              if (index >= 1 && index < 4) return <img key={index} src={API.PREVIEW_ID.format(res?.fileName)} />;
+              if (index >= 1 && index < 4) return <video controls><source key={index} src={API.PREVIEW_ID.format(res?.fileName)} /></video>;
             })}
           </div>
         )}

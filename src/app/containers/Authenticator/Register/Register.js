@@ -52,7 +52,7 @@ function Register({ isLoading }) {
           }),]}>
             <Input.Password placeholder="Nhập lại mật khẩu" disabled={isLoading} />
           </Form.Item>
-          <Form.Item label="Vai trò" name="roleUser" rules={[RULES.REQUIRED]}>
+          {/* <Form.Item label="Vai trò" name="roleUser" rules={[RULES.REQUIRED]}>
             <Select
               placeholder="Chọn vai trò người dùng"
               style={{ width: "100%", background: "none" }}
@@ -60,10 +60,10 @@ function Register({ isLoading }) {
 
 
             >
-              <Select.Option value={ROLE_SYSTEM.TEACHER}>Giáo viên</Select.Option>
-              <Select.Option value={ROLE_SYSTEM.USER}>Sinh viên</Select.Option>
+              <Select.Option value={ROLE_SYSTEM.TEACHER}>Người dùng</Select.Option>
+              <Select.Option value={ROLE_SYSTEM.USER}>Người</Select.Option>
             </Select>
-          </Form.Item>
+          </Form.Item> */}
 
           <Row className="pt-2">
             <Button type="primary" htmlType="submit" loading={isLoading}>Đăng ký</Button>

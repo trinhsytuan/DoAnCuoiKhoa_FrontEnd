@@ -43,9 +43,13 @@ function CustomImage({ data, onRemove, disabled, idIndex }) {
       </div>
       <div className="border-out">
         <div className="image-in">
-          <Image src={typeUrl(data.url || data?.fileName)} width={152} height={140} preview={false} onClick={handlePreview} />
+        <video controls width={152} height={140}>
+          <source src={typeUrl(data.url || data?.fileName)} type="video/mp4"  onClick={handlePreview} />
+          </video>
           <Modal visible={visible} onCancel={handleClose} footer={null} title={data.fileName} width={800}>
-            <img src={typeUrl(data.url || data?.fileName)} alt="Preview" style={{ width: "100%", height: "100%" }} />
+          <video controls width={152} height={140}>
+            <source src={typeUrl(data.url || data?.fileName)} type="video/mp4" alt="Preview" style={{ width: "100%", height: "100%" }} />
+            </video>
           </Modal>
         </div>
         
