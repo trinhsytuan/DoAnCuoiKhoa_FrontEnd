@@ -48,6 +48,7 @@ function QuanLyNhom({ requestChuyenMuc, chuyenMuc }) {
       toast(CONSTANTS.SUCCESS, "Tạo nhóm thành công");
       setOpenModal(false);
       getAPI();
+      form.resetFields();
     }
   };
   const leftGroup = async () => {
