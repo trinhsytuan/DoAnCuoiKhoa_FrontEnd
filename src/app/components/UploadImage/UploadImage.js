@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './UploadImage.scss';
 import IconImage from '@assets/icons/UploadImage.svg';
 import CustomImage from '@components/CustomImage/CustomImage';
+import { CONSTANTS } from '@constants';
 
 UploadImage.propTypes = {
   disabled: PropTypes.bool,
@@ -30,6 +31,14 @@ function UploadImage({ data, onChange, onRemove, remove, disabled, type }) {
           newUp: true,
         });
       }
+      else if(selectedFile.type.startsWith("video/")) {
+          onAdd({
+            fileName: selectedFile.name,
+            url: selectedFile,
+            type: CONSTANTS.VIDEO,
+            newUp: true,
+          });
+        }
     }
   };
   const handleButtonClick = () => {
@@ -58,7 +67,7 @@ function UploadImage({ data, onChange, onRemove, remove, disabled, type }) {
           <img src={IconImage} onClick={handleButtonClick}></img>
         </div>
       )}
-      <input type="file" accept="image/*" onChange={ImageChange} style={{ display: "none" }} ref={fileInputRef} />
+      <input type="file" accept="image/*,video/*" onChange={ImageChange} style={{ display: "none" }} ref={fileInputRef} />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "./CustomImage.scss";
 import { Dropdown, Image, Menu, Modal } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import { API } from "@api";
+import { CONSTANTS } from "@constants";
 CustomImage.propTypes = {};
 
 function CustomImage({ data, onRemove, disabled, idIndex }) {
@@ -43,17 +44,37 @@ function CustomImage({ data, onRemove, disabled, idIndex }) {
       </div>
       <div className="border-out">
         <div className="image-in">
-          <Image src={typeUrl(data.url || data?.fileName)} width={152} height={140} preview={false} onClick={handlePreview} />
+          {data?.type === CONSTANTS.VIDEO ? (
+            <video controls width={152} height={140}>
+              <source src={typeUrl(data.url || data?.fileName)} type="video/mp4" onClick={handlePreview} />
+            </video>
+          ) : (
+            <Image
+              src={typeUrl(data.url || data?.fileName)}
+              width={152}
+              height={140}
+              preview={false}
+              onClick={handlePreview}
+            />
+          )}
           <Modal visible={visible} onCancel={handleClose} footer={null} title={data.fileName} width={800}>
-            <img src={typeUrl(data.url || data?.fileName)} alt="Preview" style={{ width: "100%", height: "100%" }} />
+            {data?.type === CONSTANTS.VIDEO ? (
+              <video controls width={152} height={140}>
+                <source
+                  src={typeUrl(data.url || data?.fileName)}
+                  type="video/mp4"
+                  alt="Preview"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </video>
+            ) : (
+              <img src={typeUrl(data.url || data?.fileName)} alt="Preview" style={{ width: "100%", height: "100%" }} />
+            )}
           </Modal>
         </div>
-        
       </div>
     </div>
   );
 }
 
 export default CustomImage;
-
-

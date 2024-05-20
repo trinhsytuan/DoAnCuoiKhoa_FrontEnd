@@ -367,13 +367,14 @@ export async function uploadImageArray(data, postId) {
   let uploadPromises = data
     .filter((image) => image?.newUp === true)
     .map((image) => {
+      console.log(image);
       let formData = new FormData();
       formData.append("image", image.url);
       formData.append(
         "jsonData",
         JSON.stringify({
           postId,
-          type: image.type,
+          type: image?.type,
         })
       );
 

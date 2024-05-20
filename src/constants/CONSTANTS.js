@@ -128,6 +128,7 @@ export const CONSTANTS = {
   PROCESSING: "PROCESSING",
   PROCESSED: "PROCESSED",
   POPULATE: "populate",
+  VIDEO: "video"
 };
 
 export const PAGINATION_INIT = Object.assign(
