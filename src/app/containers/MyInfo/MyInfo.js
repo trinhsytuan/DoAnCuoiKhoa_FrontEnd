@@ -297,7 +297,7 @@ function MyInfo({ myInfo, isLoading, roleList, requestChuyenMuc, chuyenMuc, ...p
               </Row>
             </Form>
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Chuyên mục" key="3">
+          {/* <Tabs.TabPane tab="Chuyên mục" key="3">
             <div className="chuyenmuc-myinfo-container">
               <div className="btn-actions">
                 <Button type="primary" icon={<PlusOutlined />} onClick={cancelThemChuyenMuc}>
@@ -308,7 +308,7 @@ function MyInfo({ myInfo, isLoading, roleList, requestChuyenMuc, chuyenMuc, ...p
                 <Table columns={columnChuDe} dataSource={chuyenMuc} pagination={false}></Table>
               </div>
             </div>
-          </Tabs.TabPane>
+          </Tabs.TabPane> */}
         </Tabs>
         <Modal
           visible={visibleThemChuyenMuc}
