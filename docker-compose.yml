@@ -12,9 +12,9 @@ services:
     environment:
       PORT: 80
       NODE_ENV: "production"
-      SERVICE_80_NAME: "traceabilityweb"
-      SERVICE_NAME: "traceabilityweb"
-      SERVICE_TAGS: "traceabilityweb"
+      SERVICE_80_NAME: "SafeDriveweb"
+      SERVICE_NAME: "SafeDriveweb"
+      SERVICE_TAGS: "SafeDriveweb"
     ports:
       - target: 80
         published: 8075

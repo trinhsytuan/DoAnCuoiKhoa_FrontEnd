@@ -17,7 +17,7 @@ function Login({ history, isLoading, ...props }) {
   }
 
   return <AuthBase>
-    <span className='title_login'>Vui lòng đăng nhập vào TShare</span>
+    <span className='title_login'>Vui lòng đăng nhập vào SafeDrive</span>
     <Form size="large" layout="vertical" onFinish={handleLogin}>
 
       <Form.Item
