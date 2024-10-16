@@ -12,9 +12,9 @@ services:
     environment:
       PORT: 80
       NODE_ENV: "production"
-      SERVICE_80_NAME: "SafeDriveweb"
-      SERVICE_NAME: "SafeDriveweb"
-      SERVICE_TAGS: "SafeDriveweb"
+      SERVICE_80_NAME: "safedriveweb"
+      SERVICE_NAME: "safedriveweb"
+      SERVICE_TAGS: "safedriveweb"
     ports:
       - target: 80
         published: 8075
