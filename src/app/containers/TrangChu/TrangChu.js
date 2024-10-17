@@ -8,7 +8,7 @@ function TrangChu({ isLoading, myInfo, ...props }) {
   return (
     <BaseContent className={"home-page-container"}>
       <div>
-        <h1>Chào mừng các thầy cô và các bạn đến với TShare</h1>
+        <h1>Chào mừng các thầy cô và các bạn đến với SafeDrive</h1>
         <img src={HOMEPAGECENTER} />
       </div>
     </BaseContent>

@@ -28,7 +28,7 @@ function Register({ isLoading }) {
   return (
     <div className='register-component'>
       <AuthBase>
-        <span className='title_login'>Đăng ký TShare</span>
+        <span className='title_login'>Đăng ký SafeDrive</span>
         <Form size="large" layout="vertical" onFinish={handleRegister}>
           <Form.Item
             label="Địa chỉ Email"
