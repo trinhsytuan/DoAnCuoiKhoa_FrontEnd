@@ -9,6 +9,7 @@ import { RULES } from '@constants';
 import { URL } from '@url';
 
 import * as app from '@app/store/ducks/app.duck';
+import SafeDriveLOGO from '@assets/images/logo/logofict.png';
 
 function Login({ history, isLoading, ...props }) {
 
@@ -17,7 +18,9 @@ function Login({ history, isLoading, ...props }) {
   }
 
   return <AuthBase>
+    
     <span className='title_login'>Vui lòng đăng nhập vào SafeDrive</span>
+    
     <Form size="large" layout="vertical" onFinish={handleLogin}>
 
       <Form.Item

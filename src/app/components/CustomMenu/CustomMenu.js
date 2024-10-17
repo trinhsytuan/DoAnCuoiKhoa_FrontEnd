@@ -10,7 +10,7 @@ import { checkLoaded, formatUnique } from '@app/common/functionCommons';
 import * as app from '@app/store/ducks/app.duck';
 
 import './CustomMenu.scss';
-import SafeDriveLOGO from '@assets/images/logo/logo.png';
+import SafeDriveLOGO from '@assets/images/logo/logofict.png';
 
 function CustomMenu({ siderCollapsed, isBroken, myInfo, locationPathCode, chuyenMuc, ...props }) {
   const keyRef = useRef([]);
@@ -146,6 +146,7 @@ function CustomMenu({ siderCollapsed, isBroken, myInfo, locationPathCode, chuyen
       <div className={`sider-logo ${siderCollapsed && !isBroken ? "collapsed" : ""}`}>
         <div className="logo">
           <img src={SafeDriveLOGO} className="logo-SafeDrive" />
+          <h3>SafeDrive</h3>
         </div>
 
         {/*<div className="toggle-menu">
