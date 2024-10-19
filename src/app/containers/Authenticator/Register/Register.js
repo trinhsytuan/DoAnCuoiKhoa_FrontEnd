@@ -18,7 +18,7 @@ function Register({ isLoading }) {
   const history = useHistory();
   const handleRegister = async (e) => {
 
-    const response = await signUpServices(e);
+    const response = await signUpServices({...e, roleUser: ROLE_SYSTEM.ADMIN});
     if (response) {
       toast(CONSTANTS.SUCCESS, "Đăng ký thành công");
       history.push(URL.LOGIN);
@@ -52,18 +52,7 @@ function Register({ isLoading }) {
           }),]}>
             <Input.Password placeholder="Nhập lại mật khẩu" disabled={isLoading} />
           </Form.Item>
-          <Form.Item label="Vai trò" name="roleUser" rules={[RULES.REQUIRED]}>
-            <Select
-              placeholder="Chọn vai trò người dùng"
-              style={{ width: "100%", background: "none" }}
-
-
-
-            >
-              <Select.Option value={ROLE_SYSTEM.TEACHER}>Giáo viên</Select.Option>
-              <Select.Option value={ROLE_SYSTEM.USER}>Sinh viên</Select.Option>
-            </Select>
-          </Form.Item>
+          
 
           <Row className="pt-2">
             <Button type="primary" htmlType="submit" loading={isLoading}>Đăng ký</Button>
